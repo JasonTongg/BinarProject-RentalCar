@@ -3,17 +3,17 @@ import styled from 'styled-components'
 export const FooterContainer = styled.footer`
     display: flex;
     flex-wrap: wrap;
-    padding: 100px 173px;
+    padding: 100px 173px 50px 173px;
     justify-content: space-between;
     align-items: center;
     width: 100vw;
 
     @media only screen and (max-width: 800px){
-        padding: 50px 100px;
+        padding: 50px 100px 25px 100px;
     }
 
     @media only screen and (max-width: 500px){
-        padding: 20px 50px;
+        padding: 20px 50px 10px 50px;
     }
 `;
 

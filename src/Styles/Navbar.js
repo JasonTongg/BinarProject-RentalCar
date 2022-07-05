@@ -6,6 +6,7 @@ export const NavbarContainer = styled.nav`
     justify-content: space-between;
     align-items: center;
     width: 100vw;
+    background-color: ${props => props.theme.lighterPrimaryColor};
 
     & img{
         width: 100px;

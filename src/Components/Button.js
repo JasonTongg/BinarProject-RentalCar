@@ -8,7 +8,8 @@ export default function Button(props) {
         outline: none;
         color: white;
         background-color: ${props => props.theme.secondaryColor};
-        border-radius: 2px
+        border-radius: 2px;
+        font-weight: bolder;
     `;
 
     return (

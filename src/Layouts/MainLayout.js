@@ -1,14 +1,14 @@
 import React from 'react'
 import Footer from '../Sections/Footer'
 import Navbar from '../Sections/Navbar'
-import {} from "../Styles/MainLayout.js"
+import {Container} from "../Styles/MainLayout"
 
 export default function MainLayout(props) {
   return (
-    <React.Fragment>
+    <Container>
         <Navbar></Navbar>
         {props.children}
         <Footer></Footer>
-    </React.Fragment>
+    </Container>
   )
 }

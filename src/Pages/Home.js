@@ -1,11 +1,18 @@
 import React from 'react'
 import MainLayout from '../Layouts/MainLayout'
+import Hero from '../Sections/Hero'
+import Services from '../Sections/Services'
+import Whyus from '../Sections/WhyUs'
+import Sewa from '../Sections/Sewa'
 
 export default function Home() {
   return (
     <React.Fragment>
       <MainLayout>
-        Home
+        <Hero></Hero>
+        <Services></Services>
+        <Whyus></Whyus>
+        <Sewa></Sewa>
       </MainLayout>
     </React.Fragment>
   )
