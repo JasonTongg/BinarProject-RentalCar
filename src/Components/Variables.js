@@ -1,5 +1,5 @@
-export const PrimaryColor = "#0D28A6";
-export const SecondaryColor = "#5CB85F";
+export const primaryColor = "#0D28A6";
+export const secondaryColor = "#5CB85F";
 export const lightColor = "#E5E5E5"
 export const lightPrimaryColor = "#CFD4ED"
 export const lighterPrimaryColor = "#F1F3FF"

@@ -54,4 +54,5 @@ table {
 .App{
   position: relative;
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
