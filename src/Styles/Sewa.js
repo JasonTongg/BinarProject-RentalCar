@@ -53,6 +53,10 @@ export const BigContainer = styled.div`
         padding-inline: 80px;
     }
 
+    @media only screen and (max-width: 750px){
+        padding-inline: 50px;
+    }
+
     @media only screen and (max-width: 500px){
         padding-inline: 20px;
     }
