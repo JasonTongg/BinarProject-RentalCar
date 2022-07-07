@@ -3,12 +3,12 @@ import MainLayout from '../Layouts/MainLayout'
 import Hero from '../Sections/Hero'
 import SearchBar from '../Components/SearchBar'
 
-export default function Details() {
+export default function Result() {
   return (
     <React.Fragment>
       <MainLayout>
         <Hero></Hero>
-        <SearchBar></SearchBar>
+        <SearchBar edits></SearchBar>
       </MainLayout>
     </React.Fragment>
   )
