@@ -12,6 +12,7 @@ export default function Button(props) {
             background-color: white;
             border-radius: 2px;
             font-weight: bolder;
+            cursor: pointer;
         `;
     }
     else{
@@ -23,6 +24,7 @@ export default function Button(props) {
             background-color: ${props => props.theme.secondaryColor};
             border-radius: 2px;
             font-weight: bolder;
+            cursor: pointer;
         `;
     }
 

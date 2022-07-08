@@ -114,6 +114,21 @@ export const SlideInfo = styled.div`
     & h3{
         margin-block: 1rem;
         line-height: 1.5rem;
+
+        @media only screen and (max-width: 1000px){
+            font-size: 1rem;
+            line-height: 1.3rem;
+        }
+
+        @media only screen and (max-width: 750px){
+            font-size: .9rem;
+            line-height: 1.2rem;
+        }
+
+        @media only screen and (max-width: 500px){
+            font-size: .8rem;
+            line-height: 1.rem;
+        }
     }
 
     & p{

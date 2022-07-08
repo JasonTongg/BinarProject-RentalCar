@@ -39,7 +39,7 @@ export default function WhyUs() {
     ]
 
     return (
-        <Container>
+        <Container className='why'>
             <h2>Why Us?</h2>
             <p>Mengapa harus pilih Binar Car Rental?</p>
             <Items>

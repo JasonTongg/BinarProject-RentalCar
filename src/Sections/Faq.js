@@ -51,9 +51,10 @@ export default function Faq() {
 
     let isHidden = [isHidden1, isHidden2, isHidden3, isHidden4, isHidden5];
     let displayAns = [displayAns1, displayAns2, displayAns3, displayAns4, displayAns5]
+    let faqText = ["Apa saja syarat yang dibutuhkan?","Berapa hari minimal sewa mobil lepas kunci?", "Berapa hari sebelumnya sabaiknya booking sewa mobil?", "Apakah Ada biaya antar-jemput?", "Bagaimana jika terjadi kecelakaan"]
 
     return (
-        <Container>
+        <Container className='faq'>
             <Text>
                 <h2>Frequently Asked Question</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
@@ -62,7 +63,7 @@ export default function Faq() {
                 {isHidden.map((item, index) => (
                     <DropDown>
                         <Ques onClick={displayAns[index]} className={item ? "hidden" : null}>
-                            <h2>Apa saja syarat yang dibutuhkan?</h2>
+                            <h2>{faqText[index]}</h2>
                             <BsChevronDown className='arrow'></BsChevronDown>
                         </Ques>
                         <Ans className={item ? "hidden" : null}>

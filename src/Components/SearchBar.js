@@ -1,13 +1,22 @@
 import React from 'react'
-import {Container, Label, FormItem, Select, Option, Input, Sewa, Selects, Inputs, BigContainer, Title} from '../Styles/SearchBar'
+import {Container, Label, FormItem, Select, Option, Input, Sewa, Selects, Inputs, BigContainer, Title, Labels, Sewas} from '../Styles/SearchBar'
 import Button from '../Components/Button'
 import {FiCheckCircle} from 'react-icons/fi'
+import {BsChevronDown} from 'react-icons/bs'
+// import {useNavigate} from '@react-navigation/native';
 
 export default function SearchBar(props) {
+    // const navigate = useNavigate();
+    // console.log(navigate);
+
+    const toResult = (e) => {
+        e.preventDefault();
+    }
+
     if(props.search){
         return (
             <BigContainer>
-                <Container>
+                <Container onSubmit={toResult}>
                     <FormItem>
                         <Label for="nama">Nama Mobil</Label>
                         <Input id="nama" type="text" placeholder='Ketik nama/tipe mobil'/>
@@ -86,32 +95,29 @@ export default function SearchBar(props) {
                 <Title>Pencarianmu</Title>
                 <Container>
                     <FormItem>
-                        <Label for="nama">Nama Mobil</Label>
-                        <Input id="nama" type="text" placeholder='Ketik nama/tipe mobil'/>
+                        <Labels for="status">Nama Mobil</Labels>
+                        <Sewas></Sewas>
                     </FormItem>
                     <FormItem>
-                        <Label for="kategori">Kategori</Label>
-                        <Select id="kategori">
-                            <Option Value="Masukan Kapasitas Mobil">Masukan Kapasitas Mobil</Option>
-                            <Option Value="2 - 4 orang">2 - 4 orang</Option>
-                            <Option Value="4 - 6 orang">4 - 6 orang</Option>
-                            <Option Value="6 - 8 orang">6 - 8 orang</Option>
-                        </Select>
+                        <Labels for="status">Kategori</Labels>
+                        <Sewas>
+                            <p></p>
+                            <BsChevronDown className='icon'></BsChevronDown>
+                        </Sewas>
                     </FormItem>
                     <FormItem>
-                        <Label for="harga">Harga</Label>
-                        <Select id="harga">
-                            <Option Value="Masukan Harga Sewa Per Hari">Masukan Harga Sewa Per Hari</Option>
-                            <Option Value="< Rp. 400.000">{'< Rp. 400.000'}</Option>
-                            <Option Value="Rp. 400.000 - Rp. 600.000">{'Rp. 400.000 - Rp. 600.000'}</Option>
-                            <Option Value="> Rp. 600.000">{'> Rp. 600.000'}</Option>
-                        </Select>
+                        <Labels for="status">Harga Sewa per Hari</Labels>
+                        <Sewas>
+                            <p></p>
+                            <BsChevronDown className='icon'></BsChevronDown>
+                        </Sewas>
                     </FormItem>
                     <FormItem>
-                        <Label for="status">Status</Label>
-                        <Select id="status">
-                            <Option Value="Disewa">Disewa</Option>
-                        </Select>
+                        <Labels for="status">Status</Labels>
+                        <Sewas>
+                            <p></p>
+                            <BsChevronDown className='icon'></BsChevronDown>
+                        </Sewas>
                     </FormItem>
                 </Container>
             </BigContainer>

@@ -4,6 +4,7 @@ import  {SideNavbarContainer, Sidenavbar, Overlay} from '../Styles/SideNavbar'
 import logo from '../Assets/Logo.png'
 import {FaTimes} from 'react-icons/fa'
 import {navbar} from '../Redux/Actions/AnimationAction'
+import { Link } from 'react-router-dom'
 
 export default function SideNavbar() {
     let navbarToggle = useSelector(state => state.animations.navbar)
@@ -18,7 +19,9 @@ export default function SideNavbar() {
             <React.Fragment>
                 <Sidenavbar>
                     <SideNavbarContainer>
-                        <img src={logo} alt="Logo" />
+                        <Link to="/" onClick={closeNavbar}>
+                            <img src={logo} alt="Logo" />
+                        </Link>
                         <li>Our Services</li>
                         <li>Why Us</li>
                         <li>Testimonial</li>

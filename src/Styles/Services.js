@@ -8,7 +8,7 @@ export const Container = styled.section`
     justify-content: center;
     justify-items: center;
     padding-inline: 136px;
-    padding-block: 100px 50px;
+    padding-block: 100px;
 
     @media only screen and (max-width: 800px){
         padding-inline: 80px;

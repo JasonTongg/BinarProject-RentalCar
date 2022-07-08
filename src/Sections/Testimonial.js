@@ -12,9 +12,8 @@ export default function Testimonial() {
     let curr=0;
 
     useEffect(() => {
-      ToRight();
+      ToLeft();
     })
-    
 
     let ToRight = () => {   
         let slides = document.querySelectorAll(".slides");
@@ -43,7 +42,7 @@ export default function Testimonial() {
     }
     
     return (
-        <BigContainer>
+        <BigContainer className='testi'>
             <h2>Testimonial</h2>
             <p>Berbagai review positif dari para pelanggan kami</p>
             <Fragment>

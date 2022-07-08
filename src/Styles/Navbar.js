@@ -7,6 +7,9 @@ export const NavbarContainer = styled.nav`
     align-items: center;
     width: 100vw;
     background-color: ${props => props.theme.lighterPrimaryColor};
+    z-index: 1;
+    transition: all 1s ease-out;
+    position: static;
 
     & img{
         width: 100px;
@@ -22,6 +25,10 @@ export const NavbarItems = styled.ul`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+    & > *{
+        cursor: pointer;
+    }
 
     @media only screen and (max-width: 1290px){
         width: 50%;

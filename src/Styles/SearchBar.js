@@ -32,6 +32,7 @@ export const Container = styled.form`
     position: relative;
     flex-wrap: wrap;
     gap: 1rem;
+    width: 100%;
 `;
 
 export const Title = styled.h3`
@@ -40,6 +41,10 @@ export const Title = styled.h3`
 
 export const Label = styled.label`
     margin-bottom: .5rem;
+`;
+
+export const Labels = styled(Label)`
+    color: #8A8A8A;
 `;
 
 export const FormItem = styled.div`
@@ -111,6 +116,7 @@ export const Sewa = styled.div`
     border: 1px solid black;
     padding: .6rem 1rem;
     border-radius: 2px;
+    min-height: 37px;
 
     &:active, &:focus{
         border: 1px solid #5CB85F;
@@ -122,5 +128,18 @@ export const Sewa = styled.div`
 
     & .icon{
         font-size: 20px;
+    }
+`;
+
+export const Sewas = styled(Sewa)`
+    border: 0;
+    background-color: #D0D0D0;
+
+    &:active, &:focus{
+        border: 0;
+    }
+
+    & > *{
+        color: #8A8A8A;
     }
 `;
