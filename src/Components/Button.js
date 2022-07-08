@@ -17,7 +17,8 @@ export default function Button(props) {
     }
     else{
         Button = styled.button`
-            padding: ${props.size==="big" ? '14px 107px' :'8px 12px'};
+            padding: 8px 12px;
+            width: ${props.size==="big" ? '100%' : null};
             border: none;
             outline: none;
             color: white;

@@ -12,6 +12,7 @@ export const SideNavbarContainer = styled.ul`
     & > *{
         font-size: 1.5rem;
         margin-bottom: 2rem;
+        cursor: pointer;
 
         &:not:(:last-of-type){
             margin-bottom: 1rem;
@@ -39,18 +40,18 @@ const slideIn = keyframes`
 export const Sidenavbar = styled.nav`
     height: 100vh;
     width: 300px;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     background-color: white;
     padding: 2rem;
-    z-index: 2;
+    z-index: 10;
     animation: ${slideIn} .5s ease-in-out;
 `;
 
 export const Overlay = styled.div`
     background-color: ${props => props.theme.overlayColor};
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;

@@ -84,6 +84,7 @@ export const CopyRight = styled(Address)`
 
     & img{
         width: 100px;
+        cursor: pointer;
     }
 
     @media only screen and (max-width: 1500px){

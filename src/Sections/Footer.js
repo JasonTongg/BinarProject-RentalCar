@@ -6,6 +6,12 @@ import {FiFacebook, FiTwitter, FiTwitch} from 'react-icons/fi'
 import {AiOutlineInstagram, AiOutlineMail} from 'react-icons/ai'
 
 export default function Footer() {
+
+  let scrollTop = () => {
+    let hero = document.querySelector(".hero");
+    hero.scrollIntoView({ block: 'end',  behavior: 'smooth' });
+  }
+
   return (
     <FooterContainer>
       <Address>
@@ -31,7 +37,7 @@ export default function Footer() {
       </SocialMedia>
       <CopyRight>
         <h4>Copyright Binar 2022</h4>
-        <img src={logo} alt="logo" />
+        <img src={logo} alt="logo" onClick={scrollTop}/>
       </CopyRight>
     </FooterContainer>
   )

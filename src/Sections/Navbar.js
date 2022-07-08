@@ -24,7 +24,12 @@ export default function Navbar() {
     if(serviceTop + navbarHeight - 100 < (window.innerHeight - service.getBoundingClientRect().height)/2){
       navbar.style.position = "fixed";
       navbar.style.backgroundColor = "rgba(13, 40, 166, .8)";
-      navbar.style.color = "white";
+      console.log(window.innerWidth);
+      if(window.innerWidth > 600){
+        console.log("Masuk");
+        navbar.style.color = "white";
+      }
+      
       logos.src = logoWhite;
     }
     else{

@@ -96,7 +96,6 @@ export const Inputs = styled(Input)`
 
 export const Option = styled.option`
     color: #8A8A8A;
-    padding: .7rem 1rem;
     line-height: 2rem;
     height: 2rem;
 

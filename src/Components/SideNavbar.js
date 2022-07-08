@@ -12,7 +12,33 @@ export default function SideNavbar() {
 
     const closeNavbar = () => {
         dispatch(navbar());
+        let hero = document.querySelector(".hero");
+        hero.scrollIntoView({ block: 'end',  behavior: 'smooth' });
     }
+
+    let scrollServices = () => {
+        let service = document.querySelector(".service");
+        service.scrollIntoView({ block: 'center',  behavior: 'smooth' });
+        dispatch(navbar());
+      }
+    
+      let scrollFaq = () => {
+        let faq = document.querySelector(".faq");
+        faq.scrollIntoView({ block: 'center',  behavior: 'smooth' });
+        dispatch(navbar());
+      }
+    
+      let scrollWhy = () => {
+        let why = document.querySelector(".why");
+        why.scrollIntoView({ block: 'center',  behavior: 'smooth' });
+        dispatch(navbar());
+      }
+    
+      let scrollTestimonial = () => {
+        let testi = document.querySelector(".testi");
+        testi.scrollIntoView({ block: 'center',  behavior: 'smooth' });
+        dispatch(navbar());
+      }
 
     if(navbarToggle === true){
         return (
@@ -22,10 +48,10 @@ export default function SideNavbar() {
                         <Link to="/" onClick={closeNavbar}>
                             <img src={logo} alt="Logo" />
                         </Link>
-                        <li>Our Services</li>
-                        <li>Why Us</li>
-                        <li>Testimonial</li>
-                        <li>FAQ</li>
+                        <li onClick={scrollServices}>Our Services</li>
+                        <li onClick={scrollWhy}>Why Us</li>
+                        <li onClick={scrollTestimonial}>Testimonial</li>
+                        <li onClick={scrollFaq}>FAQ</li>
                         <FaTimes className='close' onClick={closeNavbar}></FaTimes>
                     </SideNavbarContainer>
                 </Sidenavbar>

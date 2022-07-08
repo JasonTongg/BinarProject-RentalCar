@@ -1,16 +1,16 @@
 import React from 'react'
-import {Container, Label, FormItem, Select, Option, Input, Sewa, Selects, Inputs, BigContainer, Title, Labels, Sewas} from '../Styles/SearchBar'
+import {Container, Label, FormItem, Option, Input, Sewa, Select, Selects, Inputs, BigContainer, Title, Labels, Sewas} from '../Styles/SearchBar'
 import Button from '../Components/Button'
 import {FiCheckCircle} from 'react-icons/fi'
 import {BsChevronDown} from 'react-icons/bs'
-// import {useNavigate} from '@react-navigation/native';
+import {useNavigate} from 'react-router-dom';
 
 export default function SearchBar(props) {
-    // const navigate = useNavigate();
-    // console.log(navigate);
+    const navigate = useNavigate();
 
     const toResult = (e) => {
         e.preventDefault();
+        navigate("/result")
     }
 
     if(props.search){
@@ -19,12 +19,12 @@ export default function SearchBar(props) {
                 <Container onSubmit={toResult}>
                     <FormItem>
                         <Label for="nama">Nama Mobil</Label>
-                        <Input id="nama" type="text" placeholder='Ketik nama/tipe mobil'/>
+                        <Input id="nama" type="text" placeholder='Ketik nama/tipe mobil' required/>
                     </FormItem>
                     <FormItem>
                         <Label for="kategori">Kategori</Label>
                         <Select id="kategori">
-                            <Option Value="Masukan Kapasitas Mobil">Masukan Kapasitas Mobil</Option>
+                            <Option  Value="2 - 4 orang">Masukan Kapasitas Mobil</Option>
                             <Option Value="2 - 4 orang">2 - 4 orang</Option>
                             <Option Value="4 - 6 orang">4 - 6 orang</Option>
                             <Option Value="6 - 8 orang">6 - 8 orang</Option>
@@ -32,8 +32,8 @@ export default function SearchBar(props) {
                     </FormItem>
                     <FormItem>
                         <Label for="harga">Harga</Label>
-                        <Select id="harga">
-                            <Option Value="Masukan Harga Sewa Per Hari">Masukan Harga Sewa Per Hari</Option>
+                        <Select id="harga" required="required">
+                            <Option selected disabled Value="< Rp. 400.000">Masukan Harga Sewa Per Hari</Option>
                             <Option Value="< Rp. 400.000">{'< Rp. 400.000'}</Option>
                             <Option Value="Rp. 400.000 - Rp. 600.000">{'Rp. 400.000 - Rp. 600.000'}</Option>
                             <Option Value="> Rp. 600.000">{'> Rp. 600.000'}</Option>
@@ -41,8 +41,8 @@ export default function SearchBar(props) {
                     </FormItem>
                     <FormItem>
                         <Label for="status">Status</Label>
-                        <Select id="status">
-                            <Option Value="Disewa">Disewa</Option>
+                        <Select id="status" required>
+                            <Option Value="">Disewa</Option>
                         </Select>
                     </FormItem>
                     <Button>Cari Mobil</Button>
@@ -54,14 +54,14 @@ export default function SearchBar(props) {
         return (
             <BigContainer>
                 <Title>Pencarianmu</Title>
-                <Container>
+                <Container onSubmit={toResult}>
                     <FormItem>
                         <Label for="nama">Nama Mobil</Label>
-                        <Inputs id="nama" type="text" placeholder='Ketik nama/tipe mobil'/>
+                        <Inputs id="nama" type="text" placeholder='Ketik nama/tipe mobil' required/>
                     </FormItem>
                     <FormItem>
                         <Label for="kategori">Kategori</Label>
-                        <Selects id="kategori">
+                        <Selects id="kategori" required>
                             <Option Value="Masukan Kapasitas Mobil">Masukan Kapasitas Mobil</Option>
                             <Option Value="2 - 4 orang">2 - 4 orang</Option>
                             <Option Value="4 - 6 orang">4 - 6 orang</Option>
@@ -70,7 +70,7 @@ export default function SearchBar(props) {
                     </FormItem>
                     <FormItem>
                         <Label for="harga">Harga</Label>
-                        <Selects id="harga">
+                        <Selects id="harga" required>
                             <Option Value="Masukan Harga Sewa Per Hari">Masukan Harga Sewa Per Hari</Option>
                             <Option Value="< Rp. 400.000">{'< Rp. 400.000'}</Option>
                             <Option Value="Rp. 400.000 - Rp. 600.000">{'Rp. 400.000 - Rp. 600.000'}</Option>
