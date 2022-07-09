@@ -29,7 +29,11 @@ export default function Button(props) {
         `;
     }
 
+    let doAction = () => {
+        props.action();
+    }
+
     return (
-        <Button>{props.children}</Button>
+        <Button onClick={doAction}>{props.children}</Button>
     )
 }

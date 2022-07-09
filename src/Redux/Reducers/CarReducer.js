@@ -1,5 +1,9 @@
+import CarList from '../Database/CarList';
+import Details from '../Database/Details'
+
 let initialState = {
-    item: []
+    list: CarList,
+    Details: Details,
 }
 
 export const CarReducer = (state = initialState, action) => {
