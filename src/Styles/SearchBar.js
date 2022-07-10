@@ -4,7 +4,7 @@ export const BigContainer = styled.div`
     margin-inline: 197px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
-    transform: translateY(-50px);
+    transform: translateY(-100px);
     background-color: white;
     display: flex;
     flex-direction: column;

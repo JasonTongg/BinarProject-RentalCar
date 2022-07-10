@@ -1,8 +1,12 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 export const Container = styled.section`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
     gap: 5rem;
     width: 100%;
     padding: 4rem 196px;
@@ -25,6 +29,7 @@ export const CarItem = styled.div`
     align-items: flex-start;
     justify-content: center;
     width: 100%;
+    max-width: 300px;
     gap: .8rem;
 
     & h5{
@@ -33,10 +38,29 @@ export const CarItem = styled.div`
 
     & img{
         width: 100%;
+        height: 100%;
     }
 
     & p{
         font-weight: bold;
         line-height: 1.5rem;
+    }
+`;
+
+export const load = keyframes`
+    to{
+        transform: rotate(360deg);
+
+    }
+`;
+
+export const Loading = styled.div`
+    align-self: center;
+    justify-self: center;
+
+    & > *{
+        font-size: 7rem;
+        animation: ${load} 1s ease-out infinite;
+        color: #D0D0D0;
     }
 `;

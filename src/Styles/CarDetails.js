@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 export const Container = styled.section`
-    padding: 3rem 196px;
+    padding: 2rem 196px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -9,11 +9,11 @@ export const Container = styled.section`
     gap: 1rem;
 
     @media only screen and (max-width: 1000px){
-        padding: 3rem 100px;
+        padding: 2rem 100px;
     }
 
     @media only screen and (max-width: 750px){
-        padding: 3rem 50px;
+        padding: 2rem 50px;
     }
 
     @media only screen and (max-width: 700px){
@@ -22,13 +22,14 @@ export const Container = styled.section`
     }
 
     @media only screen and (max-width: 500px){
-        padding: 3rem 20px;
+        padding: 2rem 20px;
     }
 `;
 
 export const CarInfo = styled.div`
     width: 50%;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    padding: 1.5rem;
 
     & h2{
         font-size: 14px;
@@ -51,6 +52,36 @@ export const Sub = styled.div`
             padding-block: .5rem;
             color: #8A8A8A;
         }
+    }
+`;
+
+export const SubHeader = styled(Sub)`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > *:last-child{
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all .5s ease-out;
+    }
+`;
+
+export const Gone = styled.div`
+    height: 150px;
+    opacity: 1;
+    transition: opacity .5s ease-out, height .5s ease-out;
+
+    @media only screen and (max-width: 600px){
+        height: 180px;
+    }
+
+    @media only screen and (max-width: 415px){
+        height: 200px;
+    }
+
+    @media only screen and (max-width: 340px){
+        height: 235px;
     }
 `;
 
@@ -97,4 +128,22 @@ export const CarPrice = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+`;
+
+export const load = keyframes`
+    to{
+        transform: rotate(360deg);
+
+    }
+`;
+
+export const Loading = styled.div`
+    align-self: center;
+    justify-self: center;
+
+    & > *{
+        font-size: 7rem;
+        animation: ${load} 1s ease-out infinite;
+        color: #D0D0D0;
+    }
 `;

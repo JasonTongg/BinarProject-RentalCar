@@ -108,30 +108,45 @@ export const Ans = styled(Ques)`
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     line-height: 1.7rem;
-    transition: all .3s ease-out;
-    height: auto;
+    transition: all .3s ease-out, opacity .1s ease-out;
+    height: 150px;
+    transform-origin: top;
     background-color: ${props => props.theme.lighterPrimaryColor};
 
     &.hidden{
         transform: scaleY(0);
-        transform-origin: top;
         height: 0;
         padding: 0;
         opacity: 0;
     }
 
-    @media only screen and (max-width: 1000px){
+    @media only screen and (max-width: 1430px){
+        height: 170px;
+    }
+
+    @media only screen and (max-width: 1130px){
+        height: 250px;
+    }
+
+    @media only screen and (max-width: 830px){
         font-size: .8rem;
         line-height: 1.2rem;
+        height: 190px;
     }
 
-    @media only screen and (max-width: 750px){
-        font-size: .7rem;
-        line-height: 1.1rem;
+    @media only screen and (max-width: 700px){
+        height: 120px;
     }
 
-    @media only screen and (max-width: 500px){
-        font-size: .6rem;
-        line-height: 1rem;
+    @media only screen and (max-width: 600px){
+        height: 150px;
+    }
+
+    @media only screen and (max-width: 400px){
+        height: 200px;
+    }
+
+    @media only screen and (max-width: 350px){
+        height: 250px;
     }
 `;

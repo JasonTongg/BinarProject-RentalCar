@@ -7,9 +7,9 @@ export const NavbarContainer = styled.nav`
     align-items: center;
     width: 100vw;
     background-color: ${props => props.theme.lighterPrimaryColor};
-    z-index: 1;
     transition: all 1s ease-out;
-    position: static;
+    z-index: 100;
+    position: relative;
 
     & img{
         width: 100px;

@@ -8,6 +8,8 @@ export const Container = styled.section`
     justify-content: center;
     justify-items: center;
     padding-left: 136px;
+    position: relative;
+    z-index: 0;
     background-color: ${props => props.theme.lighterPrimaryColor};
 
     @media only screen and (max-width: 1000px){

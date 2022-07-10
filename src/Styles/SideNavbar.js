@@ -38,14 +38,14 @@ const slideIn = keyframes`
 `;
 
 export const Sidenavbar = styled.nav`
-    height: 100vh;
+    height: 250vh;
     width: 300px;
     position: fixed;
     top: 0;
     right: 0;
     background-color: white;
     padding: 2rem;
-    z-index: 10;
+    z-index: 1;
     animation: ${slideIn} .5s ease-in-out;
 `;
 
@@ -55,6 +55,5 @@ export const Overlay = styled.div`
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
-    z-index: 1;
+    height: 250vh;
 `;

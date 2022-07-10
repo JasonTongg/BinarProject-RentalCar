@@ -4,18 +4,22 @@ import Button from '../Components/Button'
 import {FiCheckCircle} from 'react-icons/fi'
 import {BsChevronDown} from 'react-icons/bs'
 import {useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {searchCar} from '../Redux/Actions/CarAction'
 
 export default function SearchBar(props) {
     const navigate = useNavigate();
+    const dispactch = useDispatch();
 
     const toResult = (e) => {
-        e.preventDefault();
-        navigate("/result")
+        // e.preventDefault();
+        dispactch(searchCar([document.querySelector("#nama").value,document.querySelector("#kategori").value, document.querySelector("#harga").value]));
+        navigate("/result");
     }
 
     if(props.search){
         return (
-            <BigContainer>
+            <BigContainer className="searchBar">
                 <Container onSubmit={toResult}>
                     <FormItem>
                         <Label for="nama">Nama Mobil</Label>
@@ -52,7 +56,7 @@ export default function SearchBar(props) {
     }
     else if(props.edits){
         return (
-            <BigContainer>
+            <BigContainer className="searchBar">
                 <Title>Pencarianmu</Title>
                 <Container onSubmit={toResult}>
                     <FormItem>
@@ -91,7 +95,7 @@ export default function SearchBar(props) {
     }
     else{
         return (
-            <BigContainer>
+            <BigContainer className="searchBar">
                 <Title>Pencarianmu</Title>
                 <Container>
                     <FormItem>

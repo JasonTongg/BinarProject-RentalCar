@@ -4,10 +4,13 @@ import Icon from '../Components/Icon'
 import logo from "../Assets/Logo.png"
 import {FiFacebook, FiTwitter, FiTwitch} from 'react-icons/fi'
 import {AiOutlineInstagram, AiOutlineMail} from 'react-icons/ai'
+import { useNavigate } from 'react-router'
 
 export default function Footer() {
+  let navigate = useNavigate();
 
   let scrollTop = () => {
+    navigate("/");
     let hero = document.querySelector(".hero");
     hero.scrollIntoView({ block: 'end',  behavior: 'smooth' });
   }

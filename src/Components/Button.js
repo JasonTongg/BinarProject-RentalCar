@@ -1,8 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux';
+import {searchCarDetail} from '../Redux/Actions/CarAction'
 
 export default function Button(props) {
     let Button;
+    let dispatch = useDispatch();
+
     if(props.second){
         Button = styled.button`
             padding: ${props.size==="big" ? '14px 107px' :'8px 12px'};
@@ -30,7 +34,10 @@ export default function Button(props) {
     }
 
     let doAction = () => {
-        props.action();
+        if(props.action){
+            dispatch(searchCarDetail(props.idCar));
+            props.action();
+        }
     }
 
     return (
