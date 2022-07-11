@@ -46,43 +46,43 @@ export default function Navbar() {
   })
 
   let scrollServices = () => {
-    let service = document.querySelector(".service");
-    service.scrollIntoView({ block: 'center',  behavior: 'smooth' });
     if(location.pathname !== "/"){
       navigate("/");
     }
+    let service = document.querySelector(".service");
+    service.scrollIntoView({ block: 'center',  behavior: 'smooth' });
   }
 
   let scrollFaq = () => {
-    let faq = document.querySelector(".faq");
-    faq.scrollIntoView({ block: 'center',  behavior: 'smooth' });
     if(location.pathname !== "/"){
       navigate("/");
     }
+    let faq = document.querySelector(".faq");
+    faq.scrollIntoView({ block: 'center',  behavior: 'smooth' });
   }
 
   let scrollWhy = () => {
-    let why = document.querySelector(".why");
-    why.scrollIntoView({ block: 'center',  behavior: 'smooth' });
     if(location.pathname !== "/"){
       navigate("/");
     }
+    let why = document.querySelector(".why");
+    why.scrollIntoView({ block: 'center',  behavior: 'smooth' });
   }
 
   let scrollTestimonial = () => {
-    let testi = document.querySelector(".testi");
-    testi.scrollIntoView({ block: 'center',  behavior: 'smooth' });
     if(location.pathname !== "/"){
       navigate("/");
     }
+    let testi = document.querySelector(".testi");
+    testi.scrollIntoView({ block: 'center',  behavior: 'smooth' });
   }
 
   let scrollTop = () => {
-    let hero = document.querySelector(".hero");
-    hero.scrollIntoView({ block: 'end',  behavior: 'smooth' });
     if(location.pathname !== "/"){
       navigate("/");
     }
+    let hero = document.querySelector(".hero");
+    hero.scrollIntoView({ block: 'end',  behavior: 'smooth' });
   }
 
   return (

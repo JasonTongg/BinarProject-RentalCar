@@ -46,7 +46,7 @@ function CarList() {
             setTimeout(() => {
                 document.querySelector(".loadContainer").innerHTML = "";
                 document.querySelector(".loadContainer")?.insertAdjacentHTML("afterbegin", "<h1 class='notfound'>Car not Found</h1>");
-            }, 4000)
+            }, 6000)
         }
     })
 

@@ -48,6 +48,7 @@ export const Menu = styled.ul`
     
     & > *{
         margin-bottom: 20px;
+        cursor: pointer;
     }
 
     & > *{
@@ -76,6 +77,10 @@ export const SocialMediaIcons = styled.div`
 
     & > *:not(:last-of-type){
         margin-right: 10px;
+    }
+
+    & > *{
+        cursor: pointer;
     }
 `;
 

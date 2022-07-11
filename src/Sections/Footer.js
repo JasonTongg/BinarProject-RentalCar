@@ -4,15 +4,48 @@ import Icon from '../Components/Icon'
 import logo from "../Assets/Logo.png"
 import {FiFacebook, FiTwitter, FiTwitch} from 'react-icons/fi'
 import {AiOutlineInstagram, AiOutlineMail} from 'react-icons/ai'
-import { useNavigate } from 'react-router'
+import { useNavigate, useLocation } from 'react-router'
 
 export default function Footer() {
   let navigate = useNavigate();
+  let location = useLocation();
 
   let scrollTop = () => {
     navigate("/");
     let hero = document.querySelector(".hero");
     hero.scrollIntoView({ block: 'end',  behavior: 'smooth' });
+  }
+
+  let scrollServices = () => {
+    if(location.pathname !== "/"){
+      navigate("/");
+    }
+    let service = document.querySelector(".service");
+    service.scrollIntoView({ block: 'center',  behavior: 'smooth' });
+  }
+
+  let scrollFaq = () => {
+    if(location.pathname !== "/"){
+      navigate("/");
+    }
+    let faq = document.querySelector(".faq");
+    faq.scrollIntoView({ block: 'center',  behavior: 'smooth' });
+  }
+
+  let scrollWhy = () => {
+    if(location.pathname !== "/"){
+      navigate("/");
+    }
+    let why = document.querySelector(".why");
+    why.scrollIntoView({ block: 'center',  behavior: 'smooth' });
+  }
+
+  let scrollTestimonial = () => {
+    if(location.pathname !== "/"){
+      navigate("/");
+    }
+    let testi = document.querySelector(".testi");
+    testi.scrollIntoView({ block: 'center',  behavior: 'smooth' });
   }
 
   return (
@@ -23,10 +56,10 @@ export default function Footer() {
         <h4>081-233-334-808</h4>
       </Address>
       <Menu>
-        <li>Our Services</li>
-        <li>Why Us</li>
-        <li>Testimonial</li>
-        <li>FAQ</li>
+        <li onClick={scrollServices}>Our Services</li>
+        <li onClick={scrollWhy}>Why Us</li>
+        <li onClick={scrollTestimonial}>Testimonial</li>
+        <li onClick={scrollFaq}>FAQ</li>
       </Menu>
       <SocialMedia>
         <h4>Connect With Us</h4>
