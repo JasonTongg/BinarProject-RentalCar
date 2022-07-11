@@ -44,6 +44,7 @@ function CarList() {
 
         if(document.querySelector(".loadContainer")?.firstChild.classList.contains("Loading")){
             setTimeout(() => {
+                console.log("masuk?");
                 document.querySelector(".loadContainer").innerHTML = "";
                 document.querySelector(".loadContainer")?.insertAdjacentHTML("afterbegin", "<h1 class='notfound'>Car not Found</h1>");
             }, 6000)

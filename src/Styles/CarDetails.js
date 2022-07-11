@@ -64,6 +64,7 @@ export const SubHeader = styled(Sub)`
         font-size: 1.5rem;
         cursor: pointer;
         transition: all .5s ease-out;
+        transform: rotate(180deg);
     }
 `;
 
