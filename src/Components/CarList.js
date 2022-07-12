@@ -42,14 +42,6 @@ function CarList() {
         if (data.length === 0) {
             getData();
         }
-
-        setInterval(() => {
-            if (document.querySelector(".loadContainer")?.firstChild.classList.contains("Loading")) {
-                document.querySelector(".loadContainer").innerHTML = "";
-                document.querySelector(".loadContainer")?.insertAdjacentHTML("afterbegin", "<h1 class='notfound'>Car not Found</h1>");
-                clearInterval();
-            }
-        }, 10000);
     })
 
     if (data.length === 0) {
