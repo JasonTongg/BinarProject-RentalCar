@@ -8,26 +8,26 @@ export default function MainLayout(props) {
     let child = document.querySelector(".container").childNodes;
 
     Array.from(child).forEach(item => {
-      if(item.getBoundingClientRect().top <= 600){
+      if(item.getBoundingClientRect().top <= 700){
         item.style.opacity = "1";
         if(item.classList.contains("searchBar")){
-          item.style.transform = "translate(0, -50px)";
+          item.style.transform = "translateY(-50px)";
         }
         else{
-          item.style.transform = "translateX(0)";
+          item.style.transform = "translateY(0)";
         }
       }
     })
 
     window.addEventListener("scroll", () => {
       Array.from(child).forEach(item => {
-        if(item.getBoundingClientRect().top <= 600){
+        if(item.getBoundingClientRect().top <= 700){
           item.style.opacity = "1";
           if(item.classList.contains("searchBar")){
-            item.style.transform = "translate(0, -50px)";
+            item.style.transform = "translateY(-50px)";
           }
           else{
-            item.style.transform = "translateX(0)";
+            item.style.transform = "translateY(0)";
           }
         }
       })

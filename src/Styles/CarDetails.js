@@ -3,8 +3,8 @@ import styled, {keyframes} from "styled-components";
 export const Container = styled.section`
     padding: 2rem 196px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     gap: 1rem;
 
@@ -93,20 +93,29 @@ export const CarImage = styled.div`
     align-items: flex-start;
     justify-content: space-between;
     padding: 28px 24px;
-    height: 400px;
+    height: 500px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
 
     & img{
-        width: 70%;
+        width: 100%;
         align-self: center;
     }
 
-    @media only screen and (max-width: 1000px){
-        height: 350px;
+    @media only screen and (max-width: 1200px){
+        height: 400px;
     }
 
     @media only screen and (max-width: 700px){
+        height: 500px;
         width: 100%;
+    }
+
+    @media only screen and (max-width: 500px){
+        height: 400px;
+    }
+
+    @media only screen and (max-width: 360px){
+        height: 350px;
     }
 `;
 

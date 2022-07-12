@@ -12,7 +12,6 @@ export default function SearchBar(props) {
     const dispactch = useDispatch();
 
     const toResult = (e) => {
-        // e.preventDefault();
         dispactch(searchCar([document.querySelector("#nama").value,document.querySelector("#kategori").value, document.querySelector("#harga").value]));
         navigate("/result");
     }

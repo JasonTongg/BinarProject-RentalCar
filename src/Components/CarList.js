@@ -1,11 +1,11 @@
 import React from 'react'
-import {Container, CarItem, Loading} from '../Styles/CarList'
+import { Container, CarItem, Loading } from '../Styles/CarList'
 import Button from './Button'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import carTemp from '../Assets/carTemp.png';
-import {useSelector} from 'react-redux';
-import {RiLoaderLine} from 'react-icons/ri';
+import { useSelector } from 'react-redux';
+import { RiLoaderLine } from 'react-icons/ri';
 import '../Styles/cssStyle.css'
 
 function CarList() {
@@ -24,34 +24,35 @@ function CarList() {
 
         let filterData = data.filter(item => item.category === kategori && item.name.toLowerCase() === nama.toLowerCase());
 
-        if(harga === "< Rp. 400.000"){
+        if (harga === "< Rp. 400.000") {
             filterData = filterData.filter(item => item.price < 400000);
         }
-        else if(harga === "Rp. 400.000 - Rp. 600.000"){
+        else if (harga === "Rp. 400.000 - Rp. 600.000") {
             filterData = filterData.filter(item => item.price >= 400000 && item.price <= 600000);
         }
-        else{
+        else {
             filterData = filterData.filter(item => item.price > 600000);
         }
 
+        console.log(filterData);
         setData(filterData);
     }
 
     useEffect(() => {
-        if (data.length===0){
+        if (data.length === 0) {
             getData();
         }
 
-        if(document.querySelector(".loadContainer")?.firstChild.classList.contains("Loading")){
-            setTimeout(() => {
-                console.log("masuk?");
+        setInterval(() => {
+            if (document.querySelector(".loadContainer")?.firstChild.classList.contains("Loading")) {
                 document.querySelector(".loadContainer").innerHTML = "";
                 document.querySelector(".loadContainer")?.insertAdjacentHTML("afterbegin", "<h1 class='notfound'>Car not Found</h1>");
-            }, 6000)
-        }
+                clearInterval();
+            }
+        }, 10000);
     })
 
-    if(data.length===0){
+    if (data.length === 0) {
         return (
             <Container className='loadContainer'>
                 <Loading className='Loading'>
@@ -60,8 +61,7 @@ function CarList() {
             </Container>
         )
     }
-
-    else{
+    else {
         return (
             <Container>
                 {data.map(item => (

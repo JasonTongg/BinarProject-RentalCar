@@ -17,8 +17,9 @@ export const CarReducer = (state = initialState, action) => {
         
         case "Detail Car":
             localStorage.setItem('id', payload);
+            let newStateData = { ...state, modalOpen: true }
             return{
-                ...state,
+                ...newStateData,
                 Details: payload
             }
 
