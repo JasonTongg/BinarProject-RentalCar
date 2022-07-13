@@ -61,7 +61,7 @@ function CarList() {
                         <img src={item.image ? item.image : carTemp} alt="" />
                         <h5>{item.name}</h5>
                         <h3>Rp {item.price},-</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus doloribus ducimus eligendi tenetur enim animi omnis incidunt temporibus maxime vitae!</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                         <Button size="big" action={directDetails} idCar={item.id}>Pilih Mobil</Button>
                     </CarItem>
                 ))}
