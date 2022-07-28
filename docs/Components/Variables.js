@@ -1,0 +1,13 @@
+export const primaryColor = "#0D28A6";
+export const secondaryColor = "#5CB85F";
+export const lightColor = "#E5E5E5"
+export const lightPrimaryColor = "#CFD4ED"
+export const lighterPrimaryColor = "#F1F3FF"
+export const lightSecondaryColor = "#C9E7CA"
+export const greenColor = "#92D094"
+export const yellowColor = "#F9CC00"
+export const redColor = "#FA2C5A"
+export const darkColor = "#000"
+export const overlayColor = "rgba(0, 0, 0, 0.6)"
+export const titleFontSize = "36px"
+export const subTitleFontSize = "24px"
