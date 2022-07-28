@@ -1,6 +1,6 @@
 import React from 'react'
 import {Container, Label, FormItem, Option, Input, Sewa, Select, Selects, Inputs, BigContainer, Title, Labels, Sewas} from '../Styles/SearchBar'
-import Button from '../Components/Button'
+import Button from './Button'
 import {FiCheckCircle} from 'react-icons/fi'
 import {BsChevronDown} from 'react-icons/bs'
 import {useNavigate} from 'react-router-dom';
