@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import { useDispatch } from 'react-redux';
 import {searchCarDetail} from '../Redux/Actions/CarAction'
 import {Button1, Button2} from '../Styles/Button'

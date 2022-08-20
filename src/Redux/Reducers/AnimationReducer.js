@@ -3,7 +3,7 @@ let initialState = {
 }
 
 export const AnimationReducer = (state = initialState, action) => {
-    const {type, payload} = action;
+    const {type} = action;
 
     switch (type) {
         case "Navbar Clicked": 

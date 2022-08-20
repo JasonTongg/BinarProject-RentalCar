@@ -1,4 +1,4 @@
-import styled, {keyframes} from "styled-components";
+import styled from "styled-components";
 
 export const Container = styled.section`
     padding: 2rem 196px;
@@ -138,22 +138,4 @@ export const CarPrice = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-`;
-
-export const load = keyframes`
-    to{
-        transform: rotate(360deg);
-
-    }
-`;
-
-export const Loading = styled.div`
-    align-self: center;
-    justify-self: center;
-
-    & > *{
-        font-size: 7rem;
-        animation: ${load} 1s ease-out infinite;
-        color: #D0D0D0;
-    }
 `;

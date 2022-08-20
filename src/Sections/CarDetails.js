@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import {Container, CarInfo, Sub, CarImage, CarType, CarPrice, Loading, SubHeader, Gone} from '../Styles/CarDetails'
+import {Container, CarInfo, Sub, CarImage, CarType, CarPrice, SubHeader, Gone} from '../Styles/CarDetails'
 import {BsPeople} from 'react-icons/bs'
 import { useSelector } from 'react-redux'
-import {RiLoaderLine} from 'react-icons/ri';
 import {BsChevronDown} from 'react-icons/bs'
 import { useEffect } from 'react';
+import DotLoader from "react-spinners/DotLoader";
 
 export default function CarDetails() {
     let detailId = useSelector(state => state.items.Details);
@@ -112,9 +112,7 @@ export default function CarDetails() {
     else{
         return (
             <Container>
-                <Loading>
-                    <RiLoaderLine></RiLoaderLine>
-                </Loading>
+                <DotLoader color={"#D0d0d0"} loading={loading} size={100}/>
             </Container>
         )
     }

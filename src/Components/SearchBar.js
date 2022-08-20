@@ -11,15 +11,20 @@ export default function SearchBar(props) {
     const navigate = useNavigate();
     const dispactch = useDispatch();
 
-    const toResult = (e) => {
+    const toResult = (e, bool = false) => {
+        e.preventDefault();
         dispactch(searchCar([document.querySelector("#nama").value,document.querySelector("#kategori").value, document.querySelector("#harga").value]));
-        navigate("/result");
+        let carList = document.querySelector(".carList");
+        carList.scrollIntoView({ block: 'center',  behavior: 'smooth' });
+        if(bool === true){
+            navigate("/result");
+        }
     }
 
     if(props.search){
         return (
             <BigContainer className="searchBar">
-                <Container onSubmit={toResult}>
+                <Container onSubmit={(e) => toResult(e, true)}>
                     <FormItem>
                         <Label htmlFor="nama">Nama Mobil</Label>
                         <Input id="nama" type="text" placeholder='Ketik nama/tipe mobil' required/>

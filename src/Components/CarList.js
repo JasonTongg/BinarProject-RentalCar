@@ -1,13 +1,14 @@
 import React from 'react'
-import { Container, CarItem, Loading, Buttons, Icon } from '../Styles/CarList'
+import { Container, CarItem, Buttons, Icon, SmallContainer } from '../Styles/CarList'
 import Button from './Button'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import carTemp from '../Assets/carTemp.png';
 import { useSelector } from 'react-redux';
-import { RiLoaderLine } from 'react-icons/ri';
 import '../Styles/cssStyle.css'
 import {BiChevronLeft, BiChevronRight} from 'react-icons/bi'
+import DotLoader from "react-spinners/DotLoader";
+import NotFoundImage from '../Assets/NotFound.jpg'
 
 function CarList(props) {
     const [data, setData] = useState([]);
@@ -17,12 +18,14 @@ function CarList(props) {
     let [loading, setLoading] = useState(true);
     let [cutData, setCutData] = useState();
     let [posisi, setPosisi] = useState(0);
+    let [isLoading, setIsLoading] = useState(true);
 
     let directDetails = () => {
         navigate("/details");
     }
 
-    let getData = () => {
+    useEffect(() => {
+        setLoading(true);
         if(nama !== undefined && props.empty === undefined){
             let filterData = carData.filter(item => item.category === kategori && item.name.toLowerCase() === nama.toLowerCase());
 
@@ -40,37 +43,31 @@ function CarList(props) {
         else{
             setData(carData);
         }
-    }
-
-    useEffect(() => {
-        setLoading(true);
-        getData();
-    }, [carData])
+    },[carData, data, harga, kategori, nama, props.empty])
 
     useEffect(() => {
         let cut = [];
-        if(data){
-            for(let i=0;i<data.length;i+=9){
-                cut.push(data.slice(i,i+9));
-            }
+        for(let i=0;i<data.length;i+=9){
+            cut.push(data.slice(i,i+9));
         }
         setCutData(cut);
-        setLoading(false);
-    }, [data])
 
-    if (loading === true) {
-        return (
-            <Container className='loadContainer'>
-                <Loading className='Loading'>
-                    <RiLoaderLine></RiLoaderLine>
-                </Loading>
-            </Container>
-        )
-    }
-    else {
+        if(cutData?.length > 0){
+            setLoading(false);
+        }
+    }, [data, cutData])
+
+    useEffect(() => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 5000)
+    }, [loading])
+
+    if(loading === false) {
         return (
             <>
-                <Container>
+                <Container className='carList'>
                     {cutData[posisi]?.map(item => 
                     (
                         <CarItem key={item.id}>
@@ -90,6 +87,24 @@ function CarList(props) {
                 
             </>
         )
+    }
+    else {
+        if(isLoading === true){
+            return (
+                <Container className='loadContainer carList'>
+                    <DotLoader color={"#D0d0d0"} loading={loading} size={100}/>
+                </Container>
+            )
+        }
+        else{
+            return (
+                <SmallContainer className='loadContainer carList'>
+                    <img src={NotFoundImage} alt="Not Found" />
+                    <h1>Waduh tujuan kamu nga ada!!</h1>
+                    <p>Mungkin kamu salah jalan atau alamat. Ayo balik ke menu utama</p>
+                </SmallContainer>
+            )
+        }
     }
 }
 

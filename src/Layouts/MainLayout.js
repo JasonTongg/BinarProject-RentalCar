@@ -38,7 +38,7 @@ export default function MainLayout(props) {
     <Container className='container'>
         <Navbar></Navbar>
           {props.children}
-        <Footer></Footer>
+        <Footer classList="footer"></Footer>
     </Container>
   )
 }
