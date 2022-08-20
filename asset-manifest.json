@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.03cfc4d8.css",
+    "main.js": "/static/js/main.c5c57a42.js",
+    "static/js/787.e1250687.chunk.js": "/static/js/787.e1250687.chunk.js",
+    "static/media/NotFound.jpg": "/static/media/NotFound.d56a4c3f16d248384bb1.jpg",
+    "static/media/Hero-Car.png": "/static/media/Hero-Car.ffe77cc73822a065a73a.png",
+    "static/media/service-Avatar.png": "/static/media/service-Avatar.3a3db8c1608f427874ee.png",
+    "static/media/Testimoni-4.jpeg": "/static/media/Testimoni-4.769999f3f34712a4d641.jpeg",
+    "static/media/Testimoni-2.jpeg": "/static/media/Testimoni-2.8a43ffa69093bcc0e326.jpeg",
+    "static/media/Testimoni-3.jpeg": "/static/media/Testimoni-3.66332bc7ac048d551ddf.jpeg",
+    "static/media/carTemp.png": "/static/media/carTemp.861a3622824f5ea46d33.png",
+    "static/media/Logo.png": "/static/media/Logo.d2cf40b05f92829d9905.png",
+    "static/media/Logo-White.png": "/static/media/Logo-White.0092b42c7d4cf0a9debe.png",
+    "static/media/Testimoni-1.jpeg": "/static/media/Testimoni-1.bc788a9a947db9bc998d.jpeg",
+    "index.html": "/index.html",
+    "main.03cfc4d8.css.map": "/static/css/main.03cfc4d8.css.map",
+    "main.c5c57a42.js.map": "/static/js/main.c5c57a42.js.map",
+    "787.e1250687.chunk.js.map": "/static/js/787.e1250687.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.03cfc4d8.css",
+    "static/js/main.c5c57a42.js"
+  ]
+}
