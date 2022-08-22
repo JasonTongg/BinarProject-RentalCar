@@ -6,8 +6,12 @@ import Whyus from '../Sections/WhyUs'
 import Sewa from '../Sections/Sewa'
 import Testimonial from '../Sections/Testimonial'
 import Faq from '../Sections/Faq'
+import Popup from '../Components/PopupMessage'
+import { useSelector } from 'react-redux/es/exports'
 
 export default function Home() {
+  let success = useSelector(state => state.animations.login);
+  console.log(success);
   return (
     <React.Fragment>
       <MainLayout>
@@ -17,6 +21,7 @@ export default function Home() {
         <Testimonial></Testimonial>
         <Sewa></Sewa>
         <Faq></Faq>
+        {success===true ? <Popup text="Login Success"></Popup> : null}
       </MainLayout>
     </React.Fragment>
   )

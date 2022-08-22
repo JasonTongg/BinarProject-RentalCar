@@ -11,18 +11,25 @@ export const Button1 = styled.button.attrs(props => ({
     border-radius: 2px;
     font-weight: bolder;
     cursor: pointer;
+    
     `;
 
 export const Button2 = styled.button.attrs(props => ({
-    size: props.size ? props.size : null
+    size: props.size ? props.size : null,
+    background: props.background
 }))`
     padding: 8px 12px;
     width: ${props => props.size==="big" ? '100%' : null};
     border: none;
     outline: none;
     color: white;
-    background-color: ${props => props.theme.secondaryColor};
+    background-color: ${props => props.background ? props => props.theme.primaryColor : props => props.theme.secondaryColor};
     border-radius: 2px;
     font-weight: bolder;
     cursor: pointer;
+    
+    a{
+        color: white;
+        text-decoration: none;
+    }
 `;

@@ -3,3 +3,9 @@ export const navbar = () => {
         type: "Navbar Clicked"
     }
 }
+
+export const login = () => {
+    return {
+        type: "Login Success"
+    }
+}

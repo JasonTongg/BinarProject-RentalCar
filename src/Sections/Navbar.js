@@ -8,6 +8,7 @@ import Sidebar from '../Components/SideNavbar'
 import logoWhite from '../Assets/Logo-White.png'
 import { Link } from 'react-router-dom'
 import { useNavigate, useLocation } from 'react-router-dom'
+import Button from '../Components/Button'
 
 export default function Navbar() {
   let dispatch = useDispatch();
@@ -95,6 +96,7 @@ export default function Navbar() {
         <li onClick={scrollWhy}>Why Us</li>
         <li onClick={scrollTestimonial}>Testimonial</li>
         <li onClick={scrollFaq}>FAQ</li>
+        <Link to="/login"><Button>Login</Button></Link>
       </NavbarItems>
       <BurgerNavbar>
         <GiHamburgerMenu className="burger" onClick={openNavbar}></GiHamburgerMenu>

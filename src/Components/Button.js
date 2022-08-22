@@ -20,7 +20,7 @@ export default function Button(props) {
     }
     else{
         return (
-            <Button2 onClick={doAction} size={props.size}>{props.children}</Button2>
+            <Button2 onClick={doAction} size={props.size} background={props.background}>{props.children}</Button2>
         )
     }
 }

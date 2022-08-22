@@ -43,9 +43,7 @@ function CarList(props) {
         else{
             setData(carData);
         }
-    },[carData, data, harga, kategori, nama, props.empty])
 
-    useEffect(() => {
         let cut = [];
         for(let i=0;i<data.length;i+=9){
             cut.push(data.slice(i,i+9));
@@ -55,7 +53,7 @@ function CarList(props) {
         if(cutData?.length > 0){
             setLoading(false);
         }
-    }, [data, cutData])
+    },[carData, data, harga, kategori, nama, props.empty, cutData])
 
     useEffect(() => {
         setIsLoading(true);

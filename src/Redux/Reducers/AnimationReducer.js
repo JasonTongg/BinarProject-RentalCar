@@ -1,5 +1,6 @@
 let initialState = {
-    navbar: false
+    navbar: false,
+    login: false
 }
 
 export const AnimationReducer = (state = initialState, action) => {
@@ -10,6 +11,12 @@ export const AnimationReducer = (state = initialState, action) => {
             return {
                 ...state,
                 navbar: (state.navbar===true ? false : true)
+            }
+        
+        case "Login Success":
+            return {
+                ...state,
+                login: true
             }
         default:
             return state;
