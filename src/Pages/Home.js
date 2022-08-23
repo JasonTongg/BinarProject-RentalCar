@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import MainLayout from '../Layouts/MainLayout'
 import Hero from '../Sections/Hero'
 import Services from '../Sections/Services'
@@ -7,11 +7,15 @@ import Sewa from '../Sections/Sewa'
 import Testimonial from '../Sections/Testimonial'
 import Faq from '../Sections/Faq'
 import Popup from '../Components/PopupMessage'
-import { useSelector } from 'react-redux/es/exports'
+import { useSelector, useDispatch } from 'react-redux/es/exports'
+import {login} from '../Redux/Actions/AnimationAction'
 
 export default function Home() {
+  let dispatch = useDispatch();
   let success = useSelector(state => state.animations.login);
-  console.log(success);
+  setTimeout(() => {
+    dispatch(login(false));
+  }, 3500)
   return (
     <React.Fragment>
       <MainLayout>

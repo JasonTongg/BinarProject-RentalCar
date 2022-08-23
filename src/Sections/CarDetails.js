@@ -105,6 +105,7 @@ export default function CarDetails() {
                         <h3>Total</h3>
                         <h3>{detail.price}</h3>
                     </CarPrice>
+                    
                 </CarImage>
             </Container>
         )

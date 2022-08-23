@@ -55,12 +55,15 @@ export default function UserLogin(props){
             let data = await rawData.json();
 
             window.localStorage.setItem("token", data.access_token);
-            dispatch(login());
+            dispatch(login(true));
             navigate("/");
         } catch (error) {
             setIsError(true);
             setErrorMessage(error.message);
-            console.log(error);
+            setTimeout(() => {
+                setIsError(false);
+                setErrorMessage("");
+            }, 3500)
         }
     }
     return (
@@ -70,7 +73,7 @@ export default function UserLogin(props){
             
             <Left>
                 <Form onSubmit={doAction}>
-                    <img src={Logo} alt="logo" />
+                    <Link to="/"><img src={Logo} alt="logo" /></Link>
                     <h2>{props.title}</h2>
                     {props.login ? 
                     <>

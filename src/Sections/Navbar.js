@@ -2,7 +2,7 @@ import React from 'react'
 import {NavbarContainer, NavbarItems, BurgerNavbar} from "../Styles/Navbar.js"
 import logo from '../Assets/Logo.png'
 import {GiHamburgerMenu} from 'react-icons/gi'
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {navbar} from '../Redux/Actions/AnimationAction'
 import Sidebar from '../Components/SideNavbar'
 import logoWhite from '../Assets/Logo-White.png'
@@ -14,6 +14,7 @@ export default function Navbar() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let location = useLocation();
+  let isLogin = window.localStorage.getItem("token");
 
   const openNavbar = () => {
     dispatch(navbar());
@@ -96,7 +97,7 @@ export default function Navbar() {
         <li onClick={scrollWhy}>Why Us</li>
         <li onClick={scrollTestimonial}>Testimonial</li>
         <li onClick={scrollFaq}>FAQ</li>
-        <Link to="/login"><Button>Login</Button></Link>
+        {isLogin ? null : <Link to="/login"><Button>Login</Button></Link>}
       </NavbarItems>
       <BurgerNavbar>
         <GiHamburgerMenu className="burger" onClick={openNavbar}></GiHamburgerMenu>

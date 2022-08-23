@@ -17,7 +17,6 @@ function App() {
     
     <section className='App'>
       {loading ? <Loading loading={loading}/> : <Router /> }
-       
     </section>
   );
 }

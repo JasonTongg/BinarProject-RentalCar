@@ -4,8 +4,9 @@ export const navbar = () => {
     }
 }
 
-export const login = () => {
+export const login = (payload) => {
     return {
-        type: "Login Success"
+        type: "Login Success",
+        payload: payload
     }
 }
