@@ -2,7 +2,7 @@ import React from 'react'
 import {NavbarContainer, NavbarItems, BurgerNavbar} from "../Styles/Navbar.js"
 import logo from '../Assets/Logo.png'
 import {GiHamburgerMenu} from 'react-icons/gi'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {navbar} from '../Redux/Actions/AnimationAction'
 import Sidebar from '../Components/SideNavbar'
 import logoWhite from '../Assets/Logo-White.png'

@@ -26,3 +26,10 @@ export const getCarApi = async (dispatch) => {
     let data = await rawData.json();
     return dispatch(getCarList(data));
 }
+
+export const loginSuccess = (payload) => {
+    return {
+        type: "Login Success",
+        payload
+    }
+}

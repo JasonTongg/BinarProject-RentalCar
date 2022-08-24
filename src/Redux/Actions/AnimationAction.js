@@ -10,3 +10,9 @@ export const login = (payload) => {
         payload: payload
     }
 }
+
+export const adminNavbar = () => {
+    return{
+        type: "Admin Navbar Clicked"
+    }
+}

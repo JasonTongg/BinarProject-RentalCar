@@ -21,22 +21,32 @@ export const UserLoginContainer = styled.div`
         top: 50px;
         left: 50px;
         text-decoration: none;
+        border: 1px solid white;
+        z-index: 100;
     }
 
     @media only screen and (max-width: 900px){
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
     }
+
+    @media only screen and (max-width: 500px){
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
 `;
 
-export const Left = styled.div`
+export const Left = styled.div.attrs(props => ({
+    tetap: props.tetap ? props.tetap : null
+}))`
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: columnl;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    min-width: ${props => props.tetap ? "425px" : ""};
 
     @media only screen and (max-width: 900px){
         order: 2;
@@ -44,6 +54,10 @@ export const Left = styled.div`
 
     @media only screen and (max-width: 500px){
         padding: 1rem;
+    }
+
+    @media only screen and (max-width: 425px){
+        min-width: auto;
     }
 `;
 

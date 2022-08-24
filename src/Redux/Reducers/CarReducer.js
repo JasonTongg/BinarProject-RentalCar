@@ -1,7 +1,8 @@
 let initialState = {
     Details: localStorage.getItem('id') ? localStorage.getItem('id') : 0,
     Search: localStorage.getItem('state') ? localStorage.getItem('state').split(",") : [],
-    CarList: []
+    CarList: [],
+    Customer: "",
 }
 
 export const CarReducer = (state = initialState, action) => {
@@ -26,6 +27,11 @@ export const CarReducer = (state = initialState, action) => {
             return {
                 ...state,
                 CarList: payload
+            }
+        case "Login Success":
+            return{
+                ...state,
+                Customer: payload
             }
         default:
             return state;

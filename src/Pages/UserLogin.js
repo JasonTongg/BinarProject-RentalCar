@@ -4,15 +4,15 @@ import Logo from '../Assets/Logo.png'
 import {Link, useNavigate} from 'react-router-dom'
 import {Left, Right,UserLoginContainer, InputContainer, Form, RightContainer} from '../Styles/UserLogin'
 import Button from '../Components/Button'
-import Popup from '../Components/PopupMessage'
 import { useDispatch } from 'react-redux/es/exports'
 import {login} from '../Redux/Actions/AnimationAction'
+import {loginSuccess} from '../Redux/Actions/CarAction'
+import { ErrorMessage } from '../Styles/AdminLogin'
 
 export default function UserLogin(props){
     let [name, setName] = useState("");
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
-    let [isError, setIsError] = useState(false);
     let [errorMessage, setErrorMessage] = useState("");
     let navigate = useNavigate();
     let dispatch = useDispatch();
@@ -47,8 +47,6 @@ export default function UserLogin(props){
                 })
             }
             if(rawData.status !== 201){
-                console.log(rawData);
-                console.log(rawData.statusText);
                 throw new Error(rawData.statusText);
             }
 
@@ -56,25 +54,20 @@ export default function UserLogin(props){
 
             window.localStorage.setItem("token", data.access_token);
             dispatch(login(true));
+            dispatch(loginSuccess(name));
             navigate("/");
         } catch (error) {
-            setIsError(true);
             setErrorMessage(error.message);
-            setTimeout(() => {
-                setIsError(false);
-                setErrorMessage("");
-            }, 3500)
         }
     }
     return (
         <UserLoginContainer>
             <Link to="/" className='back'>&larr; Home</Link>
-            {isError ? <Popup color="red" text={errorMessage}></Popup> : null}
-            
             <Left>
                 <Form onSubmit={doAction}>
                     <Link to="/"><img src={Logo} alt="logo" /></Link>
                     <h2>{props.title}</h2>
+                    {errorMessage ? <ErrorMessage><p>{errorMessage}</p></ErrorMessage> : null}
                     {props.login ? 
                     <>
                         <InputContainer>
@@ -94,7 +87,7 @@ export default function UserLogin(props){
                         </InputContainer>
                         <InputContainer>
                             <label for="email">Email*</label>
-                            <input type="text" id='email' placeholder='Contoh: johndee@gmail.com' required onChange={(e) => setEmail(e.target.value)}/>
+                            <input type="email" id='email' placeholder='Contoh: johndee@gmail.com' required onChange={(e) => setEmail(e.target.value)}/>
                         </InputContainer>
                         <InputContainer>
                             <label for="password">Create Password*</label>

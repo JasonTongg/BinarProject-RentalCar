@@ -1,6 +1,7 @@
 let initialState = {
     navbar: false,
-    login: false
+    login: false,
+    adminNavbar: true
 }
 
 export const AnimationReducer = (state = initialState, action) => {
@@ -12,11 +13,15 @@ export const AnimationReducer = (state = initialState, action) => {
                 ...state,
                 navbar: (state.navbar===true ? false : true)
             }
-        
         case "Login Success":
             return {
                 ...state,
                 login: payload
+            }
+        case "Admin Navbar Clicked":
+            return {
+                ...state,
+                adminNavbar: state.adminNavbar===true ? false : true
             }
         default:
             return state;

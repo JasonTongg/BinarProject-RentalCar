@@ -5,8 +5,11 @@ import Details from '../Pages/Details'
 import Result from '../Pages/Result'
 import NotFound from '../Pages/NotFound'
 import UserLogin from '../Pages/UserLogin'
+import AdminLogin from '../Pages/AdminLogin'
+import Admin from '../Pages/Admin'
 import {Routes, Route, BrowserRouter} from 'react-router-dom'
 import PrivateRouter from './PrivateRouter'
+import AdminPrivateRouter from './AdminPrivateRoute'
 
 export default function Router() {
   let userLoginProps = {
@@ -30,9 +33,13 @@ export default function Router() {
           <Route exact path="/details" element={<Details />} />
           <Route exact path="/result" element={<Result />} />
         </Route>
+        <Route element={<AdminPrivateRouter></AdminPrivateRouter>}>
+          <Route exact path="/admin" element={<Admin></Admin>}></Route>
+        </Route>
         <Route exact path="/" element={<Home />} />
         <Route exact path ="/login" element={<UserLogin {...userLoginProps}/>} />
         <Route exact path ="/register" element={<UserLogin {...userRegisProps}/>} />
+        <Route exact path="/admin/login" element={<AdminLogin />}/>
         <Route exact path="/*" element={<NotFound />}/>
       </Routes>
     </BrowserRouter>
