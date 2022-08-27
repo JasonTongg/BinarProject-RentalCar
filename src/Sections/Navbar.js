@@ -87,6 +87,11 @@ export default function Navbar() {
     hero.scrollIntoView({ block: 'end',  behavior: 'smooth' });
   }
 
+  let removeToken = () => {
+    window.localStorage.removeItem("token");
+    
+  }
+
   return (
     <NavbarContainer className='navbar'>
       <Link to="/" onClick={scrollTop}>
@@ -97,7 +102,7 @@ export default function Navbar() {
         <li onClick={scrollWhy}>Why Us</li>
         <li onClick={scrollTestimonial}>Testimonial</li>
         <li onClick={scrollFaq}>FAQ</li>
-        {isLogin ? null : <Link to="/login"><Button>Login</Button></Link>}
+        {isLogin ? <Button action={removeToken}>Logout</Button> : <Link to="/login"><Button>Login</Button></Link>}
       </NavbarItems>
       <BurgerNavbar>
         <GiHamburgerMenu className="burger" onClick={openNavbar}></GiHamburgerMenu>

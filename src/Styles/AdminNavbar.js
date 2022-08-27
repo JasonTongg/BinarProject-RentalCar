@@ -5,11 +5,19 @@ export const Navbar = styled.nav`
     align-items: center;
     justify-content: space-between;
     padding: 1rem 4rem;
+    background-color: white;
+    top: 0;
+    left: 0;
+    right: 0;
 
     .burger{
         font-size: 25px;
         cursor: pointer;
         color: rgba(0,0,0,0.5);
+    }
+
+    &.fixed{
+        position: fixed;
     }
 `;
 
@@ -18,6 +26,11 @@ export const NavbarItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media only screen and (max-width: 600px){
+        width: 300px;
+        justify-content: flex-end;
+    }
 `;
 
 export const InputContainer = styled.div`
@@ -47,5 +60,9 @@ export const Profile = styled.div`
     p{
         margin-left: .5rem;
         font-size: 1.2rem;
+    }
+
+    @media only screen and (max-width: 600px){
+        display: none;
     }
 `;

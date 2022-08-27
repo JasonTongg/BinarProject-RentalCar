@@ -8,8 +8,11 @@ import store from './Redux/index'
 import {ThemeProvider} from 'styled-components'
 import * as theme from './Components/Variables'
 import {getCarApi} from './Redux/Actions/CarAction'
+import {Chart, registerables} from 'chart.js'
 
+Chart.register(...registerables);
 store.dispatch(getCarApi);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

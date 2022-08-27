@@ -7,6 +7,8 @@ import NotFound from '../Pages/NotFound'
 import UserLogin from '../Pages/UserLogin'
 import AdminLogin from '../Pages/AdminLogin'
 import Admin from '../Pages/Admin'
+import AdminListCar from '../Pages/ListCar'
+import AddCar from '../Pages/AddCar'
 import {Routes, Route, BrowserRouter} from 'react-router-dom'
 import PrivateRouter from './PrivateRouter'
 import AdminPrivateRouter from './AdminPrivateRoute'
@@ -34,7 +36,9 @@ export default function Router() {
           <Route exact path="/result" element={<Result />} />
         </Route>
         <Route element={<AdminPrivateRouter></AdminPrivateRouter>}>
-          <Route exact path="/admin" element={<Admin></Admin>}></Route>
+          <Route exact path="/admin" element={<Admin></Admin>} />
+          <Route exact path="/admin/list" element={<AdminListCar></AdminListCar>} />
+          <Route exact path="/admin/list/add" element={<AddCar></AddCar>} />
         </Route>
         <Route exact path="/" element={<Home />} />
         <Route exact path ="/login" element={<UserLogin {...userLoginProps}/>} />
