@@ -9,15 +9,12 @@ export const Navbar = styled.nav`
     top: 0;
     left: 0;
     right: 0;
+    position: fixed;
 
     .burger{
         font-size: 25px;
         cursor: pointer;
         color: rgba(0,0,0,0.5);
-    }
-
-    &.fixed{
-        position: fixed;
     }
 `;
 

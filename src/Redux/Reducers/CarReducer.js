@@ -2,7 +2,9 @@ let initialState = {
     Details: localStorage.getItem('id') ? localStorage.getItem('id') : 0,
     Search: localStorage.getItem('state') ? localStorage.getItem('state').split(",") : [],
     CarList: [],
-    Customer: "",
+    AdminSearch: "",
+    AdminEdit: {},
+    listMessage: ""
 }
 
 export const CarReducer = (state = initialState, action) => {
@@ -28,10 +30,20 @@ export const CarReducer = (state = initialState, action) => {
                 ...state,
                 CarList: payload
             }
-        case "Login Success":
+        case "Admin Search Car":
             return{
                 ...state,
-                Customer: payload
+                AdminSearch: payload
+            }
+        case "Admin Edit Car":
+            return {
+                ...state,
+                AdminEdit: payload
+            }
+        case "Manipulate Car List":
+            return{
+                ...state,
+                listMessage: payload
             }
         default:
             return state;

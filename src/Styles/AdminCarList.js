@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 
 export const BigContainer = styled.div`
     display: flex;
@@ -8,6 +8,7 @@ export const BigContainer = styled.div`
     margin: 2rem;
     width: calc(100vw - 4rem);
     background: rgba(244, 245, 247, 1);
+    padding-top: 78px;
 `;
 
 export const ListContainer = styled.div`
@@ -145,5 +146,85 @@ export const Button = styled.button`
         background-color: ${props => props.theme.secondaryColor};
         border: 2px solid ${props => props.theme.secondaryColor};
         color: white;
+    }
+`;
+
+export const Overlay = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const show = keyframes`
+    from{
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+`;
+
+export const DeleteContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    gap: 24px;
+    
+    width: 400px;
+    background-color: white;
+    text-align: center;
+    border-radius: 10px;
+    animation: ${show} .35s linear forwards;
+`;
+
+export const DeleteInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    p{
+        line-height: 20px;
+    }
+`;
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+`;
+
+export const DeleteButton = styled.button`
+    padding: .8rem 1rem;
+    font-weight: bolder;
+    min-width: 100px;
+    border-radius: 3px;
+    cursor: pointer;
+
+
+    &:nth-of-type(1){
+        background-color: ${props => props.theme.primaryColor};
+        border: 2px solid ${props => props.theme.primaryColor};
+        color: white;
+    }
+
+    &:nth-of-type(2){
+        background-color: transparent;
+        border: 2px solid ${props => props.theme.primaryColor};
+        color: ${props => props.theme.primaryColor};
     }
 `;

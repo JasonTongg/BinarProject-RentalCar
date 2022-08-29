@@ -4,13 +4,6 @@ export const navbar = () => {
     }
 }
 
-export const login = (payload) => {
-    return {
-        type: "Login Success",
-        payload: payload
-    }
-}
-
 export const adminNavbar = () => {
     return{
         type: "Admin Navbar Clicked"

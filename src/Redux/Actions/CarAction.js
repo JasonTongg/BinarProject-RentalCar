@@ -27,9 +27,23 @@ export const getCarApi = async (dispatch) => {
     return dispatch(getCarList(data));
 }
 
-export const loginSuccess = (payload) => {
+export const AdminSearch = (payload) => {
     return {
-        type: "Login Success",
+        type: "Admin Search Car",
+        payload
+    }
+}
+
+export const AdminEditCar = (payload) => {
+    return {
+        type: "Admin Edit Car",
+        payload
+    }
+}
+
+export const carManipulation = (payload) => {
+    return {
+        type: "Manipulate Car List",
         payload
     }
 }

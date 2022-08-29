@@ -7,15 +7,10 @@ import Sewa from '../Sections/Sewa'
 import Testimonial from '../Sections/Testimonial'
 import Faq from '../Sections/Faq'
 import Popup from '../Components/PopupMessage'
-import { useSelector, useDispatch } from 'react-redux/es/exports'
-import {login} from '../Redux/Actions/AnimationAction'
 
 export default function Home() {
-  let dispatch = useDispatch();
-  let success = useSelector(state => state.animations.login);
-  setTimeout(() => {
-    dispatch(login(false));
-  }, 3500)
+  let success = window.localStorage.getItem("token");
+
   return (
     <React.Fragment>
       <MainLayout>
@@ -25,7 +20,7 @@ export default function Home() {
         <Testimonial></Testimonial>
         <Sewa></Sewa>
         <Faq></Faq>
-        {success===true ? <Popup text="Login Success"></Popup> : null}
+        {success ? <Popup text="Login Success" color></Popup> : null}
       </MainLayout>
     </React.Fragment>
   )

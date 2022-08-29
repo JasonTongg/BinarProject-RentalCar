@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Icon from './Icon'
 import {InputContainer, Navbar, NavbarItem, Profile} from '../Styles/AdminNavbar'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import { useDispatch, useSelector } from 'react-redux'
 import { adminNavbar } from '../Redux/Actions/AnimationAction'
 import AdminSideNavbar from './AdminSideNavbar'
+import {AdminSearch} from '../Redux/Actions/CarAction'
 
 export default function AdminNavbar(props) {
     let dispatch = useDispatch();
@@ -14,22 +15,17 @@ export default function AdminNavbar(props) {
         dispatch(adminNavbar());
     }
 
-    useEffect(() => {
-        window.addEventListener("scroll", () => {
-            let nav = document.querySelector(".navv");
-            if(nav.getBoundingClientRect().top <= -78){
-                nav.classList.add("fixed");
-            }
-        })
-    }, [])
+    let searchInput = (e) => {
+        dispatch(AdminSearch(e.target.value));
+    }
 
     return (
-        <Navbar className='navv'>
+        <Navbar>
             <GiHamburgerMenu class="burger" onClick={clicked}></GiHamburgerMenu>
             {navbarClicked ? null : <AdminSideNavbar type={props.type}></AdminSideNavbar>}
             <NavbarItem>
                 <InputContainer>
-                    <input type="text" placeholder='Search'></input>
+                    <input type="text" placeholder='Search' onChange={searchInput}></input>
                     <button>Search</button>
                 </InputContainer>
                 <Profile>

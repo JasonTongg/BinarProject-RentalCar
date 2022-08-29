@@ -5,18 +5,13 @@ let initialState = {
 }
 
 export const AnimationReducer = (state = initialState, action) => {
-    const {type, payload} = action;
+    const {type} = action;
 
     switch (type) {
         case "Navbar Clicked": 
             return {
                 ...state,
                 navbar: (state.navbar===true ? false : true)
-            }
-        case "Login Success":
-            return {
-                ...state,
-                login: payload
             }
         case "Admin Navbar Clicked":
             return {

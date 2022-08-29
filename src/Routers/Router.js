@@ -27,6 +27,14 @@ export default function Router() {
     text: ["Already have an account?", "Sign In here", "/login"],
     login: false
   }
+
+  let addCarProps = {
+    title: "Add New Car",
+  }
+
+  let editCarProps = {
+    title: "Edit Car",
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -38,7 +46,8 @@ export default function Router() {
         <Route element={<AdminPrivateRouter></AdminPrivateRouter>}>
           <Route exact path="/admin" element={<Admin></Admin>} />
           <Route exact path="/admin/list" element={<AdminListCar></AdminListCar>} />
-          <Route exact path="/admin/list/add" element={<AddCar></AddCar>} />
+          <Route exact path="/admin/list/add" element={<AddCar {...addCarProps}></AddCar>} />
+          <Route exact path="/admin/list/edit" element={<AddCar {...editCarProps}></AddCar>} />
         </Route>
         <Route exact path="/" element={<Home />} />
         <Route exact path ="/login" element={<UserLogin {...userLoginProps}/>} />
