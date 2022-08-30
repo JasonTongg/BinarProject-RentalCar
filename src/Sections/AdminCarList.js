@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {AdminEditCar, AdminSearch} from '../Redux/Actions/CarAction'
 import deleteImage from '../Assets/DeletePopUp.png';
 import Popup from '../Components/PopupMessage'
+import {carManipulation} from '../Redux/Actions/CarAction'
 
 export default function AdminCarList() {
     let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
@@ -28,6 +29,9 @@ export default function AdminCarList() {
 
     useEffect(() => {
         dispatch(AdminSearch(""));
+        setTimeout(() => {
+            dispatch(carManipulation(false));
+        }, 2000)
     }, [])
 
     let clicked = () => {
@@ -100,14 +104,18 @@ export default function AdminCarList() {
             })
 
             if(rawData.status !== 200){
-                throw new Error("Delete Data Error")
+                throw new Error(rawData.statusText)
             }
             
             await rawData.json();
             setIsDelete(false);
             setDeleteSuccess(true);
+
+            setTimeout(() => {
+                setDeleteSuccess(false);
+            }, 2000)
         } catch (error) {
-            console.log(error);
+            setErrorMessage(error.message);
         }
     }
 
@@ -124,7 +132,7 @@ export default function AdminCarList() {
         <BigContainer>
             {errorMessage ? <Popup text={errorMessage}></Popup> : null}
             {deleteSuccess ? <Popup text="Data Berhasil Dihapus"></Popup> : null}
-            {manipulation ? <Popup text={manipulation}></Popup> : null}
+            {manipulation ? <Popup text="Data Berhasil Disimpan" color></Popup> : null}
             <Pwd>Cars {`>`} <span>List Car</span></Pwd>
             <Container>
                 <h2>List Car</h2>

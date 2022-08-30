@@ -4,7 +4,8 @@ let initialState = {
     CarList: [],
     AdminSearch: "",
     AdminEdit: {},
-    listMessage: ""
+    listMessage: false,
+    RentDay: 0
 }
 
 export const CarReducer = (state = initialState, action) => {
@@ -44,6 +45,11 @@ export const CarReducer = (state = initialState, action) => {
             return{
                 ...state,
                 listMessage: payload
+            }
+        case "Car Rent Day":
+            return{
+                ...state,
+                RentDay: payload
             }
         default:
             return state;

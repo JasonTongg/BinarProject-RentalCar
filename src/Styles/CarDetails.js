@@ -8,21 +8,17 @@ export const Container = styled.section`
     width: 100vw;
     gap: 1rem;
 
-    @media only screen and (max-width: 1000px){
+    @media only screen and (max-width: 1200px){
         padding: 2rem 100px;
     }
 
     @media only screen and (max-width: 750px){
-        padding: 2rem 50px;
+        padding: 2rem 25px;
     }
 
     @media only screen and (max-width: 700px){
         flex-direction: column;
         align-items: center;
-    }
-
-    @media only screen and (max-width: 500px){
-        padding: 2rem 20px;
     }
 `;
 
@@ -69,21 +65,8 @@ export const SubHeader = styled(Sub)`
 `;
 
 export const Gone = styled.div`
-    height: 150px;
     opacity: 1;
     transition: opacity .5s ease-out, height .5s ease-out;
-
-    @media only screen and (max-width: 600px){
-        height: 180px;
-    }
-
-    @media only screen and (max-width: 415px){
-        height: 200px;
-    }
-
-    @media only screen and (max-width: 340px){
-        height: 235px;
-    }
 `;
 
 export const CarImage = styled.div`
@@ -93,29 +76,14 @@ export const CarImage = styled.div`
     align-items: flex-start;
     justify-content: space-between;
     padding: 28px 24px;
-    height: 500px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
 
     & img{
         width: 100%;
         align-self: center;
     }
-
-    @media only screen and (max-width: 1200px){
-        height: 400px;
-    }
-
     @media only screen and (max-width: 700px){
-        height: 500px;
         width: 100%;
-    }
-
-    @media only screen and (max-width: 500px){
-        height: 400px;
-    }
-
-    @media only screen and (max-width: 360px){
-        height: 350px;
     }
 `;
 
@@ -138,4 +106,60 @@ export const CarPrice = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    margin-block: 1.5rem;
+`;
+
+export const DateContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+    gap: .5rem;
+    width: 100%;
+    cursor: pointer;
+
+    @media only screen and (max-width: 1300px){
+        flex-direction: column;
+    }
+
+    @media only screen and (max-width: 700px){
+        flex-direction: row;
+    }
+
+    @media only screen and (max-width: 500px){
+        flex-direction: column;
+    }
+
+    input::-webkit-datetime-edit { 
+        color: transparent; 
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    input{
+        height: calc(16px + 1rem);
+        width: calc(162px + 2rem);
+        text-align: center;
+        outline: none;
+
+        &:focus, &:active{
+            border: 2px solid rgba(0, 156, 150, 1);
+        }
+    }
+`;
+
+export const Button = styled.button`
+    background-color: ${props => props.theme.secondaryColor};
+    color: white;
+    font-weight: bolder;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:disabled{
+        background-color: rgba(53, 176, 167, 0.2);
+    }
 `;

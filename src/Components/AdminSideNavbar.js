@@ -32,7 +32,7 @@ export default function AdminSideNavbar(props) {
                     <RiCloseLine className='icon big'></RiCloseLine>
                 </CategoryContainer>
                 {text === "Dashboard" ? 
-                <CategoryContainer className='active'>
+                <CategoryContainer className='active' onClick={toAdmin}>
                     <BsHouseDoor className='icon'></BsHouseDoor>
                     <p>Dashboard</p>
                 </CategoryContainer>
@@ -48,7 +48,7 @@ export default function AdminSideNavbar(props) {
                     <p>Cars</p>
                 </CategoryContainer>
                 :
-                <CategoryContainer className='active'>
+                <CategoryContainer className='active' onClick={toAdminList}>
                     <BsTruck className='icon'></BsTruck>
                     <p>Cars</p>
                 </CategoryContainer>

@@ -9,6 +9,7 @@ import AdminLogin from '../Pages/AdminLogin'
 import Admin from '../Pages/Admin'
 import AdminListCar from '../Pages/ListCar'
 import AddCar from '../Pages/AddCar'
+import Payment from '../Pages/Payment'
 import {Routes, Route, BrowserRouter} from 'react-router-dom'
 import PrivateRouter from './PrivateRouter'
 import AdminPrivateRouter from './AdminPrivateRoute'
@@ -42,6 +43,7 @@ export default function Router() {
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/details" element={<Details />} />
           <Route exact path="/result" element={<Result />} />
+          <Route exact path="/payment" element={<Payment />}></Route>
         </Route>
         <Route element={<AdminPrivateRouter></AdminPrivateRouter>}>
           <Route exact path="/admin" element={<Admin></Admin>} />

@@ -32,7 +32,6 @@ export default function AddCar(props) {
 
   let submit = async (e) => {
     e.preventDefault();
-    console.log("masukkk");
     try {
       let rawData;
       if(props.title === "Edit Car"){
@@ -51,7 +50,7 @@ export default function AddCar(props) {
         })
 
         if(rawData.status !== 200){
-          throw new Error("Update Data Error");
+          throw new Error(rawData.statusText);
         }
       }
       else{
@@ -70,13 +69,13 @@ export default function AddCar(props) {
         })
 
         if(rawData.status !== 201){
-          throw new Error("Upload Data Error");
+          throw new Error(rawData.statusText);
         }
       }
 
       await rawData.json();
       navigate("/admin/list");
-      dispatch(carManipulation("Data Berhasil Disimpan"))
+      dispatch(carManipulation(true))
     } catch (error) {
       setError(error.message);
     }

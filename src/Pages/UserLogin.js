@@ -5,6 +5,8 @@ import {Link, useNavigate} from 'react-router-dom'
 import {Left, Right,UserLoginContainer, InputContainer, Form, RightContainer} from '../Styles/UserLogin'
 import Button from '../Components/Button'
 import { ErrorMessage } from '../Styles/AdminLogin'
+import {useDispatch} from 'react-redux'
+import {isLogin} from '../Redux/Actions/AnimationAction'
 
 export default function UserLogin(props){
     let [name, setName] = useState("");
@@ -12,6 +14,7 @@ export default function UserLogin(props){
     let [password, setPassword] = useState("");
     let [errorMessage, setErrorMessage] = useState("");
     let navigate = useNavigate();
+    let dispatch = useDispatch();
 
     let url = "https://bootcamp-rent-car.herokuapp.com";
     let doAction = async (e) => {
@@ -50,8 +53,10 @@ export default function UserLogin(props){
 
             window.localStorage.setItem("token", data.access_token);
             navigate("/");
+            dispatch(isLogin(true));
         } catch (error) {
             setErrorMessage(error.message);
+            dispatch(isLogin(false));
         }
     }
     return (

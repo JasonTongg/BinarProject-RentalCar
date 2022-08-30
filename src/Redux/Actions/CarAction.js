@@ -47,3 +47,10 @@ export const carManipulation = (payload) => {
         payload
     }
 }
+
+export const CarRentDay = (payload) => {
+    return{
+        type: "Car Rent Day",
+        payload
+    }
+}

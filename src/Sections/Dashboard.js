@@ -3,7 +3,7 @@ import {DashboardContainer, Pwd, Label, InputContainer} from '../Styles/Dashboar
 import {Bar} from 'react-chartjs-2'
 
 export default function Dashboard() {
-  let labels = ['januari', 'febriari', 'maret', 'april', 'mei', 'juni'];
+  let labels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
   let data = {
     labels,
     datasets: [
@@ -15,6 +15,7 @@ export default function Dashboard() {
       },
     ]
   }
+
   return (
     <DashboardContainer>
       <Pwd>Dashboard {`>`} <span> Dashboard </span></Pwd>
