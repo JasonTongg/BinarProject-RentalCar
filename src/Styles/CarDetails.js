@@ -82,6 +82,25 @@ export const CarImage = styled.div`
         width: 100%;
         align-self: center;
     }
+
+    .maxday{
+        margin-top: 1.5rem;
+        color: rgba(0,0,0,.8);
+        width: 100%;
+
+        @media only screen and (max-width: 1300px){
+            text-align: center;
+        }
+    
+        @media only screen and (max-width: 700px){
+            text-align: left;
+        }
+    
+        @media only screen and (max-width: 500px){
+            text-align: center;
+        }
+    }
+
     @media only screen and (max-width: 700px){
         width: 100%;
     }
@@ -112,22 +131,25 @@ export const CarPrice = styled.div`
 export const DateContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 1rem 0;
+    justify-content: flex-start;
+    padding-block: .5rem 1rem;
     gap: .5rem;
     width: 100%;
     cursor: pointer;
 
     @media only screen and (max-width: 1300px){
         flex-direction: column;
+        justify-content: center;
     }
 
     @media only screen and (max-width: 700px){
         flex-direction: row;
+        justify-content: flex-start;
     }
 
     @media only screen and (max-width: 500px){
         flex-direction: column;
+        justify-content: center;
     }
 
     input::-webkit-datetime-edit { 

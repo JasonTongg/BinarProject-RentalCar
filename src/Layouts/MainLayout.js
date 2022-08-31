@@ -5,10 +5,10 @@ import {Container} from "../Styles/MainLayout"
 
 export default function MainLayout(props) {
   useEffect(() => {
-    let child = document.querySelector(".container").childNodes;
+    let child = document.querySelector(".MainContainer")?.childNodes;
 
-    Array.from(child).forEach(item => {
-      if(item.getBoundingClientRect().top <= 700){
+    Array.from(child)?.forEach(item => {
+      if(item.getBoundingClientRect()?.top <= 700){
         item.style.opacity = "1";
         if(item.classList.contains("searchBar")){
           item.style.transform = "translateY(-50px)";
@@ -35,7 +35,7 @@ export default function MainLayout(props) {
   })
 
   return (
-    <Container className='container'>
+    <Container className='MainContainer'>
         <Navbar></Navbar>
           {props.children}
         <Footer classList="footer"></Footer>

@@ -5,7 +5,7 @@ let initialState = {
     AdminSearch: "",
     AdminEdit: {},
     listMessage: false,
-    RentDay: 0
+    RentCar: {}
 }
 
 export const CarReducer = (state = initialState, action) => {

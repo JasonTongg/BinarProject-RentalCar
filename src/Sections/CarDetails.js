@@ -91,7 +91,7 @@ export default function CarDetails() {
                     }
                 }
             }
-            setRentDay(hari);
+            setRentDay(hari+1);
         }
     }, [back, book])
 
@@ -102,12 +102,19 @@ export default function CarDetails() {
         chooseDate.setDate(chooseDate.getUTCDate()+7);
         let futureDate = chooseDate.getFullYear()+'-'+('0'+(chooseDate.getMonth()+1)).slice(-2)+'-'+('0'+(chooseDate.getDate())).slice(-2);
         setMax(futureDate);
-        setMin(bookNow)
+        setMin(bookNow);
         setBook(e.target.value);
     }
 
     let toPayment = () => {
-        dispatch(CarRentDay(rentDay))
+        dispatch(CarRentDay({
+            nama: detail.name,
+            kategori: detail.category,
+            harga: detail.price * rentDay,
+            day: rentDay,
+            mulai: book,
+            akhir: back,
+        }))
         navigate("/payment");
     }
  
@@ -163,6 +170,7 @@ export default function CarDetails() {
                             <p>{detail.category}</p>
                         </div>
                     </CarType>
+                    <p className='maxday'>Tentukan lama sewa mobil (max. 7 hari)</p>
                     <DateContainer>
                         <input 
                             type="text" 
@@ -199,7 +207,7 @@ export default function CarDetails() {
                     </DateContainer>
                     <CarPrice>
                         <h3>Total</h3>
-                        <h3>Rp. {detail.price},-</h3>
+                        <h3>Rp. {rentDay ? detail.price * rentDay : detail.price},-</h3>
                     </CarPrice>
                     
                     {rentDay ? <Button onClick={toPayment}>Lanjutkan Pembayaran</Button> : <Button disabled>Lanjutkan Pembayaran</Button>}

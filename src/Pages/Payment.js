@@ -1,9 +1,9 @@
 import React from 'react'
+import PaymentLayout from '../Layouts/PaymentLayout'
 
 export default function Payment() {
   return (
-    <div>
-      Payment......
-    </div>
+    <PaymentLayout info>
+    </PaymentLayout>
   )
 }
