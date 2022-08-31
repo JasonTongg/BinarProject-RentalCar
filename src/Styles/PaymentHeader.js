@@ -6,6 +6,22 @@ export const Container = styled.div`
     width: 100vw;
     background-color: ${props => props.theme.lighterPrimaryColor};
     padding: 1rem 200px;
+
+    @media only screen and (max-width: 1200px){
+        padding-inline: 100px;
+    }
+
+    @media only screen and (max-width: 1000px){
+        padding-inline: 50px;
+    }
+
+    @media only screen and (max-width: 750px){
+        padding-inline: 25px;
+    }
+
+    @media only screen and (max-width: 375px){
+        height: 220px;
+    }
 `;
 
 export const Items = styled.div`
@@ -14,6 +30,16 @@ export const Items = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media only screen and (max-width: 750px){
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    @media only screen and (max-width: 375px){
+        height: 100%;
+    }
 `;
 
 export const Button = styled(Link)`
@@ -35,8 +61,13 @@ export const Button = styled(Link)`
 export const Pwd = styled.div`
     display: flex;
     align-items: center;
-    alin-items: center;
+    justify-content: center;
     gap: 1rem;
+    flex-wrap: wrap;
+
+    @media only screen and (max-width: 375px){
+        width: 50%;
+    }
 `;
 
 export const PwdItem = styled.div`
@@ -44,6 +75,7 @@ export const PwdItem = styled.div`
     align-items: center;
     justify-content: center;
     gap: .8rem;
+    min-width: 134px;
 `;
 
 export const Icon = styled.div`

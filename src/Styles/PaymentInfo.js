@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    height: 124px;
+    min-height: 124px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
     background-color: white;
     border-radius: 8px;
@@ -10,14 +10,30 @@ export const Container = styled.div`
     align-items: flex-start;
     justify-content: center;
     padding: 30px;
-    margin: 0 auto;
+    margin-inline: auto;
     transform: translateY(-50px) !important;
+
+    @media only screen and (max-width: 1200px){
+        margin-inline: 100px;
+    }
+
+    @media only screen and (max-width: 1000px){
+        margin-inline: 50px;
+    }
+
+    @media only screen and (max-width: 750px){
+        margin-inline: 25px;
+    }
+
+    @media only screen and (max-width: 375px){
+        transform: translateY(0px) !important;
+    }
 `;
 
 export const DataContainer = styled.div`
     width: 100%;
     display: flex;
-    justify-content: space-evently;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: center;
     margin-top: 1rem;

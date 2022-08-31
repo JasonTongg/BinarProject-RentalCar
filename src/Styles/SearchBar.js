@@ -16,7 +16,7 @@ export const BigContainer = styled.div`
         margin-inline: 100px;
     }
 
-    @media only screen and (max-width: 100px){
+    @media only screen and (max-width: 1000px){
         margin-inline: 50px;
     }
 

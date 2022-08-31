@@ -15,6 +15,7 @@ export default function AddCar(props) {
   let [nama, setNama] = useState("");
   let [harga, setHarga] = useState("");
   let [kategori, setKategori] = useState("");
+  let [foto, setFoto] = useState();
   let [error, setError] = useState("");
 
   useEffect(() => {
@@ -64,7 +65,7 @@ export default function AddCar(props) {
             "category": kategori,
             "price": harga,
             "status": false,
-            "image": ""
+            "image": foto,
           })
         })
 
@@ -100,7 +101,7 @@ export default function AddCar(props) {
         <FormItem>
           <label for="foto">Foto*</label>
           <InputContainer>
-            <input type="file" id="foto" placeholder='Upload Foto Mobil' className='upload'></input>
+            <input type="file" id="foto" placeholder='Upload Foto Mobil' className='upload' onChange={(e) => console.log(e.target.value)}></input>
             <p>File size max. 2MB</p>
           </InputContainer>
         </FormItem>

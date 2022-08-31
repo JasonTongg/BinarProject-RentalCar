@@ -15,8 +15,16 @@ export const NavbarContainer = styled.nav`
         width: 100px;
     }
 
-    @media only screen and (max-width: 800px){
+    @media only screen and (max-width: 1000px){
         padding: 25px 100px;
+    }
+
+    @media only screen and (max-width: 800px){
+        padding: 25px 50px;
+    }
+
+    @media only screen and (max-width: 250px){
+        padding: 25px 20px;
     }
 `;
 
@@ -25,6 +33,7 @@ export const NavbarItems = styled.ul`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    list-style: none;
 
     & > *{
         cursor: pointer;
