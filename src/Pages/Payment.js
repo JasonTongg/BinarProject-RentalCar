@@ -1,32 +1,39 @@
 import React, {useState} from 'react'
 import PaymentLayout from '../Layouts/PaymentLayout'
-import {Left, Right, Content, BankContainer, BankItem, Info, DetailHarga, Total, Line, Details, Price, Other, NotInclude} from '../Styles/Payment'
+import {Left, Right, Content, BankContainer, BankItem, Info, DetailHarga, Total, Line, Details, Price, Other, NotInclude, Button} from '../Styles/Payment'
 import {BsCheck2, BsPeople} from 'react-icons/bs'
-import Button from '../Components/Button'
 import { useSelector } from 'react-redux'
 import {RiArrowUpSLine, RiArrowDownSLine} from 'react-icons/ri'
 
 export default function Payment() {
-  let [bca, setBca] = useState(false);
-  let [bni, setBni] = useState(false);
-  let [mandiri, setMandiri] = useState(false);
+  let [bank, setBank] = useState({
+    bca: false,
+    bni: false,
+    mandiri: false
+  });
   let [total, setTotal] = useState(true);
-  let detail = useSelector(state => state.items.RentDay);
+  let detail = useSelector(state => state.items.RentCar);
 
   let checkBca = () => {
-    setBca(!bca);
-    setBni(false);
-    setMandiri(false);
+    setBank({
+      bca: !bank.bca,
+      bni: false,
+      mandiri: false
+    })
   }
   let checkBni = () => {
-    setBca(false);
-    setBni(!bni);
-    setMandiri(false);
+    setBank({
+      bca: false,
+      bni: !bank.bni,
+      mandiri: false,
+    })
   }
   let checkMandiri = () => {
-    setBca(false);
-    setBni(false);
-    setMandiri(!mandiri);
+    setBank({
+      bca: false,
+      bni: false,
+      mandiri: !bank.mandiri,
+    })
   }
 
   let rotate = () => {
@@ -43,17 +50,17 @@ export default function Payment() {
             <BankItem onClick={checkBca}>
               <div>BCA</div>
               <p>BCA Transfer</p>
-              {bca ? <BsCheck2 className='icon'></BsCheck2> : null}
+              {bank.bca ? <BsCheck2 className='icon'></BsCheck2> : null}
             </BankItem>
             <BankItem onClick={checkBni}>
-              <div>BCA</div>
-              <p>BCA Transfer</p>
-              {bni ? <BsCheck2 className='icon'></BsCheck2> : null}
+              <div>BNI</div>
+              <p>BNI Transfer</p>
+              {bank.bni ? <BsCheck2 className='icon'></BsCheck2> : null}
             </BankItem>
             <BankItem onClick={checkMandiri}>
-              <div>BCA</div>
-              <p>BCA Transfer</p>
-              {mandiri ? <BsCheck2 className='icon'></BsCheck2> : null}
+              <div>Mandiri</div>
+              <p>Mandiri Transfer</p>
+              {bank.mandiri ? <BsCheck2 className='icon'></BsCheck2> : null}
             </BankItem>
           </BankContainer>
         </Left>
@@ -70,8 +77,7 @@ export default function Payment() {
             {total ? <RiArrowUpSLine className='icon' onClick={rotate}></RiArrowUpSLine> : <RiArrowDownSLine className='icon' onClick={rotate}></RiArrowDownSLine>}
             <h2 className='total'>Rp. {detail.harga},-</h2>
           </DetailHarga>
-          {total ? 
-            <Details>
+          <Details className={total ? "show" : "hide"}>
               <Price>
                 <h3>Harga</h3>
                 <ul>
@@ -108,15 +114,12 @@ export default function Payment() {
                 </ul>
               </NotInclude>
             </Details>
-          : 
-          null
-          }
           <Line></Line>
           <Total>
             <h2>Total</h2>
             <h2>Rp. {detail.harga},-</h2>
           </Total>
-          <Button size="big">Bayar</Button>
+          {bank.bca || bank.bni || bank.mandiri ? <Button>Bayar</Button> : <Button disabled>Bayar</Button>}
         </Right>
       </Content>
     </PaymentLayout>

@@ -4,7 +4,7 @@ export const Container = styled.section`
     padding: 2rem 196px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100vw;
     gap: 1rem;
 
@@ -23,7 +23,7 @@ export const Container = styled.section`
 `;
 
 export const CarInfo = styled.div`
-    width: 50%;
+    width: 65%;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     padding: 1.5rem;
 
@@ -70,7 +70,7 @@ export const Gone = styled.div`
 `;
 
 export const CarImage = styled.div`
-    width: 50%;
+    width: 35%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -137,35 +137,67 @@ export const DateContainer = styled.div`
     width: 100%;
     cursor: pointer;
 
-    @media only screen and (max-width: 1300px){
-        flex-direction: column;
-        justify-content: center;
+    .react-datepicker__triangle::after, .react-datepicker__triangle::before{
+        width: 0 !important;
+        border: none !important;
+        height: 0 important;
     }
 
-    @media only screen and (max-width: 700px){
-        flex-direction: row;
-        justify-content: flex-start;
+    .react-datepicker-popper[data-placement^=bottom] {
+        padding-top: 0px !important;
     }
 
-    @media only screen and (max-width: 500px){
-        flex-direction: column;
-        justify-content: center;
+    .react-datepicker-popper[data-placement^=top] {
+        padding-bottom: 0px !important;
     }
 
-    input::-webkit-datetime-edit { 
-        color: transparent; 
-        opacity: 0;
-        cursor: pointer;
+    .react-datepicker__header{
+        background-color: white;
+        border-top-right-radius: 0;
+        border-bottom: 0;
+    }
+
+    .react-datepicker__day--in-range, .react-datepicker__day--in-selecting-range{
+        background-color: rgba(232, 246, 241, 1);
+        color: black;
+    }
+
+    .react-datepicker__day--range-end, .react-datepicker__day--range-start, .react-datepicker__day--keyboard-selected{
+        background-color: rgba(53, 176, 167, 1);
+        border-radius: 50%;
+        color: white;
+    }
+
+    .react-datepicker__header{
+        div:first-of-type{
+            margin: 0 !important;
+            height: 30px;
+
+            select{
+                border: none;
+                outline: none;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .react-datepicker__navigation--next, .react-datepicker__navigation--previous{
+        top: 5px;
     }
 
     input{
-        height: calc(16px + 1rem);
-        width: calc(162px + 2rem);
-        text-align: center;
+        width: 100%;
+        text-align: start;
         outline: none;
+        padding: .5rem 1rem;
+        cursor: pointer !important;
 
         &:focus, &:active{
             border: 2px solid rgba(0, 156, 150, 1);
+        }
+
+        &::placeholder{
+            color: rgba(0,0,0,.5);
         }
     }
 `;
@@ -177,8 +209,8 @@ export const Button = styled.button`
     border: none;
     outline: none;
     width: 100%;
-    padding: 1rem;
-    font-size: 1.2rem;
+    padding: .7rem 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
 
     &:disabled{

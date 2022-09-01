@@ -3,14 +3,7 @@ import {Container, DataContainer, DataItem} from '../Styles/PaymentInfo'
 import { useSelector } from 'react-redux/es/exports'
 
 export default function PaymentInfo() {
-    let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
-    let detail = useSelector(state => state.items.RentDay);
-    let mulai = detail.mulai.split("-").reverse();
-    mulai[1] = bulan[+mulai[1]];
-    mulai = mulai.join(" ");
-    let akhir = detail.akhir.split("-").reverse();
-    akhir[1] = bulan[+akhir[1]];
-    akhir = akhir.join(" ");
+    let detail = useSelector(state => state.items.RentCar);
     return (
         <Container>
             <h3>Detail Pesananmu</h3>
@@ -25,11 +18,11 @@ export default function PaymentInfo() {
                 </DataItem>
                 <DataItem>
                     <h4>Tanggal Mulai Sewa</h4>
-                    <p>{mulai}</p>
+                    <p>{detail.mulai}</p>
                 </DataItem>
                 <DataItem>
                     <h4>Tanggal Akhir Sewa</h4>
-                    <p>{akhir}</p>
+                    <p>{detail.akhir}</p>
                 </DataItem>
             </DataContainer>
         </Container>

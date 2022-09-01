@@ -3,12 +3,15 @@ import {Button, Container, CarInfo, Sub, CarImage, CarType, CarPrice, SubHeader,
 import {BsPeople} from 'react-icons/bs'
 import { useSelector, useDispatch } from 'react-redux'
 import {BsChevronDown} from 'react-icons/bs'
+import {AiOutlineCalendar} from 'react-icons/ai'
 import { useEffect } from 'react';
 import DotLoader from "react-spinners/DotLoader";
 import carTemp from '../Assets/carTemp.png'
 import Popup from '../Components/PopupMessage'
 import {CarRentDay} from '../Redux/Actions/CarAction'
 import {useNavigate} from 'react-router-dom'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function CarDetails() {
     let detailId = useSelector(state => state.items.Details);
@@ -17,11 +20,24 @@ export default function CarDetails() {
     let [detail, setDetail] = useState();
     let [loading, setLoading] = useState(true);
     let [error, setError] = useState("");
-    let [max, setMax] = useState("");
-    let [min, setMin] = useState("");
-    let [book, setBook] = useState("");
-    let [back, setBack] = useState("");
     let [rentDay, setRentDay] = useState("");
+    const [dateRange, setDateRange] = useState([new Date(), null]);
+    const [startDate, endDate] = dateRange;
+    const years = [2022,2023,2024,2025]
+    const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
     
     let getData = async () => {
         try {
@@ -72,11 +88,11 @@ export default function CarDetails() {
 
     useEffect(() => {
         let hari = 0;
-        let bookDate = new Date(book).getUTCDate();
-        let backDate = new Date(back).getUTCDate();
-        let bookMonth = new Date(book).getUTCMonth();
+        let bookDate = new Date(startDate).getDate();
+        let backDate = new Date(endDate).getDate();
+        let bookMonth = new Date(startDate).getMonth();
 
-        if(book && back){
+        if(startDate && endDate){
             hari = backDate - bookDate;
             if(hari<0){
                 if(bookMonth % 2 === 1){
@@ -93,27 +109,19 @@ export default function CarDetails() {
             }
             setRentDay(hari+1);
         }
-    }, [back, book])
-
-    let mingguDepan = (e) => {
-        let chooseDate=new Date(e.target.value);
-        let chooseDateTemp = chooseDate;
-        let bookNow = chooseDateTemp.getFullYear()+'-'+('0'+(chooseDateTemp.getMonth()+1)).slice(-2)+'-'+('0'+(chooseDateTemp.getDate())).slice(-2);
-        chooseDate.setDate(chooseDate.getUTCDate()+7);
-        let futureDate = chooseDate.getFullYear()+'-'+('0'+(chooseDate.getMonth()+1)).slice(-2)+'-'+('0'+(chooseDate.getDate())).slice(-2);
-        setMax(futureDate);
-        setMin(bookNow);
-        setBook(e.target.value);
-    }
+    }, [startDate, endDate])
 
     let toPayment = () => {
+        let [, month, date, year] = (startDate + "").split(" ");
+        let [, month2, date2, year2] = (endDate + "").split(" ");
+
         dispatch(CarRentDay({
             nama: detail.name,
             kategori: detail.category,
             harga: detail.price * rentDay,
             day: rentDay,
-            mulai: book,
-            akhir: back,
+            mulai: [date, month, year].join(" "),
+            akhir: [date2, month2, year2].join(" "),
         }))
         navigate("/payment");
     }
@@ -172,44 +180,88 @@ export default function CarDetails() {
                     </CarType>
                     <p className='maxday'>Tentukan lama sewa mobil (max. 7 hari)</p>
                     <DateContainer>
-                        <input 
-                            type="text" 
-                            placeholder="Pilih Tanggal Mulai"
-                            onFocus={(e) => {
-                                e.target.type='date';
-                                e.target.showPicker();
-                            }} 
-                            onBlur={(e) => e.target.type='text'}
-                            onChange={(e) => {
-                                e.target.type="text";
-                                mingguDepan(e);
+                        <DatePicker
+                            selectsRange={true}
+                            startDate={startDate}
+                            endDate={endDate}
+                            onChange={(update) => {
+                                setDateRange(update);
                             }}
-                            min={new Date().toISOString().split('T')[0]}
-                            required
-                        />
-                        <p>To</p>
-                        <input 
-                            type="text" 
-                            placeholder="Pilih Tanggal Akhir Sewa"
-                            onFocus={(e) => {
-                                e.target.type='date';
-                                e.target.showPicker();
-                            }} 
-                            onBlur={(e) => e.target.type='text'}
-                            onChange={(e) => {
-                                e.target.type="text";
-                                setBack(e.target.value);
-                            }}
-                            min={min}
-                            max={max}
-                            required
+                            minDate={startDate ? new Date(startDate) : new Date()}
+                            maxDate={startDate ? new Date(new Date(startDate).setDate(new Date(startDate).getDate()+6)) : null}
+                            isClearable={false}
+                            placeholderText="Pilih tanggal mulai dan tanggal akhir sewa           &#x1F4C5;"
+                            renderCustomHeader={({
+                                date,
+                                changeMonth,
+                                changeYear,
+                                decreaseMonth,
+                                increaseMonth,
+                            }) => (
+                                <div
+                                    style={{
+                                        margin: 10,
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    {date.getMonth() < new Date().getMonth() && date.getFullYear() <= new Date().getFullYear()  ? null : 
+                                        <button onClick={decreaseMonth} className={
+                                            "react-datepicker__navigation react-datepicker__navigation--previous"
+                                        }>
+                                            <span
+                                                className={
+                                                    "react-datepicker__navigation-icon react-datepicker__navigation-icon--previous"
+                                                }
+                                            >
+                                                {"<"}
+                                            </span>
+                                        </button> 
+                                    } 
+                                    <select
+                                        value={months[date.getMonth()]}
+                                        onChange={({ target: { value } }) =>
+                                        changeMonth(months.indexOf(value))
+                                        }
+                                    >
+                                        {months.map((option) => (
+                                        <option key={option} value={option}>
+                                            {option}
+                                        </option>
+                                    ))}
+                                    </select>
+                                    <select
+                                        value={date.getFullYear()}
+                                        onChange={({ target: { value } }) => changeYear(value)}
+                                    >
+                                        {years.map((option) => (
+                                        <option key={option} value={option}>
+                                            {option}
+                                        </option>
+                                        ))}
+                                    </select>                   
+                                    {console.log(date.getMonth(), date.getFullYear())}
+                                    {date.getFullYear() === 2025 && date.getMonth() >= 11 ? null :
+                                        <button onClick={increaseMonth} className={
+                                            "react-datepicker__navigation react-datepicker__navigation--next"
+                                        }>
+                                            <span
+                                                className={
+                                                    "react-datepicker__navigation-icon react-datepicker__navigation-icon--next"
+                                                }
+                                            >
+                                                {">"}
+                                            </span>
+                                        </button>
+                                    }
+                                </div>
+                              )}
                         />
                     </DateContainer>
                     <CarPrice>
                         <h3>Total</h3>
                         <h3>Rp. {rentDay ? detail.price * rentDay : detail.price},-</h3>
                     </CarPrice>
-                    
                     {rentDay ? <Button onClick={toPayment}>Lanjutkan Pembayaran</Button> : <Button disabled>Lanjutkan Pembayaran</Button>}
                 </CarImage>
             </Container>

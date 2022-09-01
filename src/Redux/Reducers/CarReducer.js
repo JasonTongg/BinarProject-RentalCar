@@ -49,7 +49,7 @@ export const CarReducer = (state = initialState, action) => {
         case "Car Rent Day":
             return{
                 ...state,
-                RentDay: payload
+                RentCar: payload
             }
         default:
             return state;

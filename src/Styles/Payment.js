@@ -7,6 +7,7 @@ export const Content = styled.div`
     flex-wrap: wrap;
     width: 100%;
     padding-inline: 200px;
+    gap: 1rem;
 
     & > *{
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
@@ -27,7 +28,7 @@ export const Content = styled.div`
 
 export const Left = styled.div`
     min-width: 300px;
-    width: 50%;
+    width: 49%;
     padding: 2rem;
     border-radius: 10px;
     height: auto;
@@ -64,6 +65,8 @@ export const BankItem = styled.div`
         border: 1px solid rgba(0,0,0,.4);
         border-radius: 5px;
         padding: .5rem 1rem;
+        min-width: 74px;
+        text-align: center;
     }
 
     .icon{
@@ -74,7 +77,7 @@ export const BankItem = styled.div`
 `;
 
 export const Right = styled.div`
-    width: 50%;
+    width: 49%;
     min-width: 300px;
     padding: 2rem;
     display: flex;
@@ -153,6 +156,8 @@ export const Details = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
+    transition: opacity .2s ease-out, height .5s ease-out;
+    z-index: -1;
 
     & > *{
         width: 100%;
@@ -160,6 +165,16 @@ export const Details = styled.div`
 
     & > *:not(:last-child){
         margin-bottom: 1.5rem;
+    }
+
+    &.hide{
+        opacity: 0;
+        height: 0;
+    }
+
+    &.show{
+        opacity: 1;
+        height: 270px;
     }
 `;
 
@@ -215,5 +230,21 @@ export const NotInclude = styled.div`
                 gap: 1rem;
             }
         }
+    }
+`;
+
+export const Button = styled.button`
+    background-color: ${props => props.theme.secondaryColor};
+    color: white;
+    font-weight: bolder;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: .7rem 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    &:disabled{
+        background-color: rgba(53, 176, 167, 0.2);
     }
 `;

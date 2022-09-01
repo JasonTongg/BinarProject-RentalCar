@@ -10,7 +10,7 @@ import Admin from '../Pages/Admin'
 import AdminListCar from '../Pages/ListCar'
 import AddCar from '../Pages/AddCar'
 import Payment from '../Pages/Payment'
-import {Routes, Route, BrowserRouter} from 'react-router-dom'
+import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
 import PrivateRouter from './PrivateRouter'
 import AdminPrivateRouter from './AdminPrivateRoute'
 
@@ -43,7 +43,7 @@ export default function Router() {
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/details" element={<Details />} />
           <Route exact path="/result" element={<Result />} />
-          <Route exact path="/payment" element={<Payment />}></Route>
+          <Route exact path="/payment" element={<Payment />} />
         </Route>
         <Route element={<AdminPrivateRouter></AdminPrivateRouter>}>
           <Route exact path="/admin" element={<Admin></Admin>} />
@@ -55,7 +55,8 @@ export default function Router() {
         <Route exact path ="/login" element={<UserLogin {...userLoginProps}/>} />
         <Route exact path ="/register" element={<UserLogin {...userRegisProps}/>} />
         <Route exact path="/admin/login" element={<AdminLogin />}/>
-        <Route exact path="/*" element={<NotFound />}/>
+        <Route exact path="/*" element={<Navigate to="/404" />}/>
+        <Route exact path="/404" element={<NotFound />}/>
       </Routes>
     </BrowserRouter>
   )
