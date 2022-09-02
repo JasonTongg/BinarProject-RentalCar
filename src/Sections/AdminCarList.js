@@ -151,7 +151,7 @@ export default function AdminCarList() {
                     let time = tanggal[1].slice(0,5);
                     return (
                         <ListItem>
-                            <img src={item.image ? item.image : carTemp} alt="car" />
+                            <img src={item.image } alt="car" />
                             <p>{item.name}</p>
                             <h3>Rp {item.price} / hari</h3>
                             <InfoContainer>

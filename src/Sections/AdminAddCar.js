@@ -5,6 +5,8 @@ import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux';
 import {carManipulation} from '../Redux/Actions/CarAction'
 import Popup from '../Components/PopupMessage'
+import 'react-dropzone-uploader/dist/styles.css'
+import Dropzone from 'react-dropzone-uploader'
 
 export default function AddCar(props) {
   let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
@@ -17,6 +19,7 @@ export default function AddCar(props) {
   let [kategori, setKategori] = useState("");
   let [foto, setFoto] = useState();
   let [error, setError] = useState("");
+  let [place, setPlace] = useState("");
 
   useEffect(() => {
     if(props.title === "Edit Car"){
@@ -29,6 +32,24 @@ export default function AddCar(props) {
 
   let cancel = () => {
     navigate("/admin/list");
+  }
+
+  const toast = (innerHTML) => {
+    setPlace(innerHTML);
+  }
+
+  const getUploadParams = () => {
+    return { url: 'https://httpbin.org/post' }
+  }
+
+  const handleChangeStatus = ({ meta, remove }, status) => {
+    setFoto(meta.previewUrl);
+    if (status === 'headers_received') {
+      toast(`${meta.name} uploaded!`)
+      remove()
+    } else if (status === 'aborted') {
+      toast(`${meta.name}, upload failed...`)
+    }
   }
 
   let submit = async (e) => {
@@ -46,7 +67,7 @@ export default function AddCar(props) {
             "category": kategori,
             "price": harga,
             "status": false,
-            "image": ""
+            "image": foto,
           })
         })
 
@@ -101,7 +122,15 @@ export default function AddCar(props) {
         <FormItem>
           <label for="foto">Foto*</label>
           <InputContainer>
-            <input type="file" id="foto" placeholder='Upload Foto Mobil' className='upload' onChange={(e) => console.log(e.target.value)}></input>
+            <Dropzone
+              getUploadParams={getUploadParams}
+              onChangeStatus={handleChangeStatus}
+              maxFiles={1}
+              multiple={false}
+              canCancel={false}
+              inputContent={place ? place : "Pilih Foto Mobil"}
+              // maxSize={202}
+            />
             <p>File size max. 2MB</p>
           </InputContainer>
         </FormItem>

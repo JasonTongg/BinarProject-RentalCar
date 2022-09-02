@@ -2,8 +2,10 @@ import React, {useState} from 'react'
 import PaymentLayout from '../Layouts/PaymentLayout'
 import {Left, Right, Content, BankContainer, BankItem, Info, DetailHarga, Total, Line, Details, Price, Other, NotInclude, Button} from '../Styles/Payment'
 import {BsCheck2, BsPeople} from 'react-icons/bs'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {RiArrowUpSLine, RiArrowDownSLine} from 'react-icons/ri'
+import {AddPayment} from '../Redux/Actions/CarAction'
+import { useNavigate } from 'react-router-dom'
 
 export default function Payment() {
   let [bank, setBank] = useState({
@@ -13,6 +15,8 @@ export default function Payment() {
   });
   let [total, setTotal] = useState(true);
   let detail = useSelector(state => state.items.RentCar);
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
 
   let checkBca = () => {
     setBank({
@@ -20,20 +24,25 @@ export default function Payment() {
       bni: false,
       mandiri: false
     })
+    dispatch(AddPayment("BCA"));
   }
+
   let checkBni = () => {
     setBank({
       bca: false,
       bni: !bank.bni,
       mandiri: false,
     })
+    dispatch(AddPayment("BNI"));
   }
+
   let checkMandiri = () => {
     setBank({
       bca: false,
       bni: false,
       mandiri: !bank.mandiri,
     })
+    dispatch(AddPayment("Mandiri"));
   }
 
   let rotate = () => {
@@ -41,7 +50,7 @@ export default function Payment() {
   }
 
   return (
-    <PaymentLayout info>
+    <PaymentLayout info active={["active", "", ""]} text="Pembayaran" back="/details">
       <Content>
         <Left>
           <h2>Pilih Bank Transfer</h2>
@@ -119,7 +128,7 @@ export default function Payment() {
             <h2>Total</h2>
             <h2>Rp. {detail.harga},-</h2>
           </Total>
-          {bank.bca || bank.bni || bank.mandiri ? <Button>Bayar</Button> : <Button disabled>Bayar</Button>}
+          {bank.bca || bank.bni || bank.mandiri ? <Button onClick={() => navigate("/payment/transfer")}>Bayar</Button> : <Button disabled>Bayar</Button>}
         </Right>
       </Content>
     </PaymentLayout>

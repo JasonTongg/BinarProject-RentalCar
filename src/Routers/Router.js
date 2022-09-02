@@ -10,6 +10,8 @@ import Admin from '../Pages/Admin'
 import AdminListCar from '../Pages/ListCar'
 import AddCar from '../Pages/AddCar'
 import Payment from '../Pages/Payment'
+import Transfer from '../Pages/Transfer'
+import Tiket from '../Pages/Tiket'
 import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
 import PrivateRouter from './PrivateRouter'
 import AdminPrivateRouter from './AdminPrivateRoute'
@@ -44,6 +46,8 @@ export default function Router() {
           <Route exact path="/details" element={<Details />} />
           <Route exact path="/result" element={<Result />} />
           <Route exact path="/payment" element={<Payment />} />
+          <Route exact path="/payment/transfer" element={<Transfer />} />
+          <Route exact path="/payment/tiket" element={<Tiket />} />
         </Route>
         <Route element={<AdminPrivateRouter></AdminPrivateRouter>}>
           <Route exact path="/admin" element={<Admin></Admin>} />

@@ -9,7 +9,7 @@ export default function PaymentLayout(props) {
     return (
         <Container>
             <Navbar></Navbar>
-            <Header></Header>
+            <Header active={props.active} text={props.text} back={props.back}></Header>
             {props.info ? <PaymentInfo></PaymentInfo> : null}
             {props.children}
             <Footer></Footer>

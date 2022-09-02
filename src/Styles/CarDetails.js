@@ -185,6 +185,17 @@ export const DateContainer = styled.div`
         top: 5px;
     }
 
+    .react-datepicker__close-icon{
+        margin-right: 5px;
+        &::after{
+            background-color: rgba(0, 156, 150, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            content: "X";
+        }
+    }
+
     input{
         width: 100%;
         text-align: start;

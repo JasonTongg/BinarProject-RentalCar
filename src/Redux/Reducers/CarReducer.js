@@ -51,6 +51,14 @@ export const CarReducer = (state = initialState, action) => {
                 ...state,
                 RentCar: payload
             }
+        case "Add Payment":
+            return {
+                ...state,
+                RentCar: {
+                    ...state.RentCar,
+                    payment: payload
+                }
+            }
         default:
             return state;
     }

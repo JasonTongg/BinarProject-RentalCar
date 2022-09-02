@@ -3,11 +3,11 @@ import {Container, Items, Button, Pwd, PwdItem, Icon, Line} from '../Styles/Paym
 import {BsArrowLeft} from 'react-icons/bs'
 
 export default function PaymentHeader(props) {
-    let active = props.active ? props.active : ["active", "", ""];
+    let active = props.active;
     return (
         <Container>
         <Items>
-            <Button to="/details"><BsArrowLeft className='icon'></BsArrowLeft> Pembayaran</Button>
+            <Button to={props.back}><BsArrowLeft className='icon'></BsArrowLeft> {props.text}</Button>
             <Pwd>
                 <PwdItem>
                     <Icon className={active[0]}><p>1</p></Icon>

@@ -54,3 +54,10 @@ export const CarRentDay = (payload) => {
         payload
     }
 }
+
+export const AddPayment = (payload) => {
+    return {
+        type: "Add Payment",
+        payload
+    }
+}

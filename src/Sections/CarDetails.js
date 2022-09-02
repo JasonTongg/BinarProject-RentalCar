@@ -21,9 +21,9 @@ export default function CarDetails() {
     let [loading, setLoading] = useState(true);
     let [error, setError] = useState("");
     let [rentDay, setRentDay] = useState("");
-    const [dateRange, setDateRange] = useState([new Date(), null]);
+    const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
-    const years = [2022,2023,2024,2025]
+    const years = [2022,2023,2024,2025];
     const months = [
         "January",
         "February",
@@ -109,6 +109,9 @@ export default function CarDetails() {
             }
             setRentDay(hari+1);
         }
+        else{
+            setRentDay(0);
+        }
     }, [startDate, endDate])
 
     let toPayment = () => {
@@ -189,8 +192,8 @@ export default function CarDetails() {
                             }}
                             minDate={startDate ? new Date(startDate) : new Date()}
                             maxDate={startDate ? new Date(new Date(startDate).setDate(new Date(startDate).getDate()+6)) : null}
-                            isClearable={false}
-                            placeholderText="Pilih tanggal mulai dan tanggal akhir sewa           &#x1F4C5;"
+                            isClearable={true}
+                            placeholderText="Pilih tanggal mulai dan tanggal akhir sewa"
                             renderCustomHeader={({
                                 date,
                                 changeMonth,
@@ -240,7 +243,6 @@ export default function CarDetails() {
                                         </option>
                                         ))}
                                     </select>                   
-                                    {console.log(date.getMonth(), date.getFullYear())}
                                     {date.getFullYear() === 2025 && date.getMonth() >= 11 ? null :
                                         <button onClick={increaseMonth} className={
                                             "react-datepicker__navigation react-datepicker__navigation--next"
