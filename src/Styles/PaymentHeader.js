@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
-export const Container = styled.div`
-    height: 175px;
+export const Container = styled.div.attrs(props => ({
+    version: props.version
+}))`
+    height: ${props => props.version};
     width: 100vw;
     background-color: ${props => props.theme.lighterPrimaryColor};
     padding: 1rem 200px;
@@ -24,9 +26,11 @@ export const Container = styled.div`
     }
 `;
 
-export const Items = styled.div`
+export const Items = styled.div.attrs(props => ({
+    version: props.version
+}))`
     width: 100%;
-    height: 50%;
+    height: ${props => props.version};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -105,3 +109,7 @@ export const Line = styled.div`
     background-color: ${props => props.theme.primaryColor};
 `;
 
+export const OrderId = styled.p`
+    transform: translateY(-20px);
+    margin-left: 34px;
+`;
