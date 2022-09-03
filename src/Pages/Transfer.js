@@ -1,17 +1,22 @@
 import React, {useState, useEffect} from 'react'
 import PaymentLayout from '../Layouts/PaymentLayout'
 import { useSelector } from 'react-redux'
-import {Left, Right, Container, CountDown, Info, Instruksi, Bank, InputContainer, Buttons, Line, Konfirmasi, Upload, Button, Title} from '../Styles/Transfer'
+import {Left, Right, Container, CountDown, Info, Instruksi, Bank, InputContainer, Buttons, Konfirmasi, Upload, Button, Title} from '../Styles/Transfer'
 import { useNavigate } from 'react-router-dom'
 import {FiCopy} from 'react-icons/fi'
+import {AiOutlineCheck} from 'react-icons/ai'
+import 'react-dropzone-uploader/dist/styles.css'
+import Dropzone from 'react-dropzone-uploader'
 
 export default function Transfer() {
     let text = useSelector(state => state.items.RentCar.payment);
+    let detail = useSelector(state => state.items.RentCar);
     let [konfirmasi, setKonfirmasi] = useState(false);
     let navigate = useNavigate();
-    let [pembayaran, setPembayaran] = useState([23,57,12]);
+    let [pembayaran, setPembayaran] = useState([23,59,59]);
     let [bukti, setBukti] = useState([9,59]);
     let [active, setActive] = useState(["active", "", "", ""]);
+    let [copy, setCopy] = useState(false);
 
     useEffect(() => {
         let [jam, menit, detik] = pembayaran;
@@ -29,6 +34,32 @@ export default function Transfer() {
             setPembayaran([jam,menit,detik]);
         }, 1000)
     }, [])
+
+    let uploadData = async () => {
+        try {
+            let rawData = await window.fetch("https://bootcamp-rent-car.herokuapp.com/customer/order", {
+                method: "POST",
+                headers: {
+                    "access_token": window.localStorage.getItem("token"),
+                    "content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "start_rent_at": detail.mulai,
+                    "finish_rent_at": detail.akhir,
+                    "car_id": detail.id
+                })
+            });
+
+            if(rawData.status !== 201){
+                throw new Error(rawData)
+            }
+
+            await rawData.json();
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
     let upload = () => {
         setKonfirmasi(true);
@@ -43,6 +74,35 @@ export default function Transfer() {
             }
             setBukti([menit,detik]);
         }, 1000)
+    }
+
+    let copyNomor = () => {
+        navigator.clipboard.writeText(54104257877);
+        setCopy([true,copy[1]]);
+        setTimeout(() => {
+            setCopy([false, copy[1]]);
+        }, 2000)
+    }
+
+    let copyHarga = () => {
+        navigator.clipboard.writeText(3500000);
+        setCopy([copy[0],true]);
+        setTimeout(() => {
+            setCopy([copy[0], false]);
+        }, 2000)
+    }
+
+    const getUploadParams = ({ meta }) => {
+        const url = 'https://httpbin.org/post'
+        return { url, meta: { fileUrl: `${url}/${encodeURIComponent(meta.name)}` } }
+    }
+    
+    const handleChangeStatus = ({ meta }, status) => {
+        console.log(status, meta)
+    }
+    
+    const handleSubmit = (files, allFiles) => {
+        allFiles.forEach(f => f.remove())
     }
 
     return (
@@ -66,29 +126,66 @@ export default function Transfer() {
                         <InputContainer>
                             <label for="nomor">Nomor Rekening</label>
                             <input type="text" id='nomor' value="54104257877" disabled/>
-                            <FiCopy className='icon' onClick={() => navigator.clipboard.writeText(54104257877)}></FiCopy>
+                            {copy[0] ? <AiOutlineCheck className='icon'></AiOutlineCheck> : <FiCopy className='icon' onClick={copyNomor}></FiCopy>}
                         </InputContainer>
                         <InputContainer>
                             <label for="nomor">Total Bayar</label>
                             <input type="text" id='nomor' value="Rp. 3.500.000,-" disabled/>
-                            <FiCopy className='icon' onClick={() => navigator.clipboard.writeText(3500000)}></FiCopy>
+                            {copy[1] ? <AiOutlineCheck className='icon'></AiOutlineCheck> : <FiCopy className='icon' onClick={copyHarga}></FiCopy>}
                         </InputContainer>
                     </Info>
                     <Instruksi>
                         <h3>Intruksi Pembayaran</h3>
                         <Buttons>
-                            <button className={active[0]} onClick={() => setActive(["active", "", "", ""])}>ATM BCA</button>
-                            <button className={active[1]} onClick={() => setActive([ "","active","", ""])}>M-BCA</button>
-                            <button className={active[2]} onClick={() => setActive(["", "", "active", ""])}>BCA Klik</button>
+                            <button className={active[0]} onClick={() => setActive(["active", "", "", ""])}>ATM {text}</button>
+                            <button className={active[1]} onClick={() => setActive([ "","active","", ""])}>M-{text}</button>
+                            <button className={active[2]} onClick={() => setActive(["", "", "active", ""])}>{text} Klik</button>
                             <button className={active[3]} onClick={() => setActive(["", "", "", "active"])}>Internet Banking</button>
                         </Buttons>
-                        <Line></Line>
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, voluptate.</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, voluptate. <span>Contoh</span> <span>Ini loh....</span></li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, voluptate.</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, voluptate.</li>
-                        </ul>
+                        {active[0] ? 
+                            <ul>
+                                <li>Masukkan kartu ATM, lalu PIN</li>
+                                <li>menu “Transaksi Lainnya” – "Transfer” – “Ke Rek {text} Virtual Account”</li>
+                                <li> Masukkan nomor {text} Virtual Account: 70020+Order ID<span>Contoh</span> <span> No. Peserta: 12345678, maka ditulis 7002012345678</span></li>
+                                <li>Layar ATM akan menampilkan konfirmasi, ikuti instruksi untuk menyelesaikan transaksi</li>
+                                <li>Ambil dan simpanlah bukti transaksi tersebut</li>
+                            </ul>
+                        :
+                            null
+                        }
+                        {active[1] ? 
+                            <ul>
+                                <li>Masuk ke aplikasi {text} Mobile, lalu PIN</li>
+                                <li>menu “Transaksi Lainnya” – "Transfer” – “Ke Rek {text} Virtual Account”</li>
+                                <li> Masukkan nomor {text} Virtual Account: 70020+Order ID<span>Contoh</span> <span> No. Peserta: 12345678, maka ditulis 7002012345678</span></li>
+                                <li>Layar ATM akan menampilkan konfirmasi, ikuti instruksi untuk menyelesaikan transaksi</li>
+                                <li>Ambil dan simpanlah bukti transaksi tersebut</li>
+                            </ul>
+                        :
+                            null
+                        }
+                        {active[2] ? 
+                            <ul>
+                                <li>Masuk aplikadi M-{text}, lalu PIN</li>
+                                <li>menu “Transaksi Lainnya” – "Transfer” – “Ke Rek {text} Virtual Account”</li>
+                                <li> Masukkan nomor {text} Virtual Account: 70020+Order ID<span>Contoh</span> <span> No. Peserta: 12345678, maka ditulis 7002012345678</span></li>
+                                <li>Layar ATM akan menampilkan konfirmasi, ikuti instruksi untuk menyelesaikan transaksi</li>
+                                <li>Ambil dan simpanlah bukti transaksi tersebut</li>
+                            </ul>
+                        :
+                            null
+                        }
+                        {active[3] ? 
+                            <ul>
+                                <li>Masuk ke internet Banking, lalu PIN</li>
+                                <li>menu “Transaksi Lainnya” – ‘Transfer” – “Ke Rek {text} Virtual Account”</li>
+                                <li> Masukkan nomor {text} Virtual Account: 70020+Order ID<span>Contoh</span> <span> No. Peserta: 12345678, maka ditulis 7002012345678</span></li>
+                                <li>Layar ATM akan menampilkan konfirmasi, ikuti instruksi untuk menyelesaikan transaksi</li>
+                                <li>Ambil dan simpanlah bukti transaksi tersebut</li>
+                            </ul>
+                        :
+                            null
+                        }
                     </Instruksi>
                 </Left>
                 <Right>
@@ -103,8 +200,21 @@ export default function Transfer() {
                             <p>Terima kasih telah melakukan konfirmasi pembayaran. Pembayaranmu akan segera kami cek tunggu kurang lebih 10 menit untuk mendapatkan konfirmasi.</p>
                             <h3>Upload Bukti Pembayaran</h3>
                             <p>Untuk membantu kami lebih cepat melakukan pengecekan. Kamu bisa upload bukti bayarmu</p>
-                            <div className='image'>Image......</div>
-                            <Button onClick={() => navigate("/payment/tiket")}>Upload</Button>
+                            <Dropzone
+                                getUploadParams={getUploadParams}
+                                onChangeStatus={handleChangeStatus}
+                                onSubmit={handleSubmit}
+                                accept="image/*"
+                                inputContent={(files, extra) => (extra.reject ? 'Image, audio and video files only' : "Input File")}
+                                styles={{
+                                    dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                                    inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                                }}
+                            />
+                            <Button onClick={() => {
+                                navigate("/payment/tiket");
+                                uploadData();
+                            }}>Upload</Button>
                         </Upload>
                     :
                         <Konfirmasi>

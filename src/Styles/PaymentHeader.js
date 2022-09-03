@@ -17,12 +17,16 @@ export const Container = styled.div.attrs(props => ({
         padding-inline: 50px;
     }
 
-    @media only screen and (max-width: 750px){
+    @media only screen and (max-width: 865px){
+        height: calc(${props => props.version} + 40px);
+    }
+
+    @media only screen and (max-width: 800px){
         padding-inline: 25px;
     }
 
     @media only screen and (max-width: 375px){
-        height: 220px;
+        height: ${props => props.version ? "260px" : "220px"};
     }
 `;
 
@@ -35,7 +39,7 @@ export const Items = styled.div.attrs(props => ({
     justify-content: space-between;
     align-items: center;
 
-    @media only screen and (max-width: 750px){
+    @media only screen and (max-width: 800px){
         flex-direction: column;
         justify-content: center;
         gap: 1rem;
@@ -112,4 +116,20 @@ export const Line = styled.div`
 export const OrderId = styled.p`
     transform: translateY(-20px);
     margin-left: 34px;
+
+    @media only screen and (max-width: 800px){
+        transform: translateY(0px);
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    @media only screen and (max-width: 568px){
+        margin-top: .5rem;
+    }
+
+    @media only screen and (max-width: 375px){
+        margin-top: 0rem;
+        transform: translateY(-10px);
+    }
 `;

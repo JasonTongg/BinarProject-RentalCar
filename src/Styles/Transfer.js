@@ -1,23 +1,55 @@
 import styled, {keyframes} from 'styled-components'
 
+const show = keyframes`
+    from{
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
+
+const showIcon = keyframes`
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+`;
+
+
 export const Container = styled.div`
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
     padding: 30px 200px;
     width: 100vw;
 
-
     & > *:first-child{
         width: 59%;
-        min-width: 400px;
+        min-width: 450px;
+
+        @media only screen and (max-width: 865px){
+            width: 100% !important;
+        }
+
+        @media only screen and (max-width: 450px){
+            min-width: 0;
+        }
     }
 
     & > *:last-child{
         width: 39%;
         min-width: 300px;
+
+        @media only screen and (max-width: 865px){
+            width: 100% !important;
+        }
     }
 
     @media only screen and (max-width: 1200px){
@@ -50,6 +82,7 @@ export const CountDown = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem;
+    gap: 1rem;
     width: 100%;
     flex-wrap: wrap;
 
@@ -60,11 +93,16 @@ export const CountDown = styled.div`
         justify-content: center;
         gap: 1rem;
         min-width: 150px;
+        text-align: center;
+
+        @media only screen and (max-width: 515px){
+            align-items: center;
+        }
     }
 
     h3{
         display: flex;
-        align-items: center
+        align-items: center;
         justify-content: center;
         min-width: 150px;
         gap: .2rem;
@@ -79,6 +117,10 @@ export const CountDown = styled.div`
         span:nth-of-type(even){
             padding-block: .5rem;
         }
+    }
+
+    @media only screen and (max-width: 515px){
+        justify-content: center;
     }
 `;
 
@@ -96,6 +138,20 @@ export const Info = styled.div`
 
     & > p:nth-of-type(1){
         transform: translateX(90px);
+
+        @media only screen and (max-width: 290px){
+            text-align: center;
+            width: 100%;
+            transform: translateX(0);
+            margin-top: .5rem;
+        }
+    }
+
+    h3{
+        @media only screen and (max-width: 290px){
+            text-align: center;
+            width: 100%;
+        }
     }
 `;
 
@@ -111,6 +167,12 @@ export const Bank = styled.div`
         padding: .5rem 1rem;
         min-width: 74px;
         text-align: center;
+    }
+
+    @media only screen and (max-width: 290px){
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
     }
 `;
 
@@ -141,6 +203,7 @@ export const InputContainer = styled.div`
         top: 28px;
         font-size: 1.2rem;
         cursor: pointer;
+        animation: ${showIcon} .5s ease-out forwards;
     }
 `;
 
@@ -152,13 +215,13 @@ export const Instruksi = styled.div`
     width: 100%;
     padding: 1rem;
     
-    & > *:not(:nth-child(2)){
+    & > *{
         margin-bottom: 1.5rem;
     }
 
     ul{
         padding-inline: 1.2rem;
-        // list-style-type: dot;
+        animation: ${showIcon} .5s ease-out forwards;
 
         & > *:not(:last-child){
             margin-bottom: .8rem;
@@ -166,6 +229,7 @@ export const Instruksi = styled.div`
 
         & > *{
             color: rgba(0,0,0,.6);
+            line-height: 1.2rem;
             
             & > *{
                 display: block;
@@ -191,19 +255,12 @@ export const Buttons = styled.div`
         font-weight: bold;
         font-size: .9rem;
         cursor: pointer;
+        border-bottom: 2px solid rgba(0,0,0,.4);
 
         &.active{
             border-bottom: 2px solid ${props => props.theme.secondaryColor};
         }
     }
-`;
-
-export const Line = styled.div`
-    width: 100%;
-    height: 1px;
-    background-color: rgba(0,0,0,.5);
-    transform: translateY(-1px);
-    z-index: -1;
 `;
 
 export const Right = styled.div`
@@ -216,17 +273,6 @@ export const Right = styled.div`
     & > *{
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
         padding: 1rem;
-    }
-`;
-
-const show = keyframes`
-    from{
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to{
-        opacity: 1;
-        transform: translateY(0);
     }
 `;
 
@@ -274,15 +320,18 @@ export const Upload = styled.div`
         line-height: 20px;
     }
 
-    .image{
-        width: 90%;
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .dzu-dropzone{
+        overflow: hidden;
+        min-width: 0;
+        width: 80%;
         margin-inline: auto;
-        border-radius: 10px;
-        background-color: rgba(0,0,0,.5);
+        height: 200px;
+        border: none;
+        background-color: rgba(0,0,0,.1);
+
+        label{
+            color: black;
+        }
     }
 `;
 

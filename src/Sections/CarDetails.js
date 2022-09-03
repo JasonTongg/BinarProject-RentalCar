@@ -123,6 +123,7 @@ export default function CarDetails() {
             kategori: detail.category,
             harga: detail.price * rentDay,
             day: rentDay,
+            id: detailId,
             mulai: [date, month, year].join(" "),
             akhir: [date2, month2, year2].join(" "),
         }))
