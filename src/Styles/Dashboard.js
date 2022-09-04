@@ -37,7 +37,7 @@ export const InputContainer = styled.div`
     select{
         padding: 9px 12px;
         font-size: 1.2rem;
-        width: 122px;
+        width: 150px;
         outline: none;
     }
 

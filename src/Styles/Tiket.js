@@ -29,6 +29,14 @@ export const Invoice = styled.div`
         align-items: center;
         justify-content: space-between;
 
+        @media only screen and (max-width: 700px){
+            width: 400px;
+        }
+
+        @media only screen and (max-width: 450px){
+            width: 250px;
+        }
+
         button{
             padding: .5rem 1rem;
             background-color: white;
@@ -43,6 +51,12 @@ export const Invoice = styled.div`
 
             .icon{
                 font-size: 1.2rem;
+            }
+        }
+
+        .rpv-core__text-layer, .rpv-core__canvas-layer, .rpv-core__page-layer{
+            @media only screen and (max-width: 350px){
+                display: none;
             }
         }
     }

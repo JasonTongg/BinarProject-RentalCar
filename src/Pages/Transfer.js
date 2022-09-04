@@ -51,7 +51,7 @@ export default function Transfer() {
             });
 
             if(rawData.status !== 201){
-                throw new Error(rawData)
+                throw new Error(rawData.statusText)
             }
 
             await rawData.json();
