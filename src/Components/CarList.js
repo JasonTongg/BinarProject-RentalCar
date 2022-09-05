@@ -82,7 +82,6 @@ function CarList(props) {
                     {posisi === 0 ? null : (<Icon onClick={() => setPosisi(posisi-1)}><BiChevronLeft></BiChevronLeft></Icon>)}
                     {posisi === cutData.length-1 ? null : (<Icon onClick={() => setPosisi(posisi+1)}><BiChevronRight></BiChevronRight></Icon>)}
                 </Buttons> : null}
-                
             </>
         )
     }

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Form = styled.form`
+    
     width: 100%;
     padding: 2rem;
     display: flex;
@@ -17,10 +18,15 @@ export const Form = styled.form`
         & > *{
             border: 2px solid ${props => props.theme.primaryColor};
             padding: .5rem;
+
+            &:disabled{
+                background-color: rgba(0,0,0,.5) !important;
+                border: 2px solid rgba(0,0,0,.5);
+                cursor: default;
+            }
         }
         
         & > *:nth-child(1){
-            
             color:${props => props.theme.primaryColor};
         }
 

@@ -3,7 +3,6 @@ import {Button, Container, CarInfo, Sub, CarImage, CarType, CarPrice, SubHeader,
 import {BsPeople} from 'react-icons/bs'
 import { useSelector, useDispatch } from 'react-redux'
 import {BsChevronDown} from 'react-icons/bs'
-import {AiOutlineCalendar} from 'react-icons/ai'
 import { useEffect } from 'react';
 import DotLoader from "react-spinners/DotLoader";
 import carTemp from '../Assets/carTemp.png'

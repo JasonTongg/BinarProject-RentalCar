@@ -10,6 +10,7 @@ import {AdminEditCar, AdminSearch} from '../Redux/Actions/CarAction'
 import deleteImage from '../Assets/DeletePopUp.png';
 import Popup from '../Components/PopupMessage'
 import {carManipulation} from '../Redux/Actions/CarAction'
+import DotLoader from "react-spinners/DotLoader";
 
 export default function AdminCarList() {
     let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
@@ -26,6 +27,7 @@ export default function AdminCarList() {
     let [errorMessage, setErrorMessage] = useState("");
     let navigate = useNavigate();
     let dispatch = useDispatch();
+    let [loading, setLoading] = useState(true);
 
     useEffect(() => {
         dispatch(AdminSearch(""));
@@ -84,6 +86,7 @@ export default function AdminCarList() {
             }
             
             setList(data);
+            setLoading(false);
         } catch (error) {
             setErrorMessage(error.message);
         }
@@ -128,6 +131,7 @@ export default function AdminCarList() {
         getData();
     }, [active, active24, active46, active68, searchData, isDelete])
 
+    if(loading === false){
     return (
         <BigContainer>
             {errorMessage ? <Popup text={errorMessage}></Popup> : null}
@@ -187,4 +191,12 @@ export default function AdminCarList() {
             : null}
         </BigContainer>
     )
+    }
+    else{
+        return(
+            <BigContainer>
+                <DotLoader color={"#D0d0d0"} size={100} className="load"/>
+            </BigContainer>
+        )
+    }
 }

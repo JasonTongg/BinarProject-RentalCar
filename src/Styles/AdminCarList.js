@@ -4,11 +4,17 @@ export const BigContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justifyy-content: center;
+    justify-content: flex-start;
     margin: 2rem;
     width: calc(100vw - 4rem);
     background: rgba(244, 245, 247, 1);
     padding-top: 78px;
+    min-height: 100vh;
+
+    .load{
+        align-self: center;
+        justify-self: center;
+    }
 `;
 
 export const ListContainer = styled.div`

@@ -17,6 +17,7 @@ export default function Transfer() {
     let [bukti, setBukti] = useState([9,59]);
     let [active, setActive] = useState(["active", "", "", ""]);
     let [copy, setCopy] = useState(false);
+    let [foto, setFoto] = useState();
 
     useEffect(() => {
         let [jam, menit, detik] = pembayaran;
@@ -98,7 +99,8 @@ export default function Transfer() {
     }
     
     const handleChangeStatus = ({ meta }, status) => {
-        console.log(status, meta)
+        console.log(status, meta);
+        setFoto(meta.previewUrl);
     }
     
     const handleSubmit = (files, allFiles) => {
@@ -211,10 +213,15 @@ export default function Transfer() {
                                     inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
                                 }}
                             />
-                            <Button onClick={() => {
-                                navigate("/payment/tiket");
-                                uploadData();
-                            }}>Upload</Button>
+                            {foto ? 
+                                <Button onClick={() => {
+                                    navigate("/payment/tiket");
+                                    uploadData();
+                                }}>Upload</Button>
+                            :
+                                <Button disabled>Upload</Button>
+                            }
+                            
                         </Upload>
                     :
                         <Konfirmasi>

@@ -298,6 +298,11 @@ export const Button = styled.button`
     fonr-weight: bold;
     font-size: 1.1rem;
     cursor: pointer;
+
+    &:disabled{
+        background-color: rgba(0,0,0,.3);
+        border: 2px solid rgba(0,0,0,.3);
+    }
 `;
 
 export const Upload = styled.div`

@@ -169,7 +169,7 @@ export default function AddCar(props) {
         </FormItem>
         <Buttons className='buttons'>
           <Button onClick={cancel}>Cancel</Button>
-          <Button onClick={submit}>Save</Button>
+          {foto ? <Button onClick={submit}>Save</Button> : <Button onClick={submit} disabled>Save</Button>}
         </Buttons>
       </Form>
     </BigContainer>
