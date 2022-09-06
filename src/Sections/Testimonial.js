@@ -1,6 +1,5 @@
 import React from 'react'
 import {BigContainer, Container, SlideItem, Buttons, Icon, Fragment, SlideInfo, Icons} from '../Styles/Testimonial'
-import { useEffect } from 'react'
 import {BiChevronLeft, BiChevronRight} from 'react-icons/bi'
 import Testi1 from '../Assets/Testimoni-1.jpeg'
 import Testi2 from '../Assets/Testimoni-2.jpeg'
