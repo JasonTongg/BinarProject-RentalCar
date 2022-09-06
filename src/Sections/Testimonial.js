@@ -24,11 +24,6 @@ export default function Testimonial() {
             curr=0;
         }
 
-        setInterval(() => {
-            curr++;
-            console.log("jalan");
-        }, 1000)
-
         let slider = document.querySelector(".slider");
         slider.style.transform = `translateX(-${curr*width + 28*curr}px)`;
     }
