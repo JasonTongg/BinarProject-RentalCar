@@ -2,7 +2,7 @@ import React from 'react'
 import PaymentLayout from '../Layouts/PaymentLayout'
 import Check from '../Assets/check.gif'
 import {Container, Invoice, InvoiceText} from '../Styles/Tiket'
-import {FiDownload} from 'react-icons/fi'
+// import {FiDownload} from 'react-icons/fi'
 import { Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import { Worker } from "@react-pdf-viewer/core";

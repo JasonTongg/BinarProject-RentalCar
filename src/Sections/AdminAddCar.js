@@ -27,7 +27,7 @@ export default function AddCar(props) {
       setHarga(EditItem.price);
       setKategori(EditItem.category);
     }
-  }, [])
+  }, [EditItem.name, EditItem.price, EditItem.category, props.title])
   
 
   let cancel = () => {
@@ -44,6 +44,7 @@ export default function AddCar(props) {
 
   const handleChangeStatus = ({ meta, remove }, status) => {
     setFoto(meta.previewUrl);
+    console.log(meta);
     if (status === 'headers_received') {
       toast(`${meta.name} uploaded!`)
       remove()
@@ -129,7 +130,7 @@ export default function AddCar(props) {
               multiple={false}
               canCancel={false}
               inputContent={place ? place : "Pilih Foto Mobil"}
-              // maxSize={202}
+              maxSize={202}
             />
             <p>File size max. 2MB</p>
           </InputContainer>

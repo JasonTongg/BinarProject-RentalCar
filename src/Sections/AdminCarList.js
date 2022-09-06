@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {BigContainer, ListContainer, Pwd, Category, CategoryContainer, InfoContainer, ListItem, Buttons, Button, Container, DeleteContainer, DeleteInfo, Overlay, ButtonContainer, DeleteButton} from '../Styles/AdminCarList'
-import carTemp from '../Assets/carTemp.png'
+// import carTemp from '../Assets/carTemp.png'
 import {BsPeople, BsClock} from 'react-icons/bs'
 import {FiTrash, FiEdit} from 'react-icons/fi'
 import {BsPlusLg} from 'react-icons/bs'
@@ -34,7 +34,7 @@ export default function AdminCarList() {
         setTimeout(() => {
             dispatch(carManipulation(false));
         }, 2000)
-    }, [])
+    }, [dispatch])
 
     let clicked = () => {
         setActive(!active)
@@ -59,37 +59,6 @@ export default function AdminCarList() {
         setActive24(false);
         setActive46(false);
         setActive68(!active68);
-    }
-
-    let getData = async () => {
-        try {
-            let rawData = await window.fetch("https://bootcamp-rent-car.herokuapp.com/admin/car");
-
-            if(rawData.status !== 200){
-                throw new Error(rawData.statusText);
-            }
-
-            let data = await rawData.json(); 
-            
-            if(active24){
-                data = data.filter(item => item.category === "2 - 4 orang");
-            }
-            else if(active46){
-                data = data.filter(item => item.category === "4 - 6 orang");
-            }
-            else if(active68){
-                data = data.filter(item => item.category === "6 - 8 orang");
-            }
-
-            if(searchData){
-                data = data.filter(item => item.name?.toLowerCase()?.includes(searchData?.toLowerCase()));
-            }
-            
-            setList(data);
-            setLoading(false);
-        } catch (error) {
-            setErrorMessage(error.message);
-        }
     }
 
     let toEdit = (data) => {
@@ -128,6 +97,36 @@ export default function AdminCarList() {
     }
 
     useEffect(() => {
+        let getData = async () => {
+            try {
+                let rawData = await window.fetch("https://bootcamp-rent-car.herokuapp.com/admin/car");
+    
+                if(rawData.status !== 200){
+                    throw new Error(rawData.statusText);
+                }
+    
+                let data = await rawData.json(); 
+                
+                if(active24){
+                    data = data.filter(item => item.category === "2 - 4 orang");
+                }
+                else if(active46){
+                    data = data.filter(item => item.category === "4 - 6 orang");
+                }
+                else if(active68){
+                    data = data.filter(item => item.category === "6 - 8 orang");
+                }
+    
+                if(searchData){
+                    data = data.filter(item => item.name?.toLowerCase()?.includes(searchData?.toLowerCase()));
+                }
+                
+                setList(data);
+                setLoading(false);
+            } catch (error) {
+                setErrorMessage(error.message);
+            }
+        }
         getData();
     }, [active, active24, active46, active68, searchData, isDelete])
 

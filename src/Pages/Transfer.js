@@ -34,7 +34,7 @@ export default function Transfer() {
             detik-=1;
             setPembayaran([jam,menit,detik]);
         }, 1000)
-    }, [])
+    }, [pembayaran])
 
     let uploadData = async () => {
         try {

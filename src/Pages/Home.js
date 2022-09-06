@@ -18,7 +18,7 @@ export default function Home() {
     setTimeout( ()=> {
       dispatch(isLogin(false));
     }, 2000)
-  }, [])
+  }, [dispatch])
 
   return (
     <React.Fragment>

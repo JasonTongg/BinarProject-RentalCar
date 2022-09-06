@@ -37,22 +37,6 @@ export default function CarDetails() {
         "November",
         "December",
       ];
-    
-    let getData = async () => {
-        try {
-            setLoading(true)
-            let raw = await fetch(`https://bootcamp-rent-car.herokuapp.com/admin/car/${detailId}`);
-            if(raw.status !== 200){
-                throw new Error(raw.statusText);
-            }
-
-            let data = await raw.json();
-            setDetail(data);
-            setLoading(false);
-        } catch (error) {
-            setError(error.message);
-        }
-    }
 
     let show = () => {
         let height = 150;
@@ -82,8 +66,23 @@ export default function CarDetails() {
     }
 
     useEffect(() => {
+        let getData = async () => {
+            try {
+                setLoading(true)
+                let raw = await fetch(`https://bootcamp-rent-car.herokuapp.com/admin/car/${detailId}`);
+                if(raw.status !== 200){
+                    throw new Error(raw.statusText);
+                }
+    
+                let data = await raw.json();
+                setDetail(data);
+                setLoading(false);
+            } catch (error) {
+                setError(error.message);
+            }
+        }
         getData();
-    }, [])
+    }, [detailId])
 
     useEffect(() => {
         let hari = 0;

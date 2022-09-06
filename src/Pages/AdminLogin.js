@@ -4,15 +4,11 @@ import Logo from '../Assets/Logo.png'
 import {Link, useNavigate} from 'react-router-dom'
 import { InputContainer, Left as Right} from '../Styles/UserLogin'
 import Button from '../Components/Button'
-import { useDispatch } from 'react-redux/es/exports'
-
 
 export default function AdminLogin() {
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [errorMessage, setErrorMessage] = useState("");
-
-    let dispatch = useDispatch();
     let navigate = useNavigate();
 
     let url = "https://bootcamp-rent-car.herokuapp.com";

@@ -9,7 +9,6 @@ import {useDispatch} from 'react-redux'
 import {isLogin} from '../Redux/Actions/AnimationAction'
 
 export default function UserLogin(props){
-    let [name, setName] = useState("");
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [errorMessage, setErrorMessage] = useState("");
@@ -82,7 +81,7 @@ export default function UserLogin(props){
                     <>
                         <InputContainer>
                             <label for="nama">Name*</label>
-                            <input type="text" id='nama' placeholder='Nama Lengkap' required onChange={(e) => setName(e.target.value)}/>
+                            <input type="text" id='nama' placeholder='Nama Lengkap' required/>
                         </InputContainer>
                         <InputContainer>
                             <label for="email">Email*</label>

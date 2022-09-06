@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom'
 
 export default function AdminSideNavbar(props) {
     let dispatch = useDispatch();
-    let [text, setText] = useState(props.type);
+    let [text] = useState(props.type);
     let navigate = useNavigate();
 
     let close = () => {
