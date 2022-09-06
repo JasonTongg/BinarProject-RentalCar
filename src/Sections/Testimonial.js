@@ -11,9 +11,18 @@ import {AiFillStar} from 'react-icons/ai'
 export default function Testimonial() {
     let curr=0;
 
-    useEffect(() => {
-      ToLeft();
-    })
+    let ToLeft = () => {
+        let slides = document.querySelectorAll(".slides");
+        let width = slides[1].getBoundingClientRect().width;
+
+        curr--;
+        if(curr<0){
+            curr=3;
+        }
+
+        let slider = document.querySelector(".slider");
+        slider.style.transform = `translateX(-${curr*width + 28*curr}px)`;
+    }
 
     let ToRight = () => {   
         let slides = document.querySelectorAll(".slides");
@@ -27,19 +36,6 @@ export default function Testimonial() {
         let slider = document.querySelector(".slider");
         slider.style.transform = `translateX(-${curr*width + 28*curr}px)`;
     }
-
-    let ToLeft = () => {
-        let slides = document.querySelectorAll(".slides");
-        let width = slides[1].getBoundingClientRect().width;
-
-        curr--;
-        if(curr<0){
-            curr=3;
-        }
-
-        let slider = document.querySelector(".slider");
-        slider.style.transform = `translateX(-${curr*width + 28*curr}px)`;
-    }
     
     return (
         <BigContainer className='testi'>
@@ -47,8 +43,8 @@ export default function Testimonial() {
             <p>Berbagai review positif dari para pelanggan kami</p>
             <Fragment>
                 <Container className='slider'>
-                    {[Testi1,Testi2,Testi3,Testi4].map((item, idx) => (
-                        <SlideItem className='slides' key={idx}>
+                    {[Testi1,Testi2,Testi3,Testi4].map(item => (
+                        <SlideItem className='slides'>
                             <img src={item} alt="TestimoniImage" />
                             <SlideInfo>
                                 <Icons>
