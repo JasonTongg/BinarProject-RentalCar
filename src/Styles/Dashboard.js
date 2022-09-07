@@ -39,7 +39,7 @@ export const BarContainer = styled.div`
     align-self: center;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
 
     @media only screen and (max-width: 600px){
         overflow: scroll;
@@ -47,12 +47,19 @@ export const BarContainer = styled.div`
     }
 
     canvas{
-        width: 90% !important;
-        height: 400px !important;
+        width: 80% !important;
+        height: 550px !important;
+
+        @media only screen and (max-width: 1000px){
+            width: 90% !important;
+            height: 450px !important;
+        }
 
         @media only screen and (max-width: 600px){
             width: 477px !important;
             height: 300px !important;
+            min-width: 477px;
+            min-height: 300px;
         }
     }
 `;

@@ -54,7 +54,8 @@ export const InputContainer = styled.div`
     }
 
     input{
-        z-index: -20;
+        // z-index: -10;
+
         @media only screen and (max-width: 400px){
             width: 70%;
         }
@@ -97,5 +98,4 @@ export const BigContainer = styled.div`
     height: 100vh;
     background-color: rgba(0,0,0,.5);
     transition: all 0s;
-    z-index: -10;
 `;
