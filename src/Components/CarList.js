@@ -65,7 +65,7 @@ function CarList(props) {
     if(loading === false) {
         return (
             <>
-                <Container className='carList'>
+                <Container className='carList' show>
                     {cutData[posisi]?.map(item => 
                     (
                         <CarItem key={item.id}>
@@ -88,7 +88,7 @@ function CarList(props) {
     else {
         if(isLoading === true){
             return (
-                <Container className='loadContainer carList'>
+                <Container className='loadContainer carList' show>
                     <DotLoader color={"#D0d0d0"} loading={loading} size={100}/>
                 </Container>
             )

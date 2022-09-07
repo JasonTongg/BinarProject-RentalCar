@@ -5,34 +5,46 @@ import {Container} from "../Styles/MainLayout"
 
 export default function MainLayout(props) {
   useEffect(() => {
-    let child = document.querySelector(".MainContainer")?.childNodes;
+      let child = document.querySelector(".MainContainer")?.childNodes;
 
-    Array.from(child)?.forEach(item => {
-      if(item.getBoundingClientRect()?.top <= 700){
-        item.style.opacity = "1";
-        if(item.classList.contains("searchBar")){
-          item.style.transform = "translateY(-50px)";
-        }
-        else{
+      Array.from(child)?.forEach(item => {
+        if(props.show){
+          item.style.opacity = "1";
           item.style.transform = "translateY(0)";
         }
-      }
-    })
-
-    window.addEventListener("scroll", () => {
-      Array.from(child).forEach(item => {
-        if(item.getBoundingClientRect().top <= 700){
-          item.style.opacity = "1";
-          if(item.classList.contains("searchBar")){
-            item.style.transform = "translateY(-50px)";
-          }
-          else{
-            item.style.transform = "translateY(0)";
+        else{
+          if(item.getBoundingClientRect()?.top <= 700){
+            item.style.opacity = "1";
+            if(item.classList.contains("searchBar")){
+              item.style.transform = "translateY(-50px)";
+            }
+            else{
+              item.style.transform = "translateY(0)";
+            }
           }
         }
       })
-    })    
-  })
+
+      window.addEventListener("scroll", () => {
+        Array.from(child).forEach(item => {
+          if(props.show){
+            item.style.opacity = "1";
+            item.style.transform = "translateY(0)";
+          }
+          else{
+            if(item.getBoundingClientRect().top <= 700){
+              item.style.opacity = "1";
+              if(item.classList.contains("searchBar")){
+                item.style.transform = "translateY(-50px)";
+              }
+              else{
+                item.style.transform = "translateY(0)";
+              }
+            }
+          }
+        })
+      })   
+  }, [props.show])
 
   return (
     <Container className='MainContainer'>

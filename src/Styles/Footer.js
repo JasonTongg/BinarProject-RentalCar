@@ -3,13 +3,15 @@ import styled from 'styled-components'
 export const FooterContainer = styled.footer`
     display: flex;
     flex-wrap: wrap;
-    padding: 100px 173px 50px 173px;
+    padding: 50px 173px 50px 173px;
     justify-content: space-between;
     align-items: center;
     width: 100vw;
+    position: relative;
+    z-index: -1;
 
     @media only screen and (max-width: 800px){
-        padding: 50px 100px 25px 100px;
+        padding: 20px 100px 25px 100px;
     }
 
     @media only screen and (max-width: 500px){
@@ -28,7 +30,8 @@ export const Address = styled.div`
     margin-bottom: 10px;
     
     & > *{
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        line-height: 2rem;
     }
 
     @media only screen and (max-width: 1500px){
@@ -47,8 +50,9 @@ export const Menu = styled.ul`
     margin-bottom: 10px;
     
     & > *{
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
         cursor: pointer;
+        line-height: 2rem;
     }
 
     & > *{

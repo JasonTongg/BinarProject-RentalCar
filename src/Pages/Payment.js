@@ -54,7 +54,7 @@ export default function Payment() {
       <Content>
         <Left>
           <h2>Pilih Bank Transfer</h2>
-          <p>Kamu bisa membayar dengan transfer melalui ATM, Internet Banking atau Mobile Banking</p>
+          <p className='text'>Kamu bisa membayar dengan transfer melalui ATM, Internet Banking atau Mobile Banking</p>
           <BankContainer>
             <BankItem onClick={checkBca}>
               <div>BCA</div>
@@ -93,7 +93,7 @@ export default function Payment() {
                   <li>
                     <div>
                       <p>Sewa Mobil Rp. {detail.harga/detail.day} x {detail.day} Hari</p>
-                      <p>Rp. {detail.harga},-</p>
+                      <p className='detail'>Rp. {detail.harga},-</p>
                     </div>
                   </li>
                 </ul>

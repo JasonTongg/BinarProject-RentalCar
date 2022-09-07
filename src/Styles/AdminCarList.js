@@ -23,6 +23,10 @@ export const ListContainer = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
     padding-block: 25px;
+
+    @media only screen and (max-width: 300px){
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
 `;
 
 export const ListItem = styled.div`
@@ -45,6 +49,10 @@ export const ListItem = styled.div`
         padding: 31px 17px;
         margin: 0;
         align-self: center;
+    }
+
+    @media only screen and (max-width: 300px){
+        padding-inline: 0;
     }
 `;
 
@@ -192,6 +200,11 @@ export const DeleteContainer = styled.div`
     text-align: center;
     border-radius: 10px;
     animation: ${show} .35s linear forwards;
+
+    @media only screen and (max-width: 400px){
+        width: 95%;
+        padding: 10px;
+    }
 `;
 
 export const DeleteInfo = styled.div`
@@ -221,7 +234,6 @@ export const DeleteButton = styled.button`
     border-radius: 3px;
     cursor: pointer;
 
-
     &:nth-of-type(1){
         background-color: ${props => props.theme.primaryColor};
         border: 2px solid ${props => props.theme.primaryColor};
@@ -232,5 +244,10 @@ export const DeleteButton = styled.button`
         background-color: transparent;
         border: 2px solid ${props => props.theme.primaryColor};
         color: ${props => props.theme.primaryColor};
+    }
+
+    @media only screen and (max-width: 400px){
+        min-width: 0;
+        width: 48%;
     }
 `;

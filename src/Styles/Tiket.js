@@ -12,6 +12,11 @@ export const Container = styled.div`
     img{
         width: 100px;
     }
+
+    h2,p{
+        text-align: center;
+        line-height: 1.5rem;
+    }
 `;
 
 export const Invoice = styled.div`

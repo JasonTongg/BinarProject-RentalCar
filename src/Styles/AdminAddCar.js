@@ -20,9 +20,10 @@ export const Form = styled.form`
             padding: .5rem;
 
             &:disabled{
-                background-color: rgba(0,0,0,.5) !important;
-                border: 2px solid rgba(0,0,0,.5);
+                background-color: ${props => props.theme.lightPrimaryColor} !important;
+                border: 2px solid ${props => props.theme.lightPrimaryColor};
                 cursor: default;
+                color: white;
             }
         }
         
@@ -83,6 +84,11 @@ export const InputContainer = styled.div`
         align-items: flex-start;
         margin-bottom: .5rem;
         border: 1px solid rgba(0,0,0,.6);
+        z-index: -1;
+
+        @media only screen and (max-width: 660px){
+            width: 100%;
+        }
         
         label{
             font-size: 15px;

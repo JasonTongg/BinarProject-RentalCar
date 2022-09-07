@@ -6,7 +6,7 @@ import {Left, Right,UserLoginContainer, InputContainer, Form, RightContainer} fr
 import Button from '../Components/Button'
 import { ErrorMessage } from '../Styles/AdminLogin'
 import {useDispatch} from 'react-redux'
-import {isLogin} from '../Redux/Actions/AnimationAction'
+import {isLogin, navbar} from '../Redux/Actions/AnimationAction'
 
 export default function UserLogin(props){
     let [email, setEmail] = useState("");
@@ -44,15 +44,17 @@ export default function UserLogin(props){
                     })
                 })
             }
-            if(rawData.status !== 201){
-                throw new Error(rawData.statusText);
-            }
 
             let data = await rawData.json();
+
+            if(rawData.status !== 201){
+                throw new Error(data.errors[0].message);
+            }
 
             window.localStorage.setItem("token", data.access_token);
             navigate("/");
             dispatch(isLogin(true));
+            dispatch(navbar());
         } catch (error) {
             setErrorMessage(error.message);
             dispatch(isLogin(false));

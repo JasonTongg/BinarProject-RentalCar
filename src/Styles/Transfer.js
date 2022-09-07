@@ -95,6 +95,10 @@ export const CountDown = styled.div`
         min-width: 150px;
         text-align: center;
 
+        & > *{
+            line-height: 1.5rem;
+        }
+
         @media only screen and (max-width: 515px){
             align-items: center;
         }
@@ -300,8 +304,9 @@ export const Button = styled.button`
     cursor: pointer;
 
     &:disabled{
-        background-color: rgba(0,0,0,.3);
-        border: 2px solid rgba(0,0,0,.3);
+        background: #DEF1DF;
+        color: white;
+        cursor: default;
     }
 `;
 

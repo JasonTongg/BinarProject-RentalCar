@@ -26,11 +26,12 @@ export default function AdminLogin() {
                     "password": password
                 })
             })
-            if(rawData.status !== 201){
-                throw new Error(rawData.statusText);
-            }
 
             let data = await rawData.json();
+
+            if(rawData.status !== 201){
+                throw new Error(data.message ? data.message : data.errors[0].message);
+            }
 
             window.localStorage.setItem("Admin Token", data.access_token);
             navigate("/admin");

@@ -11,6 +11,8 @@ import {CarRentDay} from '../Redux/Actions/CarAction'
 import {useNavigate} from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
+import NotFoundImage from '../Assets/NotFound.jpg'
+import { SmallContainer } from '../Styles/CarList'
 
 export default function CarDetails() {
     let detailId = useSelector(state => state.items.Details);
@@ -18,6 +20,7 @@ export default function CarDetails() {
     let navigate = useNavigate();
     let [detail, setDetail] = useState();
     let [loading, setLoading] = useState(true);
+    let [isLoading, setIsLoading] = useState(true);
     let [error, setError] = useState("");
     let [rentDay, setRentDay] = useState("");
     const [dateRange, setDateRange] = useState([null, null]);
@@ -70,11 +73,13 @@ export default function CarDetails() {
             try {
                 setLoading(true)
                 let raw = await fetch(`https://bootcamp-rent-car.herokuapp.com/admin/car/${detailId}`);
+
+                let data = await raw.json();
+
                 if(raw.status !== 200){
-                    throw new Error(raw.statusText);
+                    throw new Error(data.message ? data.message : data.errors[0].message);
                 }
     
-                let data = await raw.json();
                 setDetail(data);
                 setLoading(false);
             } catch (error) {
@@ -127,6 +132,13 @@ export default function CarDetails() {
         }))
         navigate("/payment");
     }
+
+    useEffect(() => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 5000)
+    }, [loading])
  
     if(loading === false){
         return (
@@ -268,11 +280,22 @@ export default function CarDetails() {
             </Container>
         )
     }
-    else{
-        return (
-            <Container>
-                <DotLoader color={"#D0d0d0"} loading={loading} size={100}/>
-            </Container>
-        )
+    else {
+        if(isLoading === true){
+            return (
+                <Container>
+                    <DotLoader color={"#D0d0d0"} loading={loading} size={100}/>
+                </Container>
+            )
+        }
+        else{
+            return (
+                <SmallContainer className='loadContainer carList'>
+                    <img src={NotFoundImage} alt="Not Found" />
+                    <h1>Waduh mobil yang anda cari nga ada!!</h1>
+                    <p>Pastikan jaringan internet anda berjalan dengan baik...</p>
+                </SmallContainer>
+            )
+        }
     }
 }

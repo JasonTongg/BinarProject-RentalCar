@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {BigContainer, ListContainer, Pwd, Category, CategoryContainer, InfoContainer, ListItem, Buttons, Button, Container, DeleteContainer, DeleteInfo, Overlay, ButtonContainer, DeleteButton} from '../Styles/AdminCarList'
-// import carTemp from '../Assets/carTemp.png'
+import carTemp from '../Assets/carTemp.png'
 import {BsPeople, BsClock} from 'react-icons/bs'
 import {FiTrash, FiEdit} from 'react-icons/fi'
 import {BsPlusLg} from 'react-icons/bs'
@@ -11,6 +11,8 @@ import deleteImage from '../Assets/DeletePopUp.png';
 import Popup from '../Components/PopupMessage'
 import {carManipulation} from '../Redux/Actions/CarAction'
 import DotLoader from "react-spinners/DotLoader";
+import { SmallContainer } from '../Styles/CarList'
+import NotFoundImage from '../Assets/NotFoundGray.jpg'
 
 export default function AdminCarList() {
     let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
@@ -28,6 +30,7 @@ export default function AdminCarList() {
     let navigate = useNavigate();
     let dispatch = useDispatch();
     let [loading, setLoading] = useState(true);
+    let [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         dispatch(AdminSearch(""));
@@ -74,12 +77,12 @@ export default function AdminCarList() {
                   "content-type": "application/json"
                 },
             })
+            
+            let data = await rawData.json();
 
             if(rawData.status !== 200){
-                throw new Error(rawData.statusText)
+                throw new Error(data.message ? data.message : data.errors[0].message)
             }
-            
-            await rawData.json();
             setIsDelete(false);
             setDeleteSuccess(true);
 
@@ -100,12 +103,12 @@ export default function AdminCarList() {
         let getData = async () => {
             try {
                 let rawData = await window.fetch("https://bootcamp-rent-car.herokuapp.com/admin/car");
+
+                let data = await rawData.json(); 
     
                 if(rawData.status !== 200){
-                    throw new Error(rawData.statusText);
+                    throw new Error(data.message ? data.message : data.errors[0].message);
                 }
-    
-                let data = await rawData.json(); 
                 
                 if(active24){
                     data = data.filter(item => item.category === "2 - 4 orang");
@@ -129,6 +132,13 @@ export default function AdminCarList() {
         }
         getData();
     }, [active, active24, active46, active68, searchData, isDelete])
+
+    useEffect(() => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 5000)
+    }, [loading])
 
     if(loading === false){
     return (
@@ -154,7 +164,7 @@ export default function AdminCarList() {
                     let time = tanggal[1].slice(0,5);
                     return (
                         <ListItem>
-                            <img src={item.image } alt="car" />
+                            <img src={item.image ? item.image : carTemp} alt="car" />
                             <p>{item.name}</p>
                             <h3>Rp {item.price} / hari</h3>
                             <InfoContainer>
@@ -192,10 +202,21 @@ export default function AdminCarList() {
     )
     }
     else{
-        return(
-            <BigContainer>
-                <DotLoader color={"#D0d0d0"} size={100} className="load"/>
-            </BigContainer>
-        )
+        if(isLoading === true){
+            return(
+                <BigContainer>
+                    <DotLoader color={"#D0d0d0"} size={100} className="load"/>
+                </BigContainer>
+            )
+        }
+        else{
+            return (
+                <SmallContainer className='loadContainer carList height'>
+                    <img src={NotFoundImage} alt="Not Found" />
+                    <h1>Waduh mobil yang anda cari nga ada!!</h1>
+                    <p>Pastikan jaringan internet anda berjalan dengan baik...</p>
+                </SmallContainer>
+            )
+        }
     }
 }

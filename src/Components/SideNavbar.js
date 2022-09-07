@@ -6,9 +6,11 @@ import {FaTimes} from 'react-icons/fa'
 import {navbar} from '../Redux/Actions/AnimationAction'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import Button from '../Components/Button'
 
 export default function SideNavbar() {
-    let navbarToggle = useSelector(state => state.animations.navbar)
+    let navbarToggle = useSelector(state => state.animations.navbar);
+    let isLogin = window.localStorage.getItem("token");
     let dispatch = useDispatch();
     let navigate = useNavigate();
 
@@ -51,6 +53,11 @@ export default function SideNavbar() {
         navigate("/");
     }
 
+    let removeToken = () => {
+        window.localStorage.removeItem("token");
+        window.location.reload();
+      }
+
     if(navbarToggle === true){
         return (
             <React.Fragment>
@@ -63,6 +70,8 @@ export default function SideNavbar() {
                         <li onClick={scrollWhy}>Why Us</li>
                         <li onClick={scrollTestimonial}>Testimonial</li>
                         <li onClick={scrollFaq}>FAQ</li>
+                        {isLogin ? <Link to=""><Button action={removeToken}>Logout</Button></Link> : <Link to="/login"><Button>Login</Button></Link>}
+                        <Link to="/admin"><Button>Admin</Button></Link>
                         <FaTimes className='close' onClick={closeNavbar}></FaTimes>
                     </SideNavbarContainer>
                 </Sidenavbar>

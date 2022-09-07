@@ -27,6 +27,7 @@ export const PopupContainer = styled.div.attrs(props => ({
     z-index: 100;
     border-radius: 10px;
     font-weight: bolder;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     animation: ${show} 2s linear forwards;
+    text-align: center;
 `;

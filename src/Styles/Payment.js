@@ -37,8 +37,17 @@ export const Left = styled.div`
         margin-bottom: 1rem;
     }
 
+    .text{
+        line-height: 1.5rem;
+    }
+
     @media only screen and (max-width: 1000px){
         width: 100%;
+    }
+
+    @media only screen and (max-width: 300px){
+        min-width: 0;
+        text-align: center;
     }
 `;
 
@@ -73,6 +82,15 @@ export const BankItem = styled.div`
         font-size: 1.7rem;
         color: ${props => props.theme.secondaryColor};
         margin-left: auto;
+
+        @media only screen and (max-width: 300px){
+            margin-left: 0;
+        }
+    }
+
+    @media only screen and (max-width: 300px){
+        flex-direction: column;
+        justify-content: center;
     }
 `;
 
@@ -91,6 +109,10 @@ export const Right = styled.div`
 
     @media only screen and (max-width: 1000px){
         width: 100%;
+    }
+
+    @media only screen and (max-width: 300px){
+        min-width: 0;
     }
 `;
 
@@ -135,6 +157,12 @@ export const DetailHarga = styled.div`
     p{
         font-size: 1.5rem;
     }
+
+    @media only screen and (max-width: 430px){
+        .total{
+            display: none;
+        }
+    }
 `;
 
 export const Total = styled.div`
@@ -142,6 +170,12 @@ export const Total = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    @media only screen and (max-width: 430px){
+        flex-direction: column;
+        justify-content: center;
+        gap: .5rem;
+    }
 `;
 
 export const Line = styled.div`
@@ -161,10 +195,18 @@ export const Details = styled.div`
 
     & > *{
         width: 100%;
+
+        @media only screen and (max-width: 430px){
+            text-align: center;
+        }
     }
 
     & > *:not(:last-child){
         margin-bottom: 1.5rem;
+
+        @media only screen and (max-width: 430px){
+            margin-bottom: 1rem;
+        }
     }
 
     &.hide{
@@ -175,21 +217,38 @@ export const Details = styled.div`
     &.show{
         opacity: 1;
         height: 270px;
+
+        @media only screen and (max-width: 430px){
+            height: 330px;
+        }
     }
 `;
 
 export const Price = styled.div`
+
     ul{
         list-style-type: disc;
         margin-left: 1rem;
 
+        @media only screen and (max-width: 430px){
+            list-style-type: none;
+        }
+
         li{
             margin-block: 1rem;
+
             div{
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 gap: 1rem;
+                line-height: 1.5rem;
+
+                @media only screen and (max-width: 430px){
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: .5rem;
+                }
             }
         }
     }
@@ -199,6 +258,10 @@ export const Other = styled.div`
     ul{
         list-style-type: disc;
         margin-left: 1rem;
+
+        @media only screen and (max-width: 430px){
+            list-style-type: none;
+        }
 
         li{
             margin-block: 1rem;
@@ -211,6 +274,12 @@ export const Other = styled.div`
                 p:nth-of-type(2){
                     color: ${props => props.theme.secondaryColor};
                 }
+
+                @media only screen and (max-width: 430px){
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: .5rem;
+                }
             }
         }
     }
@@ -220,6 +289,10 @@ export const NotInclude = styled.div`
     ul{
         list-style-type: disc;
         margin-left: 1rem;
+
+        @media only screen and (max-width: 430px){
+            list-style-type: none;
+        }
 
         li{
             margin-block: 1rem;

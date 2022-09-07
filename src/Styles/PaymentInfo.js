@@ -25,6 +25,10 @@ export const Container = styled.div`
         margin-inline: 25px;
     }
 
+    @media only screen and (max-width: 603px){
+        align-items: center;
+    }
+
     @media only screen and (max-width: 375px){
         transform: translateY(0px) !important;
     }
@@ -39,6 +43,7 @@ export const DataContainer = styled.div`
     margin-top: 1rem;
     position: relative;   
     gap: 1rem;
+
 `;
 
 export const DataItem = styled.div`
@@ -59,5 +64,13 @@ export const DataItem = styled.div`
 
     p{
         color: rgba(0,0,0,.5);
+    }
+
+    @media only screen and (max-width: 603px){
+        align-items: center;
+    }
+
+    @media only screen and (max-width: 350px){
+        width: auto;
     }
 `;

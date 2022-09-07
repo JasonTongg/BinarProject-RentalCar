@@ -44,7 +44,6 @@ export default function AddCar(props) {
 
   const handleChangeStatus = ({ meta, remove }, status) => {
     setFoto(meta.previewUrl);
-    console.log(meta);
     if (status === 'headers_received') {
       toast(`${meta.name} uploaded!`)
       remove()
@@ -72,8 +71,10 @@ export default function AddCar(props) {
           })
         })
 
+        let data = await rawData.json();
+
         if(rawData.status !== 200){
-          throw new Error(rawData.statusText);
+          throw new Error(data.message ? data.message : data.errors[0].message);
         }
       }
       else{
@@ -91,12 +92,13 @@ export default function AddCar(props) {
           })
         })
 
+        let data = await rawData.json();
+
         if(rawData.status !== 201){
-          throw new Error(rawData.statusText);
+          throw new Error(data.message ? data.message : data.errors[0].message);
         }
       }
 
-      await rawData.json();
       navigate("/admin/list");
       dispatch(carManipulation(true))
     } catch (error) {

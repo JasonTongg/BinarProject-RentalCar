@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import PaymentLayout from '../Layouts/PaymentLayout'
 import { useSelector } from 'react-redux'
 import {Left, Right, Container, CountDown, Info, Instruksi, Bank, InputContainer, Buttons, Konfirmasi, Upload, Button, Title} from '../Styles/Transfer'
@@ -7,34 +7,46 @@ import {FiCopy} from 'react-icons/fi'
 import {AiOutlineCheck} from 'react-icons/ai'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
+import useState from 'react-usestateref'
+import Popup from '../Components/PopupMessage'
 
 export default function Transfer() {
     let text = useSelector(state => state.items.RentCar.payment);
     let detail = useSelector(state => state.items.RentCar);
     let [konfirmasi, setKonfirmasi] = useState(false);
     let navigate = useNavigate();
-    let [pembayaran, setPembayaran] = useState([23,59,59]);
-    let [bukti, setBukti] = useState([9,59]);
+    let [pembayaran, setPembayaran, pembayaranRef] = useState([23,59,59]);
+    let [bukti, setBukti, buktiRef] = useState([9,59]);
     let [active, setActive] = useState(["active", "", "", ""]);
     let [copy, setCopy] = useState(false);
     let [foto, setFoto] = useState();
+    let [error, setError] = useState();
 
     useEffect(() => {
-        let [jam, menit, detik] = pembayaran;
         setInterval(() => {
-            if(menit===0 && detik===0){
-                jam=jam-1;
-                menit=60;
-                detik=60;
-            }
-            else if(detik===0){
+            let [jam, menit, detik] = pembayaranRef.current;
+
+            if(detik===0){
                 menit=menit-1;
                 detik=60;
             }
+
+            if(menit === 0){
+                if(detik === 0){
+                    jam=jam-1;
+                    menit=59;
+                    detik=60;
+                }
+                else{
+                    jam=jam-1;
+                    menit=59;
+                }
+            }
+
             detik-=1;
             setPembayaran([jam,menit,detik]);
         }, 1000)
-    }, [pembayaran])
+    }, [pembayaranRef, setPembayaran])
 
     let uploadData = async () => {
         try {
@@ -51,21 +63,21 @@ export default function Transfer() {
                 })
             });
 
+            let data = await rawData.json();
+
             if(rawData.status !== 201){
-                throw new Error(rawData.statusText)
+                throw new Error(data.message ? data.message : data.errors[0].message);
             }
-
-            await rawData.json();
-
         } catch (error) {
-            console.log(error);
+            setError(error.message);
         }
     }
     
     let upload = () => {
         setKonfirmasi(true);
-        let [menit, detik] = bukti;
         setInterval(() => {
+            let [menit, detik] = buktiRef.current;
+            
             if(detik===0){
                 menit=menit-1;
                 detik=59;
@@ -81,15 +93,15 @@ export default function Transfer() {
         navigator.clipboard.writeText(54104257877);
         setCopy([true,copy[1]]);
         setTimeout(() => {
-            setCopy([false, copy[1]]);
+            setCopy([false, false]);
         }, 2000)
     }
 
     let copyHarga = () => {
-        navigator.clipboard.writeText(3500000);
+        navigator.clipboard.writeText(detail.harga);
         setCopy([copy[0],true]);
         setTimeout(() => {
-            setCopy([copy[0], false]);
+            setCopy([false, false]);
         }, 2000)
     }
 
@@ -110,6 +122,7 @@ export default function Transfer() {
     return (
         <PaymentLayout active={["active", "active", ""]} text={`${text} Transfer`} back="/payment" version="2">
             <Container>
+            {error ? <Popup text={error}></Popup> : null}
                 <Left>
                     <CountDown>
                         <div>
@@ -132,7 +145,7 @@ export default function Transfer() {
                         </InputContainer>
                         <InputContainer>
                             <label for="nomor">Total Bayar</label>
-                            <input type="text" id='nomor' value="Rp. 3.500.000,-" disabled/>
+                            <input type="text" id='nomor' value={`Rp. ${detail.harga},-`} disabled/>
                             {copy[1] ? <AiOutlineCheck className='icon'></AiOutlineCheck> : <FiCopy className='icon' onClick={copyHarga}></FiCopy>}
                         </InputContainer>
                     </Info>
@@ -216,12 +229,13 @@ export default function Transfer() {
                             {foto ? 
                                 <Button onClick={() => {
                                     navigate("/payment/tiket");
-                                    uploadData();
+                                    if(error === false){
+                                        uploadData();
+                                    }
                                 }}>Upload</Button>
                             :
                                 <Button disabled>Upload</Button>
                             }
-                            
                         </Upload>
                     :
                         <Konfirmasi>

@@ -12,6 +12,7 @@ const show = keyframes`
 export const Container = styled.div`
     height: 100vh;
     width: 350px;
+    max-width: 100vw;
     color: white;
     position: absolute;
     background-color: white;
@@ -20,9 +21,11 @@ export const Container = styled.div`
     left: 0;
     top: 0;
     animation: ${show} .3s linear backwards;
+    z-index: 100;
 
     @media only screen and (max-width: 350px){
         width: auto;
+        grid-template-columns: 78px calc(100vw - 78px);
     }
 `;
 
@@ -69,6 +72,7 @@ export const Right = styled.div`
     display: grid;
     grid-template-rows: repeat(2, 78px) 50px;
     color: black;
+    background: white;
 
     img{
         width: 100px;

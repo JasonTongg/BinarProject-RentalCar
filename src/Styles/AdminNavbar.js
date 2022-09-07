@@ -16,6 +16,10 @@ export const Navbar = styled.nav`
         cursor: pointer;
         color: rgba(0,0,0,0.5);
     }
+
+    @media only screen and (max-width: 400px){
+        padding: 1rem 2rem;
+    }
 `;
 
 export const NavbarItem = styled.div`
@@ -28,6 +32,10 @@ export const NavbarItem = styled.div`
         width: 300px;
         justify-content: flex-end;
     }
+
+    @media only screen and (max-width: 450px){
+        width: 200px;
+    }
 `;
 
 export const InputContainer = styled.div`
@@ -37,8 +45,23 @@ export const InputContainer = styled.div`
     justify-content: center;
     align-items: center;
 
+    @media only screen and (max-width: 450px){
+        width: 100%;
+    }
+
     input, button{
         padding: .5rem 1rem;
+    }
+
+    input{
+        z-index: -20;
+        @media only screen and (max-width: 400px){
+            width: 70%;
+        }
+
+        @media only screen and (max-width: 300px){
+            width: 50%;
+        }
     }
 
     button{
@@ -53,6 +76,8 @@ export const Profile = styled.div`
     display: flex;
     justofy-content: center;
     align-items: center;
+    position: relative;
+    z-index: -20;
 
     p{
         margin-left: .5rem;
@@ -62,4 +87,15 @@ export const Profile = styled.div`
     @media only screen and (max-width: 600px){
         display: none;
     }
+`;
+
+export const BigContainer = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,.5);
+    transition: all 0s;
+    z-index: -10;
 `;

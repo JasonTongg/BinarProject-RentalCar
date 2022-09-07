@@ -8,15 +8,19 @@ export const Container = styled.section`
     width: 100vw;
     gap: 1rem;
 
+    & li{
+        line-height: 1.5rem;
+    }
+
     @media only screen and (max-width: 1200px){
         padding: 2rem 100px;
     }
 
-    @media only screen and (max-width: 750px){
+    @media only screen and (max-width: 850px){
         padding: 2rem 25px;
     }
 
-    @media only screen and (max-width: 700px){
+    @media only screen and (max-width: 750px){
         flex-direction: column;
         align-items: center;
     }
@@ -31,7 +35,7 @@ export const CarInfo = styled.div`
         font-size: 14px;
     }
 
-    @media only screen and (max-width: 700px){
+    @media only screen and (max-width: 750px){
         width: 100%;
     }
 `;
@@ -92,7 +96,7 @@ export const CarImage = styled.div`
             text-align: center;
         }
     
-        @media only screen and (max-width: 700px){
+        @media only screen and (max-width: 750px){
             text-align: left;
         }
     
@@ -101,7 +105,7 @@ export const CarImage = styled.div`
         }
     }
 
-    @media only screen and (max-width: 700px){
+    @media only screen and (max-width: 750px){
         width: 100%;
     }
 `;
@@ -194,6 +198,10 @@ export const DateContainer = styled.div`
             justify-content: center;
             content: "X";
         }
+    }
+
+    .react-datepicker-popper{
+        z-index: 1000;
     }
 
     input{

@@ -7,7 +7,7 @@ import CarList from '../Components/CarList'
 export default function Search() {
   return (
     <React.Fragment>
-      <MainLayout>
+      <MainLayout show>
         <Hero nobutton></Hero>
         <SearchBar search></SearchBar>
         <CarList empty></CarList>

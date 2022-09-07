@@ -7,7 +7,7 @@ export const NavbarContainer = styled.nav`
     align-items: center;
     width: 100vw;
     background-color: ${props => props.theme.lighterPrimaryColor};
-    transition: all 1s ease-out;
+    transition: all .5s ease-out;
     z-index: 100;
     position: relative;
 
@@ -15,12 +15,12 @@ export const NavbarContainer = styled.nav`
         width: 100px;
     }
 
-    @media only screen and (max-width: 1000px){
-        padding: 25px 100px;
+    @media only screen and (max-width: 1200px){
+        padding: 25px 90px;
     }
 
     @media only screen and (max-width: 800px){
-        padding: 25px 50px;
+        padding: 25px 30px;
     }
 
     @media only screen and (max-width: 250px){
@@ -29,7 +29,7 @@ export const NavbarContainer = styled.nav`
 `;
 
 export const NavbarItems = styled.ul`
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

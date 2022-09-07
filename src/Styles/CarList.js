@@ -28,6 +28,10 @@ export const SmallContainer = styled.div`
     transform: none !important;
     transition: none !important;
     opacity: 1 !important;
+    
+    &.height{
+        min-height: 100vh;
+    }
 
     @media only screen and (max-width: 1000px){
         padding: 0 100px;

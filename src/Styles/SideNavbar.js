@@ -13,6 +13,7 @@ export const SideNavbarContainer = styled.ul`
         font-size: 1.5rem;
         margin-bottom: 2rem;
         cursor: pointer;
+        list-style: none;
 
         &:not:(:last-of-type){
             margin-bottom: 1rem;
@@ -40,6 +41,7 @@ const slideIn = keyframes`
 export const Sidenavbar = styled.nav`
     height: 250vh;
     width: 300px;
+    max-width: 100vw;
     position: fixed;
     top: 0;
     right: 0;
