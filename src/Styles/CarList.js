@@ -28,6 +28,21 @@ export const SmallContainer = styled.div`
     transform: none !important;
     transition: none !important;
     opacity: 1 !important;
+
+    .errorh1, .errorp{
+        text-align: center;
+    }
+
+    .errorp{
+        line-height: 1rem;
+    }
+
+    .errorh1{
+        line-height: 1.5rem;
+        @media only screen and (max-width: 300px){
+            font-size: 1.2rem;
+        }
+    }
     
     &.height{
         min-height: 100vh;

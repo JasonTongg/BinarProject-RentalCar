@@ -292,8 +292,8 @@ export default function CarDetails() {
             return (
                 <SmallContainer className='loadContainer carList'>
                     <img src={NotFoundImage} alt="Not Found" />
-                    <h1>Waduh mobil yang anda cari nga ada!!</h1>
-                    <p>Pastikan jaringan internet anda berjalan dengan baik...</p>
+                    <h1 className='errorh1'>Waduh mobil yang anda cari nga ada!!</h1>
+                    <p className='errorp'>Pastikan jaringan internet anda berjalan dengan baik...</p>
                 </SmallContainer>
             )
         }

@@ -97,8 +97,8 @@ function CarList(props) {
             return (
                 <SmallContainer className='loadContainer carList'>
                     <img src={NotFoundImage} alt="Not Found" />
-                    <h1>Waduh mobil yang anda cari nga ada!!</h1>
-                    <p>Coba cari tipe atau kategori lain...</p>
+                    <h1 className='errorh1'>Waduh mobil yang anda cari nga ada!!</h1>
+                    <p className='errorp'>Coba cari tipe atau kategori lain...</p>
                 </SmallContainer>
             )
         }

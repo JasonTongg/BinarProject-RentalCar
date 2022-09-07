@@ -238,8 +238,8 @@ export default function Dashboard() {
           return (
               <SmallContainer className='loadContainer carList height'>
                   <img src={NotFoundImage} alt="Not Found" />
-                  <h1>Waduh mobil yang anda cari nga ada!!</h1>
-                  <p>Pastikan jaringan internet anda berjalan dengan baik...</p>
+                  <h1 style={{lineHeight: "1.5rem", textAlign: "center"}}>Waduh mobil yang anda cari nga ada!!</h1>
+                  <p style={{lineHeight: "1.5rem", textAlign: "center"}}>Pastikan jaringan internet anda berjalan dengan baik...</p>
               </SmallContainer>
           )
       }
