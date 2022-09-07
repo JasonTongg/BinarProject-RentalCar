@@ -70,8 +70,8 @@ export default function SideNavbar() {
                         <li onClick={scrollWhy}>Why Us</li>
                         <li onClick={scrollTestimonial}>Testimonial</li>
                         <li onClick={scrollFaq}>FAQ</li>
-                        {isLogin ? <Link to=""><Button action={removeToken}>Logout</Button></Link> : <Link to="/login"><Button>Login</Button></Link>}
-                        <Link to="/admin"><Button>Admin</Button></Link>
+                        {isLogin ? <Link to=""><Button action={removeToken}>Logout</Button></Link> : <Link to="/login" onClick={closeNavbar}><Button>Login</Button></Link>}
+                        <Link to="/admin" onClick={closeNavbar}><Button>Admin</Button></Link>
                         <FaTimes className='close' onClick={closeNavbar}></FaTimes>
                     </SideNavbarContainer>
                 </Sidenavbar>

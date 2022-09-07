@@ -251,3 +251,11 @@ export const DeleteButton = styled.button`
         width: 48%;
     }
 `;
+
+export const BigContainerLoading = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;

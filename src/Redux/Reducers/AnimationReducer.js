@@ -11,7 +11,7 @@ export const AnimationReducer = (state = initialState, action) => {
         case "Navbar Clicked": 
             return {
                 ...state,
-                navbar: (state.navbar===true ? false : true)
+                navbar: payload ? payload : (state.navbar===true ? false : true)
             }
         case "Admin Navbar Clicked":
             return {

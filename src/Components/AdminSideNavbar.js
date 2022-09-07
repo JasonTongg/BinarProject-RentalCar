@@ -56,7 +56,10 @@ export default function AdminSideNavbar(props) {
             </Left>
             <Right>
                 <NavbarContainer>
-                    <img src={Logo} alt="logo" />
+                    <img src={Logo} alt="logo" onClick={() => {
+                        navigate("/");
+                        close();
+                    }}/>
                 </NavbarContainer>
                 <NavbarContainer>
                     <h3>{text === "Dashboard" ? text : "CARS"}</h3>

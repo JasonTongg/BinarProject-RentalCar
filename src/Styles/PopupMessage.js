@@ -21,7 +21,8 @@ export const PopupContainer = styled.div.attrs(props => ({
     position: fixed;
     left: 50%;
     top: 100px;
-    padding: 1.5rem 10rem;
+    padding: 1.5rem 3rem;
+    min-width: 300px;
     background-color: ${props => props.color};
     color: white;
     z-index: 100;

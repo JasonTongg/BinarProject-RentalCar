@@ -132,7 +132,7 @@ export default function AddCar(props) {
               multiple={false}
               canCancel={false}
               inputContent={place ? place : "Pilih Foto Mobil"}
-              maxSize={202}
+              maxSize={2097152}
             />
             <p>File size max. 2MB</p>
           </InputContainer>

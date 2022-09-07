@@ -84,7 +84,7 @@ export const InputContainer = styled.div`
         align-items: flex-start;
         margin-bottom: .5rem;
         border: 1px solid rgba(0,0,0,.6);
-        z-index: -1;
+        position: static;
 
         @media only screen and (max-width: 660px){
             width: 100%;
@@ -93,9 +93,11 @@ export const InputContainer = styled.div`
         label{
             font-size: 15px;
             color: rgba(0,0,0,.6);
-            justify-content: flex-start;
             padding: 1rem;
             font-weight: bolder;
+            position: static;
+            width: 100%;
+            justify-content: flex-start;
         }
     }
 

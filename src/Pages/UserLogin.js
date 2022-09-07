@@ -6,7 +6,7 @@ import {Left, Right,UserLoginContainer, InputContainer, Form, RightContainer} fr
 import Button from '../Components/Button'
 import { ErrorMessage } from '../Styles/AdminLogin'
 import {useDispatch} from 'react-redux'
-import {isLogin, navbar} from '../Redux/Actions/AnimationAction'
+import {isLogin} from '../Redux/Actions/AnimationAction'
 
 export default function UserLogin(props){
     let [email, setEmail] = useState("");
@@ -54,7 +54,6 @@ export default function UserLogin(props){
             window.localStorage.setItem("token", data.access_token);
             navigate("/");
             dispatch(isLogin(true));
-            dispatch(navbar());
         } catch (error) {
             setErrorMessage(error.message);
             dispatch(isLogin(false));

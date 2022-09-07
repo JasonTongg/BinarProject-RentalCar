@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {BigContainer, ListContainer, Pwd, Category, CategoryContainer, InfoContainer, ListItem, Buttons, Button, Container, DeleteContainer, DeleteInfo, Overlay, ButtonContainer, DeleteButton} from '../Styles/AdminCarList'
+import {BigContainer, ListContainer, Pwd, Category, CategoryContainer, InfoContainer, ListItem, Buttons, Button, Container, DeleteContainer, DeleteInfo, Overlay, ButtonContainer, DeleteButton, BigContainerLoading} from '../Styles/AdminCarList'
 import carTemp from '../Assets/carTemp.png'
 import {BsPeople, BsClock} from 'react-icons/bs'
 import {FiTrash, FiEdit} from 'react-icons/fi'
@@ -204,9 +204,9 @@ export default function AdminCarList() {
     else{
         if(isLoading === true){
             return(
-                <BigContainer>
+                <BigContainerLoading>
                     <DotLoader color={"#D0d0d0"} size={100} className="load"/>
-                </BigContainer>
+                </BigContainerLoading>
             )
         }
         else{

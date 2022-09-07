@@ -7,7 +7,7 @@ import CarList from '../Components/CarList'
 export default function Result() {
   return (
     <React.Fragment>
-      <MainLayout>
+      <MainLayout show>
         <Hero></Hero>
         <SearchBar edits></SearchBar>
         <CarList></CarList>

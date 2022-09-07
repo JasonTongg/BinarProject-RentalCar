@@ -21,7 +21,7 @@ export const Container = styled.div`
     left: 0;
     top: 0;
     animation: ${show} .3s linear backwards;
-    z-index: 100;
+    z-index: 1000;
 
     @media only screen and (max-width: 350px){
         width: auto;
@@ -73,6 +73,8 @@ export const Right = styled.div`
     grid-template-rows: repeat(2, 78px) 50px;
     color: black;
     background: white;
+    z-index: 100;
+    position: relative;
 
     img{
         width: 100px;

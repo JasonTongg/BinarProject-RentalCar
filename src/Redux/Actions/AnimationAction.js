@@ -1,6 +1,7 @@
-export const navbar = () => {
+export const navbar = (payload) => {
     return {
-        type: "Navbar Clicked"
+        type: "Navbar Clicked",
+        payload
     }
 }
 
