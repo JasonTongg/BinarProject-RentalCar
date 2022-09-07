@@ -96,6 +96,7 @@ export default function UserLogin(props){
                     
                     <Button size="big" background={props => props.theme.primaryColor}>{props.button}</Button>
                     <p>{props.text[0]} <Link to={props.text[2]}>{props.text[1]}</Link></p>
+                    <Link to="/admin" className='admin'>Login as Admin &rarr;</Link>
                 </Form>
             </Left>
             <Right>

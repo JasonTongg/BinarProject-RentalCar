@@ -103,6 +103,7 @@ export default function Navbar() {
         <li onClick={scrollTestimonial}>Testimonial</li>
         <li onClick={scrollFaq}>FAQ</li>
         {isLogin ? <Button action={removeToken}>Logout</Button> : <Link to="/login"><Button>Login</Button></Link>}
+        <Link to="/admin"><Button>Admin</Button></Link>
       </NavbarItems>
       <BurgerNavbar>
         <GiHamburgerMenu className="burger" onClick={openNavbar}></GiHamburgerMenu>

@@ -124,6 +124,10 @@ const show = keyframes`
 export const Form = styled.form`
     width: 50%;
     animation: ${show} .5s linear;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 
     @media only screen and (max-width: 700px){
         width: 65%;
@@ -146,12 +150,25 @@ export const Form = styled.form`
     p{
         text-align: center;
         margin-top: 2rem;
+        align-self: center;
 
         a{
             color: ${props => props.theme.primaryColor};
             font-weight: bolder;
             margin-left: 8px;
         }
+    }
+
+    .admin{
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        align-self: center;
+        margin-top: 1rem;
+        padding: .7rem 1.5rem;
+        background-color: ${props => props.theme.primaryColor};
+        border-radius: 5px;
     }
 `;
 
