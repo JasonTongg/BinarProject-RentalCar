@@ -130,6 +130,7 @@ export default function CarDetails() {
             mulai: [date, month, year].join(" "),
             akhir: [date2, month2, year2].join(" "),
         }))
+        
         navigate("/payment");
     }
 

@@ -82,12 +82,17 @@ export const InputContainer = styled.div`
         min-height: 0;
         overflow: hidden;
         align-items: flex-start;
+        justify-content: center;
         margin-bottom: .5rem;
         border: 1px solid rgba(0,0,0,.6);
         position: static;
 
         @media only screen and (max-width: 660px){
             width: 100%;
+        }
+
+        @media only screen and (max-width: 400px){
+            height: 60px;
         }
         
         label{

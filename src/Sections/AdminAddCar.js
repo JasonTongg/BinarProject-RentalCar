@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
 import {BigContainer, Pwd, Container, Buttons, Button} from '../Styles/AdminCarList'
 import {Form, FormItem, InputContainer} from '../Styles/AdminAddCar'
 import {useNavigate} from 'react-router-dom'
@@ -7,6 +7,7 @@ import {carManipulation} from '../Redux/Actions/CarAction'
 import Popup from '../Components/PopupMessage'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
+import useState from 'react-usestateref'
 
 export default function AddCar(props) {
   let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
@@ -17,9 +18,16 @@ export default function AddCar(props) {
   let [nama, setNama] = useState("");
   let [harga, setHarga] = useState("");
   let [kategori, setKategori] = useState("");
-  let [foto, setFoto] = useState();
+  let [foto, setFoto, fotoRef] = useState();
   let [error, setError] = useState("");
   let [place, setPlace] = useState("");
+
+  useEffect(() => {
+    if(props.title === "Edit Car"){
+      setFoto(EditItem.image);
+      toast(`${EditItem.image.split("/")[7].split("?")[0]} uploaded!`);
+    }
+  }, [EditItem, props.title, setFoto])
 
   useEffect(() => {
     if(props.title === "Edit Car"){
@@ -42,8 +50,11 @@ export default function AddCar(props) {
     return { url: 'https://httpbin.org/post' }
   }
 
-  const handleChangeStatus = ({ meta, remove }, status) => {
-    setFoto(meta.previewUrl);
+  const handleChangeStatus = async ({ meta, remove }, status) => {
+    if(meta.status === "done"){
+      setFoto(meta.previewUrl);
+    }
+
     if (status === 'headers_received') {
       toast(`${meta.name} uploaded!`)
       remove()
@@ -67,7 +78,7 @@ export default function AddCar(props) {
             "category": kategori,
             "price": harga,
             "status": false,
-            "image": foto,
+            "image": fotoRef.current,
           })
         })
 
@@ -88,7 +99,7 @@ export default function AddCar(props) {
             "category": kategori,
             "price": harga,
             "status": false,
-            "image": foto,
+            "image": fotoRef.current,
           })
         })
 
@@ -105,6 +116,13 @@ export default function AddCar(props) {
       setError(error.message);
     }
   }
+
+  // let simpan = (e) => {
+  //   let file = e.target.files[0]
+  //   let uploaded = URL.createObjectURL(file);
+  //   setFoto(uploaded+"");
+  //   console.log(uploaded);
+  // }
 
   return (
     <BigContainer>
@@ -134,6 +152,7 @@ export default function AddCar(props) {
               inputContent={place ? place : "Pilih Foto Mobil"}
               maxSize={2097152}
             />
+            {/* <input type="file" onChange={simpan} /> */}
             <p>File size max. 2MB</p>
           </InputContainer>
         </FormItem>

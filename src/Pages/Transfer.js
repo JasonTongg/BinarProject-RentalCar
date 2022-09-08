@@ -9,6 +9,7 @@ import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 import useState from 'react-usestateref'
 import Popup from '../Components/PopupMessage'
+import {AiFillDelete} from 'react-icons/ai'
 
 export default function Transfer() {
     let text = useSelector(state => state.items.RentCar.payment);
@@ -111,7 +112,6 @@ export default function Transfer() {
     }
     
     const handleChangeStatus = ({ meta }, status) => {
-        console.log(status, meta);
         setFoto(meta.previewUrl);
     }
     
@@ -215,17 +215,29 @@ export default function Transfer() {
                             <p>Terima kasih telah melakukan konfirmasi pembayaran. Pembayaranmu akan segera kami cek tunggu kurang lebih 10 menit untuk mendapatkan konfirmasi.</p>
                             <h3>Upload Bukti Pembayaran</h3>
                             <p>Untuk membantu kami lebih cepat melakukan pengecekan. Kamu bisa upload bukti bayarmu</p>
-                            <Dropzone
-                                getUploadParams={getUploadParams}
-                                onChangeStatus={handleChangeStatus}
-                                onSubmit={handleSubmit}
-                                accept="image/*"
-                                inputContent={(files, extra) => (extra.reject ? 'Image, audio and video files only' : "Input File")}
-                                styles={{
-                                    dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-                                    inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                                }}
-                            />
+                            {foto 
+                                ? 
+                                    <div className='uploadImage' onClick={() => {
+                                        setFoto("");
+                                    }}>
+                                        <img src={foto} alt="foto" />
+                                        <div>
+                                            <AiFillDelete className='icon'></AiFillDelete>
+                                        </div>
+                                    </div>
+                                :  
+                                <Dropzone
+                                    getUploadParams={getUploadParams}
+                                    onChangeStatus={handleChangeStatus}
+                                    onSubmit={handleSubmit}
+                                    accept="image/*"
+                                    inputContent={(files, extra) => (extra.reject ? 'Image, audio and video files only' : "Input File")}
+                                    styles={{
+                                        dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                                        inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                                    }}
+                                />
+                            }
                             {foto ? 
                                 <Button onClick={() => {
                                     navigate("/payment/tiket");

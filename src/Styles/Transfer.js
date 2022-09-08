@@ -318,6 +318,43 @@ export const Upload = styled.div`
     justify-content: center;
     animation: ${show} .5s ease-out forwards;
 
+    .uploadImage{
+        height: 200px;
+        width: 80%;
+        margin-inline: auto;
+        cursor: pointer;
+        position: relative;
+
+        img{
+            width: 100%;
+            height: 100%;
+        }
+
+        div{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: "";
+            background-color: red;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all .5s linear;
+
+            .icon{
+                font-size: 5rem;
+            }
+
+            &:hover{
+                opacity: .5;
+            }
+        }
+    }
+
     & > *:not(:nth-child(3)){
         margin-bottom: 1.5rem;
     }

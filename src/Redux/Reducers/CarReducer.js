@@ -5,7 +5,7 @@ let initialState = {
     AdminSearch: "",
     AdminEdit: {},
     listMessage: false,
-    RentCar: {}
+    RentCar: localStorage.getItem("Rent Details") ? JSON.parse(localStorage.getItem("Rent Details")) : {}
 }
 
 export const CarReducer = (state = initialState, action) => {

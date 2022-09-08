@@ -18,6 +18,8 @@ export default function Payment() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
 
+  window.localStorage.setItem("Rent Details", JSON.stringify(detail))
+
   let checkBca = () => {
     setBank({
       bca: !bank.bca,
@@ -25,6 +27,11 @@ export default function Payment() {
       mandiri: false
     })
     dispatch(AddPayment("BCA"));
+
+    window.localStorage.setItem("Rent Details", JSON.stringify({
+      ...detail,
+      payment: "BCA"
+    }))
   }
 
   let checkBni = () => {
@@ -34,6 +41,11 @@ export default function Payment() {
       mandiri: false,
     })
     dispatch(AddPayment("BNI"));
+
+    window.localStorage.setItem("Rent Details", JSON.stringify({
+      ...detail,
+      payment: "BNI"
+    }))
   }
 
   let checkMandiri = () => {
@@ -43,6 +55,11 @@ export default function Payment() {
       mandiri: !bank.mandiri,
     })
     dispatch(AddPayment("Mandiri"));
+
+    window.localStorage.setItem("Rent Details", JSON.stringify({
+      ...detail,
+      payment: "Mandiri"
+    }))
   }
 
   let rotate = () => {
