@@ -22,7 +22,7 @@ export default function Tiket() {
     <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.min.js">
       <PaymentLayout active={["active", "active", "active"]} text="Tiket" back="/payment/transfer" version="2">
         <Container>
-          <img src={Check} alt="success" />
+          <img src={Check} alt="success" /> 
           <h2>Pembayaran Berhasil</h2>
           <p>Tunjukkan invoice ini ke petugas BCR di titik temu.</p>
           <Invoice>

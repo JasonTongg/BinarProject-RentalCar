@@ -74,43 +74,6 @@ export const InputContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    
-    .dzu-dropzone{
-        width: 340px;
-        margin: 0;
-        height: 40px;
-        min-height: 0;
-        overflow: hidden;
-        align-items: flex-start;
-        justify-content: center;
-        margin-bottom: .5rem;
-        border: 1px solid rgba(0,0,0,.6);
-        position: static;
-
-        @media only screen and (max-width: 660px){
-            width: 100%;
-        }
-
-        @media only screen and (max-width: 400px){
-            height: 60px;
-        }
-        
-        label{
-            font-size: 15px;
-            color: rgba(0,0,0,.6);
-            padding: 1rem;
-            font-weight: bolder;
-            position: static;
-            width: 100%;
-            justify-content: flex-start;
-        }
-    }
-
-    .dzu-previewContainer{
-        height: 40px;
-        min-height: 0;
-        padding: 0 3%;
-    }
 
     p{
         font-size: 0.9rem;

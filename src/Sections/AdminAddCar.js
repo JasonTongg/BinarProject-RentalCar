@@ -6,8 +6,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {carManipulation} from '../Redux/Actions/CarAction'
 import Popup from '../Components/PopupMessage'
 import 'react-dropzone-uploader/dist/styles.css'
-import Dropzone from 'react-dropzone-uploader'
 import useState from 'react-usestateref'
+import axios from 'axios';
 
 export default function AddCar(props) {
   let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
@@ -18,16 +18,8 @@ export default function AddCar(props) {
   let [nama, setNama] = useState("");
   let [harga, setHarga] = useState("");
   let [kategori, setKategori] = useState("");
-  let [foto, setFoto, fotoRef] = useState();
+  let [foto, setFoto, fotoRef] = useState({});
   let [error, setError] = useState("");
-  let [place, setPlace] = useState("");
-
-  useEffect(() => {
-    if(props.title === "Edit Car"){
-      setFoto(EditItem.image);
-      toast(`${EditItem.image.split("/")[7].split("?")[0]} uploaded!`);
-    }
-  }, [EditItem, props.title, setFoto])
 
   useEffect(() => {
     if(props.title === "Edit Car"){
@@ -40,27 +32,6 @@ export default function AddCar(props) {
 
   let cancel = () => {
     navigate("/admin/list");
-  }
-
-  const toast = (innerHTML) => {
-    setPlace(innerHTML);
-  }
-
-  const getUploadParams = () => {
-    return { url: 'https://httpbin.org/post' }
-  }
-
-  const handleChangeStatus = async ({ meta, remove }, status) => {
-    if(meta.status === "done"){
-      setFoto(meta.previewUrl);
-    }
-
-    if (status === 'headers_received') {
-      toast(`${meta.name} uploaded!`)
-      remove()
-    } else if (status === 'aborted') {
-      toast(`${meta.name}, upload failed...`)
-    }
   }
 
   let submit = async (e) => {
@@ -89,24 +60,29 @@ export default function AddCar(props) {
         }
       }
       else{
-        rawData = await window.fetch("https://bootcamp-rent-car.herokuapp.com/admin/car", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json"
-          },
-          body : JSON.stringify({
-            "name": nama,
-            "category": kategori,
-            "price": harga,
-            "status": false,
-            "image": fotoRef.current,
+        if(fotoRef.current){
+          let rawData;
+          axios({
+            method: "POST",
+            url: "https://bootcamp-rent-car.herokuapp.com/admin/car",
+            timeout: 12000,
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
+            data: {
+              "name": nama,
+              "image": fotoRef.current,
+              "category": kategori,
+              "price": harga,
+              "status": false,
+            }
+          }).then(res => {
+            rawData = res.json();
+          }).then(res => {
+            if(rawData.status !== 201){
+              throw new Error(res.message ? res.message : res.errors[0].message);
+            }
           })
-        })
-
-        let data = await rawData.json();
-
-        if(rawData.status !== 201){
-          throw new Error(data.message ? data.message : data.errors[0].message);
         }
       }
 
@@ -116,13 +92,6 @@ export default function AddCar(props) {
       setError(error.message);
     }
   }
-
-  // let simpan = (e) => {
-  //   let file = e.target.files[0]
-  //   let uploaded = URL.createObjectURL(file);
-  //   setFoto(uploaded+"");
-  //   console.log(uploaded);
-  // }
 
   return (
     <BigContainer>
@@ -143,16 +112,7 @@ export default function AddCar(props) {
         <FormItem>
           <label for="foto">Foto*</label>
           <InputContainer>
-            <Dropzone
-              getUploadParams={getUploadParams}
-              onChangeStatus={handleChangeStatus}
-              maxFiles={1}
-              multiple={false}
-              canCancel={false}
-              inputContent={place ? place : "Pilih Foto Mobil"}
-              maxSize={2097152}
-            />
-            {/* <input type="file" onChange={simpan} /> */}
+            <input type="file" onChange={(e) => setFoto(e.target.files[0])} id="foto"/>
             <p>File size max. 2MB</p>
           </InputContainer>
         </FormItem>
@@ -194,6 +154,7 @@ export default function AddCar(props) {
           {foto ? <Button onClick={submit}>Save</Button> : <Button onClick={submit} disabled>Save</Button>}
         </Buttons>
       </Form>
+      <img src={foto} alt="foto" />
     </BigContainer>
   )
 }
