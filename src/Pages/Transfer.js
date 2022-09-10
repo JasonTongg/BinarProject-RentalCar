@@ -55,12 +55,12 @@ export default function Transfer() {
                 method: "POST",
                 headers: {
                     "access_token": window.localStorage.getItem("token"),
-                    "content-Type": "application/json",
+                    "content-type": "application/json",
                 },
                 body: JSON.stringify({
                     "start_rent_at": detail.mulai,
                     "finish_rent_at": detail.akhir,
-                    "car_id": detail.id
+                    "car_id": +detail.id
                 })
             });
 
@@ -238,12 +238,14 @@ export default function Transfer() {
                                     }}
                                 />
                             }
+                            {foto ? console.log(detail) : null}
                             {foto ? 
                                 <Button onClick={() => {
-                                    navigate("/payment/tiket");
                                     if(error === false){
                                         uploadData();
+                                        console.log("masuk");
                                     }
+                                    navigate("/payment/tiket");
                                 }}>Upload</Button>
                             :
                                 <Button disabled>Upload</Button>

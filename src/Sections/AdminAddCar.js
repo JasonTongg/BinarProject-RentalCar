@@ -37,27 +37,29 @@ export default function AddCar(props) {
   let submit = async (e) => {
     e.preventDefault();
     try {
-      let rawData;
       if(props.title === "Edit Car"){
-        rawData = await window.fetch(`https://bootcamp-rent-car.herokuapp.com/admin/car/${EditItem.id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json"
-          },
-          body : JSON.stringify({
-            "name": nama,
-            "category": kategori,
-            "price": harga,
-            "status": false,
-            "image": fotoRef.current,
+        let rawData;
+          axios({
+            method: "PUT",
+            url: `https://bootcamp-rent-car.herokuapp.com/admin/car/${EditItem.id}`,
+            timeout: 12000,
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
+            data: {
+              "name": nama,
+              "image": fotoRef.current,
+              "category": kategori,
+              "price": harga,
+              "status": false,
+            }
+          }).then(res => {
+            rawData = res.json();
+          }).then(res => {
+            if(rawData.status !== 200){
+              throw new Error(res.message ? res.message : res.errors[0].message);
+            }
           })
-        })
-
-        let data = await rawData.json();
-
-        if(rawData.status !== 200){
-          throw new Error(data.message ? data.message : data.errors[0].message);
-        }
       }
       else{
         if(fotoRef.current){
@@ -154,7 +156,6 @@ export default function AddCar(props) {
           {foto ? <Button onClick={submit}>Save</Button> : <Button onClick={submit} disabled>Save</Button>}
         </Buttons>
       </Form>
-      <img src={foto} alt="foto" />
     </BigContainer>
   )
 }

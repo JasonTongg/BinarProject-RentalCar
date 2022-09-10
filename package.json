@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@coreui/coreui": "^4.2.1",
-    "@react-pdf-viewer/core": "^3.7.0",
-    "@react-pdf-viewer/get-file": "^3.7.0",
+    "@react-pdf/renderer": "^3.0.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "assert": "^2.0.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "buffer": "^6.0.3",
     "chart.js": "^3.9.1",
-    "pdfjs-dist": "^2.15.349",
+    "luxon": "^3.0.3",
     "react-chartjs-2": "^4.3.1",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
@@ -27,6 +27,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
+    "to-words": "^3.3.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
