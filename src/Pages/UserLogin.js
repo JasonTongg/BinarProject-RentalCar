@@ -43,6 +43,17 @@ export default function UserLogin(props){
                         "password": dataRef.current.password
                     })
                 })
+
+                rawData = await window.fetch(`${url}/customer/auth/login`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body : JSON.stringify({
+                        "email": dataRef.current.email,
+                        "password": dataRef.current.password
+                    })
+                })
             }
 
             let data = await rawData.json();
