@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import PaymentLayout from '../Layouts/PaymentLayout'
 import {Left, Right, Content, BankContainer, BankItem, Info, DetailHarga, Total, Line, Details, Price, Other, NotInclude, Button} from '../Styles/Payment'
 import {BsCheck2, BsPeople} from 'react-icons/bs'
@@ -65,6 +65,10 @@ export default function Payment() {
   let rotate = () => {
     setTotal(!total);
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   return (
     <PaymentLayout info active={["active", "", ""]} text="Pembayaran" back="/details">

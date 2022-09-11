@@ -8,6 +8,7 @@ import Popup from '../Components/PopupMessage'
 import 'react-dropzone-uploader/dist/styles.css'
 import useState from 'react-usestateref'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function AddCar(props) {
   let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
@@ -15,19 +16,18 @@ export default function AddCar(props) {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let EditItem = useSelector(state => state.items.AdminEdit);
-  let [nama, setNama] = useState("");
-  let [harga, setHarga] = useState("");
-  let [kategori, setKategori] = useState("");
-  let [foto, setFoto, fotoRef] = useState({});
+  let [, setData, dataRef] = useState({})
   let [error, setError] = useState("");
 
   useEffect(() => {
     if(props.title === "Edit Car"){
-      setNama(EditItem.name);
-      setHarga(EditItem.price);
-      setKategori(EditItem.category);
+      setData({
+        name: EditItem.name,
+        price: EditItem.price,
+        category: EditItem.category
+      })
     }
-  }, [EditItem.name, EditItem.price, EditItem.category, props.title])
+  }, [EditItem.name, EditItem.price, EditItem.category, props.title, setData])
   
 
   let cancel = () => {
@@ -38,7 +38,6 @@ export default function AddCar(props) {
     e.preventDefault();
     try {
       if(props.title === "Edit Car"){
-        let rawData;
           axios({
             method: "PUT",
             url: `https://bootcamp-rent-car.herokuapp.com/admin/car/${EditItem.id}`,
@@ -47,23 +46,20 @@ export default function AddCar(props) {
               'Content-Type': 'multipart/form-data'
             },
             data: {
-              "name": nama,
-              "image": fotoRef.current,
-              "category": kategori,
-              "price": harga,
+              "name": dataRef.current.name,
+              "image":  dataRef.current.foto,
+              "category":  dataRef.current.category,
+              "price":  dataRef.current.price,
               "status": false,
             }
           }).then(res => {
-            rawData = res.json();
-          }).then(res => {
-            if(rawData.status !== 200){
-              throw new Error(res.message ? res.message : res.errors[0].message);
+            if(res.status !== 200){
+              throw new Error("Edit Data Error");
             }
           })
       }
       else{
-        if(fotoRef.current){
-          let rawData;
+        if(dataRef.current.foto){
           axios({
             method: "POST",
             url: "https://bootcamp-rent-car.herokuapp.com/admin/car",
@@ -72,17 +68,15 @@ export default function AddCar(props) {
               'Content-Type': 'multipart/form-data'
             },
             data: {
-              "name": nama,
-              "image": fotoRef.current,
-              "category": kategori,
-              "price": harga,
+              "name": dataRef.current.name,
+              "image":  dataRef.current.foto,
+              "category":  dataRef.current.category,
+              "price":  dataRef.current.price,
               "status": false,
             }
           }).then(res => {
-            rawData = res.json();
-          }).then(res => {
-            if(rawData.status !== 201){
-              throw new Error(res.message ? res.message : res.errors[0].message);
+            if(res.status !== 201){
+              throw new Error("Add Data Error");
             }
           })
         }
@@ -92,68 +86,74 @@ export default function AddCar(props) {
       dispatch(carManipulation(true))
     } catch (error) {
       setError(error.message);
+
+      setTimeout(() => {
+        setError("");
+      }, 2000)
     }
   }
 
   return (
     <BigContainer>
       {error ? <Popup text={error}></Popup> : null}
-      <Pwd>Cars {`>`} List Car {`>`} <span>Add New Car</span></Pwd>
+      <Pwd><Link to="/admin">Cars</Link> {`>`} <Link to="/admin/list">List Car</Link> {`>`} {props.title === "Edit Car" ? <span>Edit Car</span> : <span>Add New Car</span>}</Pwd>
       <Container>
           <h2>{props.title}</h2>
       </Container>
       <Form onSubmit={submit}>
         <FormItem>
-          <label for="nama">Nama/Tipe Mobil*</label>
-          <input type="text" id="nama" placeholder='Input Nama/Tipe Mobil' onChange={(e)=>setNama(e.target.value)} defaultValue={props.title === "Edit Car" ? EditItem.name : ""} required></input>
+          <label htmlFor="nama">Nama/Tipe Mobil*</label>
+          <input type="text" id="nama" placeholder='Input Nama/Tipe Mobil' onChange={(e)=>setData({
+            ...dataRef.current,
+            name: e.target.value,
+            cek: e.target.value === "" ? false : true
+          })} defaultValue={props.title === "Edit Car" ? EditItem.name : ""} required></input>
         </FormItem>
         <FormItem>
-          <label for="harga">Harga*</label>
-          <input type="text" id="harga" placeholder='Input Harga Sewa Mobil' onChange={(e) => setHarga(e.target.value)} defaultValue={props.title === "Edit Car" ? EditItem.price : ""} required></input>
+          <label htmlFor="harga">Harga*</label>
+          <input type="text" id="harga" placeholder='Input Harga Sewa Mobil' onChange={(e) => setData({
+            ...dataRef.current,
+            price: e.target.value,
+            cek: e.target.value === "" ? false : true
+          })} defaultValue={props.title === "Edit Car" ? EditItem.price : ""} required></input>
         </FormItem>
         <FormItem>
-          <label for="foto">Foto*</label>
+          <label htmlFor="foto">Foto*</label>
           <InputContainer>
-            <input type="file" onChange={(e) => setFoto(e.target.files[0])} id="foto"/>
+            <input className='foto' type="file" onChange={(e) => setData({
+            ...dataRef.current,
+            foto: e.target.files[0],
+            cek: e.target.files[0] === undefined ? false : true
+          })} id="foto"/>
+            {dataRef.current.foto ? <label htmlFor="foto">{dataRef.current.foto.name}</label> : <label htmlFor="foto" className=''>Upload Foto Mobil</label>}
             <p>File size max. 2MB</p>
           </InputContainer>
         </FormItem>
         <FormItem>
-          <label for="nama">Kategori*</label>
-          <select id="nama" onChange={(e) => setKategori(e.target.value)} required>
+          <label htmlFor="nama">Kategori*</label>
+          <select id="nama" onChange={(e) => setData({
+            ...dataRef.current,
+            category: e.target.value,
+            cek: e.target.value === "Pilih Kategori Mobil" ? false : true
+          })} required defaultValue={props.title === "Edit Car" ? EditItem.category : "Pilih Kategori Mobil"}>
             <option value="Pilih Kategori Mobil">Pilih Kategori Mobil</option>
             <option value="Small">Small</option>
-            {props.title === "Edit Car" 
-              ? 
-                (EditItem.category === "2 - 4 orang" ? <option value="2 - 4 orang" selected>2 - 4 Orang</option> : <option value="2 - 4 orang">2 - 4 orang</option>) 
-              : 
-              <option value="2 - 4 orang">2 - 4 Orang</option>
-            }
-            {props.title === "Edit Car" 
-              ? 
-                (EditItem.category === "4 - 6 orang" ? <option value="4 - 6 orang" selected>4 - 6 orang</option> : <option value="4 - 6 orang">4 - 6 orang</option>) 
-              : 
-                <option value="4 - 6 orang">4 - 6 orang</option>
-              }
-            {props.title === "Edit Car" 
-              ? 
-                (EditItem.category === "6 - 8 orang" ? <option value="6 - 8 orang" selected>6 - 8 orang</option> : <option value="6 - 8 orang">6 - 8 orang</option>) 
-              : 
-              <option value="6 - 8 orang">6 - 8 orang</option>
-            }
+            <option value="2 - 4 orang">2 - 4 Orang</option>
+            <option value="4 - 6 orang">4 - 6 orang</option>
+            <option value="6 - 8 orang">6 - 8 orang</option>
           </select>
         </FormItem>
         <FormItem>
           <label>Created at</label>
-          <p className='upload'>{date.getDay()} {bulan[date.getMonth()]} {date.getFullYear()}, {date.getHours()}:{date.getMinutes()}</p>
+          <p className='upload'>{date.getDate()} {bulan[date.getMonth()]} {date.getFullYear()}, {date.getHours()}:{date.getMinutes()}</p>
         </FormItem>
         <FormItem>
           <label>Updated at</label>
-          <p className='upload'>{date.getDay()} {bulan[date.getMonth()]} {date.getFullYear()}, {date.getHours()}:{date.getMinutes()}</p>
+          <p className='upload'>{date.getDate()} {bulan[date.getMonth()]} {date.getFullYear()}, {date.getHours()}:{date.getMinutes()}</p>
         </FormItem>
         <Buttons className='buttons'>
           <Button onClick={cancel}>Cancel</Button>
-          {foto ? <Button onClick={submit}>Save</Button> : <Button onClick={submit} disabled>Save</Button>}
+          {Object.keys(dataRef.current).length === 5 && dataRef.current.cek ? <Button onClick={submit}>Save</Button> : <Button onClick={submit} disabled>Save</Button>}
         </Buttons>
       </Form>
     </BigContainer>

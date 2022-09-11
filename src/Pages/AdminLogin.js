@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import {AdminContainer, Left, Form, ErrorMessage} from '../Styles/AdminLogin'
 import Logo from '../Assets/Logo.png'
 import {Link, useNavigate} from 'react-router-dom'
 import { InputContainer, Left as Right} from '../Styles/UserLogin'
 import Button from '../Components/Button'
+import useState from 'react-usestateref'
 
 export default function AdminLogin() {
-    let [email, setEmail] = useState("");
-    let [password, setPassword] = useState("");
+    let [, setData, dataRef] = useState({});
     let [errorMessage, setErrorMessage] = useState("");
     let navigate = useNavigate();
 
@@ -22,8 +22,8 @@ export default function AdminLogin() {
                     "content-type": "application/json"
                 },
                 body : JSON.stringify({
-                    "email": email,
-                    "password": password
+                    "email": dataRef.current.email,
+                    "password": dataRef.current.password
                 })
             })
 
@@ -40,6 +40,10 @@ export default function AdminLogin() {
         }
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <AdminContainer>
         <Left></Left>
@@ -50,12 +54,18 @@ export default function AdminLogin() {
                 <h2>Welcome, Admin BCR</h2>
                 {errorMessage ? <ErrorMessage><p>{errorMessage}</p></ErrorMessage> : null}
                 <InputContainer>
-                    <label for="email">Email</label>
-                    <input type="email" id='email' placeholder='Contojohndee@gmail.com' required onChange={(e) => setEmail(e.target.value)}/>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id='email' placeholder='Contojohndee@gmail.com' required onChange={(e) => setData({
+                        ...dataRef.current,
+                        email: e.target.value
+                    })}/>
                 </InputContainer>
                 <InputContainer>
-                    <label for="password">Password</label>
-                    <input type="password" id='password' placeholder='6+ karakter' required onChange={(e) => setPassword(e.target.value)}/>
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id='password' placeholder='6+ karakter' required onChange={(e) => setData({
+                        ...dataRef.current,
+                        password: e.target.value
+                    })}/>
                 </InputContainer>
                 <Button size="big" background={props => props.theme.primaryColor}>Sign In</Button>
             </Form>

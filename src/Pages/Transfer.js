@@ -119,6 +119,10 @@ export default function Transfer() {
         allFiles.forEach(f => f.remove())
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <PaymentLayout active={["active", "active", ""]} text={`${text} Transfer`} back="/payment" version="2">
             <Container>
@@ -139,12 +143,12 @@ export default function Transfer() {
                         </Bank>
                         <p>a.n Binar Car Rental</p>
                         <InputContainer>
-                            <label for="nomor">Nomor Rekening</label>
+                            <label htmlFor="nomor">Nomor Rekening</label>
                             <input type="text" id='nomor' value="54104257877" disabled/>
                             {copy[0] ? <AiOutlineCheck className='icon'></AiOutlineCheck> : <FiCopy className='icon' onClick={copyNomor}></FiCopy>}
                         </InputContainer>
                         <InputContainer>
-                            <label for="nomor">Total Bayar</label>
+                            <label htmlFor="nomor">Total Bayar</label>
                             <input type="text" id='nomor' value={`Rp. ${detail.harga},-`} disabled/>
                             {copy[1] ? <AiOutlineCheck className='icon'></AiOutlineCheck> : <FiCopy className='icon' onClick={copyHarga}></FiCopy>}
                         </InputContainer>
@@ -238,13 +242,9 @@ export default function Transfer() {
                                     }}
                                 />
                             }
-                            {foto ? console.log(detail) : null}
                             {foto ? 
                                 <Button onClick={() => {
-                                    if(error === false){
-                                        uploadData();
-                                        console.log("masuk");
-                                    }
+                                    uploadData();
                                     navigate("/payment/tiket");
                                 }}>Upload</Button>
                             :

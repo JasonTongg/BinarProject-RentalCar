@@ -89,6 +89,11 @@ export const Container = styled.div`
 export const Pwd = styled.h3`
     margin-bottom: 27px;
 
+    a{
+        text-decoration: none;
+        color: black;
+    }
+
     span{
         font-weight: normal;
     }

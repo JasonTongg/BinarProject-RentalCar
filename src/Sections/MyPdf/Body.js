@@ -24,21 +24,21 @@ const styles = StyleSheet.create({
   },
 })
 
-function Body({ formType, body, jobLocation }) {
+function Body({ body }) {
 
   return (
     <View style={styles.container}>
-      <Text style={{ marginBottom: 8 }}>Rent Location: {jobLocation}</Text>
+      <Text style={{ marginBottom: 8 }}>Rent Details: </Text>
       <Text style={styles.bold}>Specifications for Rent Completed</Text>
       <Text style={styles.body}>{body}</Text>
-      <Text style={styles.body}>Harga sudah termasuk</Text>
-      <Text style={styles.subBody}>1. Mobil dan Bahan Bakar</Text>
-      <Text style={styles.body}>Harga tidak termasuk</Text>
-      <Text style={styles.subBody}>1. Supir</Text>
-      <Text style={styles.subBody}>2. Konsumsi Supir</Text>
-      <Text style={styles.subBody}>3. Penginapan Supir</Text>
-      <Text style={styles.subBody}>4. Biaya Parkir</Text>
-      <Text style={styles.subBody}>5. Tips Supir</Text>
+      <Text style={styles.body}>Price includes</Text>
+      <Text style={styles.subBody}>1. Car and Fuel</Text>
+      <Text style={styles.body}>Price not includes</Text>
+      <Text style={styles.subBody}>1. Driver</Text>
+      <Text style={styles.subBody}>2. Driver consumption</Text>
+      <Text style={styles.subBody}>3. Driver's accommodation</Text>
+      <Text style={styles.subBody}>4. Parking fee</Text>
+      <Text style={styles.subBody}>5. Driver tips</Text>
     </View>
   )
 }

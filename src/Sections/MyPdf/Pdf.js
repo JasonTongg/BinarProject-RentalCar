@@ -44,36 +44,41 @@ Font.register({
   fontStyle: 'italic',
 })
 
-function Invoice() {
+function Invoice({customerData}) {
+
+  if(customerData){
+
     const data = {
-        formType: 'invoice',
-        date: DateTime.now().toISODate(),
-        to: 'Client@gmail.com',
-        phone: '0863-3916-3012',
-        jobLocation: '',
-        amount: '100000',
-        body: 'Innova car rental (6-8 people) for 7 days',
+      formType: 'invoice',
+      date: DateTime.now().toISODate(),
+      to: customerData.User.email,
+      amount: customerData.total_price,
+      body: `Car rental for ${customerData.Car.name} (${customerData.Car.category}) in ${customerData.total_price / customerData.Car.price} ${customerData.total_price / customerData.Car.price === 1 ? "day" : "days"} from ${customerData.start_rent_at.split("T")[0].split("-").reverse().join("-")} to ${customerData.finish_rent_at.split("T")[0].split("-").reverse().join("-")}`,
     }
 
-  const { body, formType, date, to, address, jobLocation, phone, amount } = data
+    const { body, formType, date, to, address, jobLocation, phone, amount } = data
 
-  const formTypeName = 'Invoice'
+    const formTypeName = 'Invoice'
 
-  return (
-    <Document>
-      <Page style={styles.body} wrap>
-        <View style={styles.top}>
-          <Header date={date} formTypeName={formTypeName} />
-          <Client to={to} phone={phone} address={address} />
-          <Body formType={formType} body={body} jobLocation={jobLocation} />
-        </View>
-        <View style={styles.bottom}>
-          <Amount amount={amount} formType={formType} />
-          <Footer />
-        </View>
-      </Page>
-    </Document>
-  )
+    return (
+      <Document>
+        <Page style={styles.body} wrap>
+          <View style={styles.top}>
+            <Header date={date} formTypeName={formTypeName} />
+            <Client to={to} phone={phone} address={address} />
+            <Body formType={formType} body={body} jobLocation={jobLocation} />
+          </View>
+          <View style={styles.bottom}>
+            <Amount amount={amount} formType={formType} />
+            <Footer />
+          </View>
+        </Page>
+      </Document>
+    )
+  }
+  else{
+    return null;
+  }
 }
 
 export default Invoice

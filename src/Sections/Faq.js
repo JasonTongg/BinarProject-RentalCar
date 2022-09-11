@@ -1,55 +1,31 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Container, Text, Questions, DropDown, Ques, Ans} from '../Styles/Faq'
 import {BsChevronDown} from 'react-icons/bs'
+import useState from 'react-usestateref'
 
 export default function Faq() {
-    const [isHidden1, setHidden1] = useState("false");
-    const [isHidden2, setHidden2] = useState("false");
-    const [isHidden3, setHidden3] = useState("false");
-    const [isHidden4, setHidden4] = useState("false");
-    const [isHidden5, setHidden5] = useState("false");
+    let [, setHidden, hiddenRef] = useState([true, true, true, true, true]);
 
     let displayAns1 = (e) => {
-        setHidden1(!isHidden1);
-        setHidden2("false");
-        setHidden3("false");
-        setHidden4("false");
-        setHidden5("false");
+        setHidden([!hiddenRef.current[0], true, true, true, true])
     }
 
     let displayAns2 = (e) => {
-        setHidden2(!isHidden2);
-        setHidden1("false");
-        setHidden3("false");
-        setHidden4("false");
-        setHidden5("false");
+        setHidden([true, !hiddenRef.current[1], true, true, true])
     }
 
     let displayAns3 = (e) => {
-        setHidden3(!isHidden3);
-        setHidden2("false");
-        setHidden1("false");
-        setHidden4("false");
-        setHidden5("false");
+        setHidden([true, true, !hiddenRef.current[2], true, true])
     }
 
     let displayAns4 = (e) => {
-        setHidden4(!isHidden4);
-        setHidden2("false");
-        setHidden3("false");
-        setHidden1("false");
-        setHidden5("false");
+        setHidden([true, true, true, !hiddenRef.current[3], true])
     }
 
     let displayAns5 = (e) => {
-        setHidden5(!isHidden5);
-        setHidden2("false");
-        setHidden3("false");
-        setHidden4("false");
-        setHidden1("false");
+        setHidden([true, true, true, true, !hiddenRef.current[4]])
     }
 
-    let isHidden = [isHidden1, isHidden2, isHidden3, isHidden4, isHidden5];
     let displayAns = [displayAns1, displayAns2, displayAns3, displayAns4, displayAns5]
     let faqText = ["Apa saja syarat yang dibutuhkan?","Berapa hari minimal sewa mobil lepas kunci?", "Berapa hari sebelumnya sabaiknya booking sewa mobil?", "Apakah Ada biaya antar-jemput?", "Bagaimana jika terjadi kecelakaan"]
 
@@ -60,7 +36,7 @@ export default function Faq() {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </Text>
             <Questions>
-                {isHidden.map((item, index) => (
+                {hiddenRef.current.map((item, index) => (
                     <DropDown key={index}>
                         <Ques onClick={displayAns[index]} className={item ? "hidden" : null}>
                             <h2>{faqText[index]}</h2>

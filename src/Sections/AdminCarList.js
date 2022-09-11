@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {BigContainer, ListContainer, Pwd, Category, CategoryContainer, InfoContainer, ListItem, Buttons, Button, Container, DeleteContainer, DeleteInfo, Overlay, ButtonContainer, DeleteButton, BigContainerLoading} from '../Styles/AdminCarList'
 import carTemp from '../Assets/carTemp.png'
 import {BsPeople, BsClock} from 'react-icons/bs'
@@ -13,15 +13,13 @@ import {carManipulation} from '../Redux/Actions/CarAction'
 import DotLoader from "react-spinners/DotLoader";
 import { SmallContainer } from '../Styles/CarList'
 import NotFoundImage from '../Assets/NotFoundGray.jpg'
+import useState from "react-usestateref"
 
 export default function AdminCarList() {
     let bulan = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
     let searchData = useSelector(state => state.items.AdminSearch);
     let manipulation = useSelector(state => state.items.listMessage);
-    let [active, setActive] = useState(true);
-    let [active24, setActive24] = useState(false);
-    let [active46, setActive46] = useState(false);
-    let [active68, setActive68] = useState(false);
+    let [active, setActive, activeRef] = useState([true, false, false, false]);
     let [list, setList] = useState([]);
     let [isDelete, setIsDelete] = useState(false);
     let [deleteId, setDeleteId] = useState(0);
@@ -38,31 +36,6 @@ export default function AdminCarList() {
             dispatch(carManipulation(false));
         }, 2000)
     }, [dispatch])
-
-    let clicked = () => {
-        setActive(!active)
-        setActive24(false);
-        setActive46(false);
-        setActive68(false);
-    }
-    let clicked24 = () => {
-        setActive(false)
-        setActive24(!active24);
-        setActive46(false);
-        setActive68(false);
-    }
-    let clicked46 = () => {
-        setActive(false)
-        setActive24(false);
-        setActive46(!active46);
-        setActive68(false);
-    }
-    let clicked68 = () => {
-        setActive(false)
-        setActive24(false);
-        setActive46(false);
-        setActive68(!active68);
-    }
 
     let toEdit = (data) => {
         dispatch(AdminEditCar(data));
@@ -110,13 +83,13 @@ export default function AdminCarList() {
                     throw new Error(data.message ? data.message : data.errors[0].message);
                 }
                 
-                if(active24){
+                if(activeRef.current[1]){
                     data = data.filter(item => item.category === "2 - 4 orang");
                 }
-                else if(active46){
+                else if(activeRef.current[2]){
                     data = data.filter(item => item.category === "4 - 6 orang");
                 }
-                else if(active68){
+                else if(activeRef.current[3]){
                     data = data.filter(item => item.category === "6 - 8 orang");
                 }
     
@@ -131,7 +104,7 @@ export default function AdminCarList() {
             }
         }
         getData();
-    }, [active, active24, active46, active68, searchData, isDelete])
+    }, [active, searchData, isDelete, activeRef])
 
     useEffect(() => {
         setIsLoading(true);
@@ -152,18 +125,18 @@ export default function AdminCarList() {
                 <Link to="/admin/list/add"><button><BsPlusLg className='icon'></BsPlusLg>Add New Car</button></Link>
             </Container>
             <CategoryContainer>
-                <Category className={active ? "active" : null} onClick={clicked}><h3>All</h3></Category>
-                <Category className={active24 ? "active" : null} onClick={clicked24}><h3>2 - 4 People</h3></Category>
-                <Category className={active46 ? "active" : null} onClick={clicked46}><h3>4 - 6 People</h3></Category>
-                <Category className={active68 ? "active" : null} onClick={clicked68}><h3>6 - 8 People</h3></Category>
+                <Category className={activeRef.current[0] ? "active" : null} onClick={() => setActive([!activeRef.current[0], false, false, false])}><h3>All</h3></Category>
+                <Category className={activeRef.current[1] ? "active" : null} onClick={() => setActive([false, !activeRef.current[1], false, false])}><h3>2 - 4 People</h3></Category>
+                <Category className={activeRef.current[2] ? "active" : null} onClick={() => setActive([false, false, !activeRef.current[2], false])}><h3>4 - 6 People</h3></Category>
+                <Category className={activeRef.current[3] ? "active" : null} onClick={() => setActive([false, false, false, !activeRef.current[3]])}><h3>6 - 8 People</h3></Category>
             </CategoryContainer>
             <ListContainer>
-                {list.map(item => {
+                {list.map((item, idx) => {
                     let tanggal = item.updatedAt.split('T')
                     let [year, month, day] = tanggal[0].split("-");
                     let time = tanggal[1].slice(0,5);
                     return (
-                        <ListItem>
+                        <ListItem key={idx}>
                             <img src={item.image ? item.image : carTemp} alt="car" />
                             <p>{item.name}</p>
                             <h3>Rp {item.price} / hari</h3>

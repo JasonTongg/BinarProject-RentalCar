@@ -21,7 +21,7 @@ export default function AdminNavbar(props) {
 
     return (
         <Navbar>
-            <GiHamburgerMenu class="burger" onClick={clicked}></GiHamburgerMenu>
+            <GiHamburgerMenu className="burger" onClick={clicked}></GiHamburgerMenu>
             {navbarClicked ? null : <AdminSideNavbar type={props.type}></AdminSideNavbar>}
             {navbarClicked ? null : <BigContainer></BigContainer>}
             <NavbarItem>

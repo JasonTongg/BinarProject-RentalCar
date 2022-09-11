@@ -42,8 +42,8 @@ export default function Testimonial() {
             <p>Berbagai review positif dari para pelanggan kami</p>
             <Fragment>
                 <Container className='slider'>
-                    {[Testi1,Testi2,Testi3,Testi4].map(item => (
-                        <SlideItem className='slides'>
+                    {[Testi1,Testi2,Testi3,Testi4].map((item, index) => (
+                        <SlideItem className='slides' key={index}>
                             <img src={item} alt="TestimoniImage" />
                             <SlideInfo>
                                 <Icons>

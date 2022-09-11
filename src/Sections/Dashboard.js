@@ -131,37 +131,41 @@ export default function Dashboard() {
           <Label><h4>List Order</h4></Label>
           <TableContainer>
             <Table>
-              <tr>
-                <th>No</th>
-                <th>User Email</th>
-                <th>Car</th>
-                <th>Start Rent</th>
-                <th>Finish Rent</th>
-                <th>Price</th>
-                <th>Category</th>
-              </tr>
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>User Email</th>
+                  <th>Car</th>
+                  <th>Start Rent</th>
+                  <th>Finish Rent</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+              <tbody>
               {orderTemp.map((item, idx) => {
                 let start = item.start_rent_at.split("T")[0].split("-").reverse();
                 start = [start[0], bulan[+start[1] - 1], start[2]].join(" ");
                 let end = item.finish_rent_at.split("T")[0].split("-").reverse();
                 end = [end[0], bulan[+end[1] - 1], end[2]].join(" ");
                 return(
-                  <tr>
+                  <tr key={idx}>
                     <td>{item.id}</td>
                     <td>{item.User.email}</td>
-                    <td>{item.Car.name}</td>
+                    <td>{item.Car?.name}</td>
                     <td>{start}</td>
                     <td>{end}</td>
-                    <td>Rp. {item.Car.price},-</td>
-                    <td>{item.Car.category}</td>
+                    <td>Rp. {item.Car?.price},-</td>
+                    <td>{item.Car?.category}</td>
                   </tr>
                 )
               })}
+              </tbody>
             </Table>
           </TableContainer>
           <TableSetting>
             <div>
-              <label for="limit">Limit</label>
+              <label htmlFor="limit">Limit</label>
               <select onChange={(e) => {
                 setLimit(+e.target.value);
                 setPage(1);
@@ -173,19 +177,19 @@ export default function Dashboard() {
               </select>
             </div>
             <div>
-              <label for="pages">Jump to Page</label>
+              <label htmlFor="pages">Jump to Page</label>
               <PagesContainer>
-                <select onChange={(e) => setPage(+e.target.value)}>
+                <select onChange={(e) => setPage(+e.target.value)} defaultValue={1}>
                   { 
                     [...Array(pages).fill(10)].map((item, idx) => {
                       if(idx+1===page){
                         return(
-                          <option selected>{idx+1}</option>
+                          <option key={idx}>{idx+1}</option>
                         )
                       }
                       else{
                         return(
-                          <option>{idx+1}</option>
+                          <option key={idx}>{idx+1}</option>
                         )
                       }
                     })
@@ -205,12 +209,12 @@ export default function Dashboard() {
               {[...Array(pages).fill(10)].map((item, idx) => {
                 if(idx+1 === page){
                   return (
-                    <div className='active' onClick={() => setPage(idx+1)}>{idx+1}</div>
+                    <div className='active' onClick={() => setPage(idx+1)} key={idx}>{idx+1}</div>
                   )
                 }
                 else{
                   return (
-                    <div onClick={() => setPage(idx+1)}>{idx+1}</div>
+                    <div onClick={() => setPage(idx+1)} key={idx}>{idx+1}</div>
                   )
                 }
               })}

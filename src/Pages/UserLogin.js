@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import LoginImage from '../Assets/userLogin.png'
 import Logo from '../Assets/Logo.png'
 import {Link, useNavigate} from 'react-router-dom'
@@ -7,10 +7,10 @@ import Button from '../Components/Button'
 import { ErrorMessage } from '../Styles/AdminLogin'
 import {useDispatch} from 'react-redux'
 import {isLogin} from '../Redux/Actions/AnimationAction'
+import useState from 'react-usestateref'
 
 export default function UserLogin(props){
-    let [email, setEmail] = useState("");
-    let [password, setPassword] = useState("");
+    let [, setData, dataRef] = useState({});
     let [errorMessage, setErrorMessage] = useState("");
     let navigate = useNavigate();
     let dispatch = useDispatch();
@@ -27,8 +27,8 @@ export default function UserLogin(props){
                         "content-type": "application/json"
                     },
                     body : JSON.stringify({
-                        "email": email,
-                        "password": password
+                        "email": dataRef.current.email,
+                        "password": dataRef.current.password
                     })
                 })
             }
@@ -39,8 +39,8 @@ export default function UserLogin(props){
                         "content-type": "application/json"
                     },
                     body : JSON.stringify({
-                        "email": email,
-                        "password": password
+                        "email": dataRef.current.email,
+                        "password": dataRef.current.password
                     })
                 })
             }
@@ -59,6 +59,11 @@ export default function UserLogin(props){
             dispatch(isLogin(false));
         }
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <UserLoginContainer>
             <Link to="/" className='back'>&larr; Home</Link>
@@ -70,34 +75,45 @@ export default function UserLogin(props){
                     {props.login ? 
                     <>
                         <InputContainer>
-                            <label for="email">Email</label>
-                            <input type="text" id='email' placeholder='Contoh: johndee@gmail.com' required onChange={(e) => setEmail(e.target.value)}/>
+                            <label htmlFor="email">Email</label>
+                            <input type="text" id='email' placeholder='Contoh: johndee@gmail.com' required onChange={(e) => setData({
+                                ...dataRef.current,
+                                email: e.target.value
+                            })}/>
                         </InputContainer>
                         <InputContainer>
-                            <label for="password">Password</label>
-                            <input type="password" id='password' placeholder='6+ karakter' required onChange={(e) => setPassword(e.target.value)}/>
+                            <label htmlFor="password">Password</label>
+                            <input type="password" id='password' placeholder='6+ karakter' required onChange={(e) => setData({
+                                ...dataRef.current,
+                                password: e.target.value
+                            })}/>
                         </InputContainer>
                     </> 
                     : 
                     <>
                         <InputContainer>
-                            <label for="nama">Name*</label>
+                            <label htmlFor="nama">Name*</label>
                             <input type="text" id='nama' placeholder='Nama Lengkap' required/>
                         </InputContainer>
                         <InputContainer>
-                            <label for="email">Email*</label>
-                            <input type="email" id='email' placeholder='Contoh: johndee@gmail.com' required onChange={(e) => setEmail(e.target.value)}/>
+                            <label htmlFor="email">Email*</label>
+                            <input type="email" id='email' placeholder='Contoh: johndee@gmail.com' required onChange={(e) => setData({
+                                ...dataRef.current,
+                                email: e.target.value
+                            })}/>
                         </InputContainer>
                         <InputContainer>
-                            <label for="password">Create Password*</label>
-                            <input type="password" id='password' placeholder='6+ karakter' required onChange={(e) => setPassword(e.target.value)}/>
+                            <label htmlFor="password">Create Password*</label>
+                            <input type="password" id='password' placeholder='6+ karakter' required onChange={(e) => setData({
+                                ...dataRef.current,
+                                password: e.target.value
+                            })}/>
                         </InputContainer>
                     </>
                     }
                     
                     <Button size="big" background={props => props.theme.primaryColor}>{props.button}</Button>
                     <p>{props.text[0]} <Link to={props.text[2]}>{props.text[1]}</Link></p>
-                    <Link to="/admin" className='admin'>Login as Admin &rarr;</Link>
                 </Form>
             </Left>
             <Right>

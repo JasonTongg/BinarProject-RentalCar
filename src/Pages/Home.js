@@ -20,6 +20,10 @@ export default function Home() {
     }, 2000)
   }, [dispatch])
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+
   return (
     <React.Fragment>
       <MainLayout>

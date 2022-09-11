@@ -9,6 +9,18 @@ export const Container = styled.div`
     gap: 1.5rem;
     padding: 1.5rem;
 
+    .back{
+        padding: .8rem 1rem;
+        border-radius: 5px;
+        background-color: ${props => props.theme.primaryColor};
+        color: white;
+        font-weight: bolder;
+        font-size: 1.2rem;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
     img{
         width: 100px;
     }

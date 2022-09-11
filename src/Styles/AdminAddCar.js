@@ -79,4 +79,26 @@ export const InputContainer = styled.div`
         font-size: 0.9rem;
         padding: 0;
     }
+
+    .foto{
+        padding: 0;
+        height: 0px;
+    }
+
+    label{
+        padding: .7rem 1rem;
+        width: 340px;
+        border: 1px solid rgba(0,0,0,.7);
+        border-radius: 3px;
+        margin-bottom: 10px;
+        cursor: pointer;
+
+        @media only screen and (max-width: 660px){
+            width: 100%;
+        }
+
+        &.empty{
+            color: rgba(0,0,0,.5);
+        }
+    }
 `;

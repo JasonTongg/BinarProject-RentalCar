@@ -9,12 +9,11 @@ const styles = StyleSheet.create({
   }
 })
 
-function Client({ address, phone, to }) {
+function Client({ to }) {
   return (
     <View style={styles.container}>
       <Text style={styles.bold}>Submitted To:</Text>
       <Text>{to}</Text>
-      <Text>{phone}</Text>
     </View>
   )
 }

@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, CarItem, Buttons, Icon, SmallContainer } from '../Styles/CarList'
 import Button from './Button'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react';
 import carTemp from '../Assets/carTemp.png';
 import { useSelector } from 'react-redux';
 import '../Styles/cssStyle.css'
 import {BiChevronLeft, BiChevronRight} from 'react-icons/bi'
 import DotLoader from "react-spinners/DotLoader";
 import NotFoundImage from '../Assets/NotFound.jpg'
+import useState from 'react-usestateref'
 
 function CarList(props) {
     const [data, setData] = useState([]);
@@ -16,8 +16,8 @@ function CarList(props) {
     let [nama, kategori, harga] = useSelector(state => state.items.Search);
     let carData = useSelector(state => state.items.CarList);
     let [loading, setLoading] = useState(true);
-    let [cutData, setCutData] = useState();
-    let [posisi, setPosisi] = useState(0);
+    let [, setCutData, cutDataRef] = useState();
+    let [, setPosisi, posisiRef] = useState(0);
     let [isLoading, setIsLoading] = useState(true);
 
     let directDetails = () => {
@@ -38,6 +38,7 @@ function CarList(props) {
             else {
                 filterData = filterData.filter(item => item.price > 600000);
             }   
+
             setData(filterData);
         }
         else{
@@ -50,10 +51,10 @@ function CarList(props) {
         }
         setCutData(cut);
 
-        if(cutData?.length > 0){
+        if(cutDataRef.current){
             setLoading(false);
         }
-    },[carData, data, harga, kategori, nama, props.empty, cutData])
+    },[carData, cutDataRef, harga, kategori, nama, props.empty, setCutData, data, setData])
 
     useEffect(() => {
         setIsLoading(true);
@@ -66,7 +67,7 @@ function CarList(props) {
         return (
             <>
                 <Container className='carList' show>
-                    {cutData[posisi]?.map(item => 
+                    {cutDataRef.current[posisiRef.current]?.map(item => 
                     (
                         <CarItem key={item.id}>
                             <img src={item.image ? item.image : carTemp} alt="" />
@@ -78,9 +79,9 @@ function CarList(props) {
                     )
                     )}
                 </Container>
-                {cutData[posisi] ? <Buttons>
-                    {posisi === 0 ? null : (<Icon onClick={() => setPosisi(posisi-1)}><BiChevronLeft></BiChevronLeft></Icon>)}
-                    {posisi === cutData.length-1 ? null : (<Icon onClick={() => setPosisi(posisi+1)}><BiChevronRight></BiChevronRight></Icon>)}
+                {cutDataRef.current[posisiRef.current] ? <Buttons>
+                    {posisiRef.current === 0 ? null : (<Icon onClick={() => setPosisi(posisiRef.current-1)}><BiChevronLeft></BiChevronLeft></Icon>)}
+                    {posisiRef.current === cutDataRef.current.length-1 ? null : (<Icon onClick={() => setPosisi(posisiRef.current+1)}><BiChevronRight></BiChevronRight></Icon>)}
                 </Buttons> : null}
             </>
         )

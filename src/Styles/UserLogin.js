@@ -158,18 +158,6 @@ export const Form = styled.form`
             margin-left: 8px;
         }
     }
-
-    .admin{
-        color: white;
-        cursor: pointer;
-        text-decoration: none;
-        text-align: center;
-        align-self: center;
-        margin-top: 1rem;
-        padding: .7rem 1.5rem;
-        background-color: ${props => props.theme.primaryColor};
-        border-radius: 5px;
-    }
 `;
 
 export const InputContainer = styled.div`
