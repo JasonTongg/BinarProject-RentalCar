@@ -49,11 +49,11 @@ export default function CarDetails() {
         }
 
         if(window.innerWidth<=415){
-            height = 200;
+            height = 240;
         }
 
-        if(window.innerWidth<=340){
-            height = 235;
+        if(window.innerWidth<=380){
+            height = 280;
         }
 
         if(document.querySelector(".div").style.opacity==="0"){
