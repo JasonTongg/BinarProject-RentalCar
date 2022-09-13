@@ -43,8 +43,8 @@ export default function Router() {
       <Routes>
         <Route element={<PrivateRouter></PrivateRouter>}>
           <Route exact path="/search" element={<Search />} />
-          <Route exact path="/details" element={<Details />} />
-          <Route exact path="/result" element={<Result />} />
+          <Route exact path="/details/:id" element={<Details />} />
+          <Route exact path="/result/*" element={<Result />} />
           <Route exact path="/payment" element={<Payment />} />
           <Route exact path="/payment/transfer" element={<Transfer />} />
           <Route exact path="/payment/tiket" element={<Tiket />} />

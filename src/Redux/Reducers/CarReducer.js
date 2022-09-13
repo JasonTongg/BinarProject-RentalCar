@@ -1,5 +1,5 @@
 let initialState = {
-    Details: localStorage.getItem('id') ? localStorage.getItem('id') : 0,
+    Details: 0,
     Search: localStorage.getItem('state') ? localStorage.getItem('state').split(",") : [],
     CarList: [],
     AdminSearch: "",
@@ -21,7 +21,6 @@ export const CarReducer = (state = initialState, action) => {
             return newState;
         
         case "Detail Car":
-            localStorage.setItem('id', payload);
             return{
                 ...state,
                 Details: payload

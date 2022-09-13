@@ -1,23 +1,23 @@
 import React, { useState } from 'react'
 import {Button, Container, CarInfo, Sub, CarImage, CarType, CarPrice, SubHeader, Gone, DateContainer} from '../Styles/CarDetails'
 import {BsPeople} from 'react-icons/bs'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {BsChevronDown} from 'react-icons/bs'
 import { useEffect } from 'react';
 import DotLoader from "react-spinners/DotLoader";
 import carTemp from '../Assets/carTemp.png'
 import Popup from '../Components/PopupMessage'
 import {CarRentDay} from '../Redux/Actions/CarAction'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import NotFoundImage from '../Assets/NotFound.jpg'
 import { SmallContainer } from '../Styles/CarList'
 
 export default function CarDetails() {
-    let detailId = useSelector(state => state.items.Details);
     let dispatch = useDispatch();
     let navigate = useNavigate();
+    let {id} = useParams();
     let [detail, setDetail] = useState();
     let [loading, setLoading] = useState(true);
     let [isLoading, setIsLoading] = useState(true);
@@ -39,7 +39,7 @@ export default function CarDetails() {
         "October",
         "November",
         "December",
-      ];
+    ];
 
     let show = () => {
         let height = 150;
@@ -72,7 +72,7 @@ export default function CarDetails() {
         let getData = async () => {
             try {
                 setLoading(true)
-                let raw = await fetch(`https://bootcamp-rent-car.herokuapp.com/admin/car/${detailId}`);
+                let raw = await fetch(`https://bootcamp-rent-car.herokuapp.com/admin/car/${id}`);
 
                 let data = await raw.json();
 
@@ -87,7 +87,7 @@ export default function CarDetails() {
             }
         }
         getData();
-    }, [detailId])
+    }, [id])
 
     useEffect(() => {
         let hari = 0;
@@ -126,7 +126,7 @@ export default function CarDetails() {
             kategori: detail.category,
             harga: detail.price * rentDay,
             day: rentDay,
-            id: detailId,
+            id: id,
             mulai: [date, month, year].join(" "),
             akhir: [date2, month2, year2].join(" "),
         }))

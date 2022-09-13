@@ -3,22 +3,27 @@ import {Container, Label, FormItem, Option, Input, Sewa, Select, Selects, Inputs
 import Button from './Button'
 import {FiCheckCircle} from 'react-icons/fi'
 import {BsChevronDown} from 'react-icons/bs'
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, createSearchParams} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {searchCar} from '../Redux/Actions/CarAction'
+import useState from 'react-usestateref'
 
 export default function SearchBar(props) {
+    let [, setData, dataRef] = useState({});
     const navigate = useNavigate();
     const dispactch = useDispatch();
 
-    const toResult = (e, bool = false) => {
+    const toResult = (e) => {
         e.preventDefault();
-        dispactch(searchCar([document.querySelector("#nama").value,document.querySelector("#kategori").value, document.querySelector("#harga").value]));
-        let carList = document.querySelector(".carList");
-        carList.scrollIntoView({ block: 'center',  behavior: 'smooth' });
-        if(bool === true){
-            navigate("/result");
-        }
+        dispactch(searchCar([dataRef.current.name,dataRef.current.category,dataRef.current.price]));
+        navigate({
+            pathname: "/result",
+            search: createSearchParams({
+                name: dataRef.current.name,
+                category: dataRef.current.category,
+                price: dataRef.current.price,
+            }).toString()
+        });
     }
 
     if(props.search){
@@ -27,11 +32,17 @@ export default function SearchBar(props) {
                 <Container onSubmit={(e) => toResult(e, true)}>
                     <FormItem>
                         <Label htmlFor="nama">Nama Mobil</Label>
-                        <Input id="nama" type="text" placeholder='Ketik nama/tipe mobil' required/>
+                        <Input id="nama" type="text" placeholder='Ketik nama/tipe mobil' required onChange={(e) => setData({
+                            ...dataRef.current,
+                            name: e.target.value,
+                        })}/>
                     </FormItem>
                     <FormItem>
                         <Label htmlFor="kategori">Kategori</Label>
-                        <Select id="kategori">
+                        <Select required id="kategori" onChange={(e) => setData({
+                            ...dataRef.current,
+                            category: e.target.value,
+                        })}>
                             <Option defaultValue="2 - 4 orang">Masukan Kapasitas Mobil</Option>
                             <Option defaultValue="2 - 4 orang">2 - 4 orang</Option>
                             <Option defaultValue="4 - 6 orang">4 - 6 orang</Option>
@@ -40,7 +51,10 @@ export default function SearchBar(props) {
                     </FormItem>
                     <FormItem>
                         <Label htmlFor="harga">Harga</Label>
-                        <Select id="harga" required="required">
+                        <Select id="harga" required onChange={(e) => setData({
+                            ...dataRef.current,
+                            price: e.target.value,
+                        })}>
                             <Option disabled defaultValue="< Rp. 400.000">Masukan Harga Sewa Per Hari</Option>
                             <Option defaultValue="< Rp. 400.000">{'< Rp. 400.000'}</Option>
                             <Option defaultValue="Rp. 400.000 - Rp. 600.000">{'Rp. 400.000 - Rp. 600.000'}</Option>
@@ -65,11 +79,17 @@ export default function SearchBar(props) {
                 <Container onSubmit={toResult}>
                     <FormItem>
                         <Label htmlFor="nama">Nama Mobil</Label>
-                        <Inputs id="nama" type="text" placeholder='Ketik nama/tipe mobil' required/>
+                        <Inputs id="nama" type="text" placeholder='Ketik nama/tipe mobil' required onChange={(e) => setData({
+                            ...dataRef.current,
+                            name: e.target.value,
+                        })}/>
                     </FormItem>
                     <FormItem>
                         <Label htmlFor="kategori">Kategori</Label>
-                        <Selects id="kategori" required>
+                        <Selects id="kategori" required onChange={(e) => setData({
+                            ...dataRef.current,
+                            category: e.target.value,
+                        })}>
                             <Option defaultValue="Masukan Kapasitas Mobil">Masukan Kapasitas Mobil</Option>
                             <Option defaultValue="2 - 4 orang">2 - 4 orang</Option>
                             <Option defaultValue="4 - 6 orang">4 - 6 orang</Option>
@@ -78,7 +98,10 @@ export default function SearchBar(props) {
                     </FormItem>
                     <FormItem>
                         <Label htmlFor="harga">Harga</Label>
-                        <Selects id="harga" required>
+                        <Selects id="harga" required onChange={(e) => setData({
+                            ...dataRef.current,
+                            price: e.target.value,
+                        })}>
                             <Option defaultValue="Masukan Harga Sewa Per Hari">Masukan Harga Sewa Per Hari</Option>
                             <Option defaultValue="< Rp. 400.000">{'< Rp. 400.000'}</Option>
                             <Option defaultValue="Rp. 400.000 - Rp. 600.000">{'Rp. 400.000 - Rp. 600.000'}</Option>

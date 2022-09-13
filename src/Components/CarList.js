@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Container, CarItem, Buttons, Icon, SmallContainer } from '../Styles/CarList'
 import Button from './Button'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import carTemp from '../Assets/carTemp.png';
 import { useSelector } from 'react-redux';
 import '../Styles/cssStyle.css'
@@ -12,27 +12,37 @@ import useState from 'react-usestateref'
 
 function CarList(props) {
     const [data, setData] = useState([]);
+    const [, setSearch, searchRef] = useState([]);
     let navigate = useNavigate();
-    let [nama, kategori, harga] = useSelector(state => state.items.Search);
+    let [value] = useSearchParams();
     let carData = useSelector(state => state.items.CarList);
     let [loading, setLoading] = useState(true);
     let [, setCutData, cutDataRef] = useState();
     let [, setPosisi, posisiRef] = useState(0);
     let [isLoading, setIsLoading] = useState(true);
 
-    let directDetails = () => {
-        navigate("/details");
+    let directDetails = (id) => {
+        navigate(`/details/${id}`);
     }
 
     useEffect(() => {
-        setLoading(true);
-        if(nama !== undefined && props.empty === undefined){
-            let filterData = carData.filter(item => item.category === kategori && item.name.toLowerCase() === nama.toLowerCase());
+        if(value){
+            let name = value.get("name");
+            let category = value.get("category");
+            let price = value.get("price");
+            setSearch([name, category, price]);
+        }
+    }, [value, searchRef, setSearch])
 
-            if (harga === "< Rp. 400.000") {
+    useEffect(() => {
+        setLoading(true);
+        if(searchRef.current[0] !== undefined && props.empty === undefined){
+            let filterData = carData.filter(item => item.category === searchRef.current[1] && item.name.toLowerCase() === searchRef.current[0].toLowerCase());
+
+            if (searchRef.current[2] === "< Rp. 400.000") {
                 filterData = filterData.filter(item => item.price < 400000);
             }
-            else if (harga === "Rp. 400.000 - Rp. 600.000") {
+            else if (searchRef.current[2] === "Rp. 400.000 - Rp. 600.000") {
                 filterData = filterData.filter(item => item.price >= 400000 && item.price <= 600000);
             }
             else {
@@ -54,7 +64,7 @@ function CarList(props) {
         if(cutDataRef.current){
             setLoading(false);
         }
-    },[carData, cutDataRef, harga, kategori, nama, props.empty, setCutData, data, setData])
+    },[carData, cutDataRef, props.empty, setCutData, data, setData, searchRef])
 
     useEffect(() => {
         setIsLoading(true);
@@ -74,7 +84,7 @@ function CarList(props) {
                             <h5>{item.name}</h5>
                             <h3>Rp {item.price},-</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                            <Button size="big" action={directDetails} idCar={item.id}>Pilih Mobil</Button>
+                            <Button size="big" action={() => directDetails(item.id)} idCar={item.id}>Pilih Mobil</Button>
                         </CarItem>
                     )
                     )}
