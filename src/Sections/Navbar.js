@@ -9,6 +9,7 @@ import logoWhite from '../Assets/Logo-White.png'
 import { Link } from 'react-router-dom'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Button from '../Components/Button'
+import {isLogin as login} from '../Redux/Actions/AnimationAction'
 
 export default function Navbar() {
   let dispatch = useDispatch();
@@ -103,7 +104,9 @@ export default function Navbar() {
         <li onClick={scrollTestimonial}>Testimonial</li>
         <li onClick={scrollFaq}>FAQ</li>
         {isLogin ? <Button action={removeToken}>Logout</Button> : <Link to="/login"><Button>Login</Button></Link>}
-        <Link to="/admin"><Button>Admin</Button></Link>
+        <Link to="/admin" onClick={() => {
+          dispatch(login(true));
+        }}><Button>Admin</Button></Link>
       </NavbarItems>
       <BurgerNavbar>
         <GiHamburgerMenu className="burger" onClick={openNavbar}></GiHamburgerMenu>

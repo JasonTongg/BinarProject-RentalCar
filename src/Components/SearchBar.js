@@ -4,18 +4,14 @@ import Button from './Button'
 import {FiCheckCircle} from 'react-icons/fi'
 import {BsChevronDown} from 'react-icons/bs'
 import {useNavigate, createSearchParams} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import {searchCar} from '../Redux/Actions/CarAction'
 import useState from 'react-usestateref'
 
 export default function SearchBar(props) {
     let [, setData, dataRef] = useState({});
     const navigate = useNavigate();
-    const dispactch = useDispatch();
 
     const toResult = (e) => {
         e.preventDefault();
-        dispactch(searchCar([dataRef.current.name,dataRef.current.category,dataRef.current.price]));
         navigate({
             pathname: "/result",
             search: createSearchParams({

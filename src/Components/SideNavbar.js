@@ -7,6 +7,7 @@ import {navbar} from '../Redux/Actions/AnimationAction'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import Button from '../Components/Button'
+import {isLogin as login} from '../Redux/Actions/AnimationAction'
 
 export default function SideNavbar() {
     let navbarToggle = useSelector(state => state.animations.navbar);
@@ -71,7 +72,10 @@ export default function SideNavbar() {
                         <li onClick={scrollTestimonial}>Testimonial</li>
                         <li onClick={scrollFaq}>FAQ</li>
                         {isLogin ? <Link to=""><Button action={removeToken}>Logout</Button></Link> : <Link to="/login" onClick={closeNavbar}><Button>Login</Button></Link>}
-                        <Link to="/admin" onClick={closeNavbar}><Button>Admin</Button></Link>
+                        <Link to="/admin" onClick={() => {
+                            closeNavbar();
+                            dispatch(login(true));
+                        }}><Button>Admin</Button></Link>
                         <FaTimes className='close' onClick={closeNavbar}></FaTimes>
                     </SideNavbarContainer>
                 </Sidenavbar>

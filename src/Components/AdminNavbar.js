@@ -5,18 +5,19 @@ import {GiHamburgerMenu} from 'react-icons/gi'
 import { useDispatch, useSelector } from 'react-redux'
 import { adminNavbar } from '../Redux/Actions/AnimationAction'
 import AdminSideNavbar from './AdminSideNavbar'
-import {AdminSearch} from '../Redux/Actions/CarAction'
+import { useSearchParams } from 'react-router-dom'
 
 export default function AdminNavbar(props) {
     let dispatch = useDispatch();
     let navbarClicked = useSelector(state => state.animations.adminNavbar);
+    let [, setValue] = useSearchParams();
 
     let clicked = () => {
         dispatch(adminNavbar());
     }
 
     let searchInput = (e) => {
-        dispatch(AdminSearch(e.target.value));
+        setValue({"search": e.target.value});
     }
 
     return (

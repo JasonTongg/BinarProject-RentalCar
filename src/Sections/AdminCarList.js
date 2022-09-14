@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react'
-import {BigContainer, ListContainer, Pwd, Category, CategoryContainer, InfoContainer, ListItem, Buttons, Button, Container, DeleteContainer, DeleteInfo, Overlay, ButtonContainer, DeleteButton, BigContainerLoading} from '../Styles/AdminCarList'
+import {BigContainer, ListContainer, Pwd, Category, CategoryContainer, InfoContainer, ListItem, Buttons, Button, Container, DeleteContainer, DeleteInfo, Overlay, ButtonContainer, DeleteButton, BigContainerLoading, NotFoundContainer} from '../Styles/AdminCarList'
 import carTemp from '../Assets/carTemp.png'
 import {BsPeople, BsClock} from 'react-icons/bs'
 import {FiTrash, FiEdit} from 'react-icons/fi'
 import {BsPlusLg} from 'react-icons/bs'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useNavigate, useSearchParams} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {AdminEditCar, AdminSearch} from '../Redux/Actions/CarAction'
 import deleteImage from '../Assets/DeletePopUp.png';
 import Popup from '../Components/PopupMessage'
 import {carManipulation} from '../Redux/Actions/CarAction'
@@ -20,7 +19,8 @@ export default function AdminCarList() {
     let searchData = useSelector(state => state.items.AdminSearch);
     let manipulation = useSelector(state => state.items.listMessage);
     let [active, setActive, activeRef] = useState([true, false, false, false]);
-    let [list, setList] = useState([]);
+    let [value] = useSearchParams();
+    let [, setList, listRef] = useState([]);
     let [isDelete, setIsDelete] = useState(false);
     let [deleteId, setDeleteId] = useState(0);
     let [deleteSuccess, setDeleteSuccess] = useState(false);
@@ -31,15 +31,13 @@ export default function AdminCarList() {
     let [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        dispatch(AdminSearch(""));
         setTimeout(() => {
             dispatch(carManipulation(false));
         }, 2000)
     }, [dispatch])
 
     let toEdit = (data) => {
-        dispatch(AdminEditCar(data));
-        navigate("/admin/list/edit");
+        navigate(`/admin/list/edit/${data}`);
     }
 
     let deleteData = async () => {
@@ -93,8 +91,8 @@ export default function AdminCarList() {
                     data = data.filter(item => item.category === "6 - 8 orang");
                 }
     
-                if(searchData){
-                    data = data.filter(item => item.name?.toLowerCase()?.includes(searchData?.toLowerCase()));
+                if(value.get("search")){
+                    data = data.filter(item => item.name?.toLowerCase()?.includes(value.get("search")?.toLowerCase()));
                 }
                 
                 setList(data);
@@ -104,7 +102,7 @@ export default function AdminCarList() {
             }
         }
         getData();
-    }, [active, searchData, isDelete, activeRef])
+    }, [active, searchData, isDelete, activeRef, setList, value])
 
     useEffect(() => {
         setIsLoading(true);
@@ -130,32 +128,40 @@ export default function AdminCarList() {
                 <Category className={activeRef.current[2] ? "active" : null} onClick={() => setActive([false, false, !activeRef.current[2], false])}><h3>4 - 6 People</h3></Category>
                 <Category className={activeRef.current[3] ? "active" : null} onClick={() => setActive([false, false, false, !activeRef.current[3]])}><h3>6 - 8 People</h3></Category>
             </CategoryContainer>
-            <ListContainer>
-                {list.map((item, idx) => {
-                    let tanggal = item.updatedAt.split('T')
-                    let [year, month, day] = tanggal[0].split("-");
-                    let time = tanggal[1].slice(0,5);
-                    return (
-                        <ListItem key={idx}>
-                            <img src={item.image ? item.image : carTemp} alt="car" />
-                            <p>{item.name}</p>
-                            <h3>Rp {item.price} / hari</h3>
-                            <InfoContainer>
-                                <BsPeople className='icon'></BsPeople>
-                                <p>{item.category}</p>
-                            </InfoContainer>
-                            <InfoContainer>
-                                <BsClock className='icon'></BsClock>
-                                <p>Updated at {day} {bulan[+month]} {year}, {time}</p>
-                            </InfoContainer>
-                            <Buttons>
-                                <Button onClick={() => getDeleteData(item.id)}><FiTrash className='icon'></FiTrash>Delete</Button>
-                                <Button onClick={() => toEdit(item)}><FiEdit className='icon'></FiEdit>Edit</Button>
-                            </Buttons>
-                        </ListItem>
-                    )
-                })}
-            </ListContainer>
+            {listRef.current.length !== 0 ? 
+                <ListContainer>
+                    {listRef.current.map((item, idx) => {
+                        let tanggal = item.updatedAt.split('T')
+                        let [year, month, day] = tanggal[0].split("-");
+                        let time = tanggal[1].slice(0,5);
+                        return (
+                            <ListItem key={idx}>
+                                <img src={item.image ? item.image : carTemp} alt="car" />
+                                <p>{item.name}</p>
+                                <h3>Rp {item.price} / hari</h3>
+                                <InfoContainer>
+                                    <BsPeople className='icon'></BsPeople>
+                                    <p>{item.category}</p>
+                                </InfoContainer>
+                                <InfoContainer>
+                                    <BsClock className='icon'></BsClock>
+                                    <p>Updated at {day} {bulan[+month]} {year}, {time}</p>
+                                </InfoContainer>
+                                <Buttons>
+                                    <Button onClick={() => getDeleteData(item.id)}><FiTrash className='icon'></FiTrash>Delete</Button>
+                                    <Button onClick={() => toEdit(item.id)}><FiEdit className='icon'></FiEdit>Edit</Button>
+                                </Buttons>
+                            </ListItem>
+                        )
+                    })}
+                </ListContainer>
+            : 
+                <NotFoundContainer>
+                    <img src={NotFoundImage} alt="Not Found" />
+                    <h1 className='errorh1'>Waduh mobil yang anda cari nga ada!!</h1>
+                    <p className='errorp'>Pastikan jaringan internet anda berjalan dengan baik...</p>
+                </NotFoundContainer>
+            }
             {isDelete ? 
                 <Overlay>
                     <DeleteContainer>

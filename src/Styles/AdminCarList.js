@@ -264,3 +264,53 @@ export const BigContainerLoading = styled.div`
     align-items: center;
     justify-content: center;
 `;
+
+export const NotFoundContainer = styled.div`
+    width: 100%;
+    height: calc(100vh - 250px);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+
+    h1,p{
+        text-align: center;
+    }
+
+    p{
+        line-height: 1rem;
+    }
+
+    h1{
+        line-height: 1.5rem;
+        margin-block: 1rem .5rem;
+        font-size: 1.4rem;
+        @media only screen and (max-width: 300px){
+            font-size: 1.2rem;
+        }
+    }
+
+    img{
+        width: 40%;
+
+        @media only screen and (max-width: 1300px){
+            width: 60%;
+        }
+
+        @media only screen and (max-width: 1000px){
+            width: 70%;
+        }
+
+        @media only screen and (max-width: 700px){
+            width: 80%;
+        }
+
+        @media only screen and (max-width: 500px){
+            width: 90%;
+        }
+    }
+`;

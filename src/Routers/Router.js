@@ -53,7 +53,7 @@ export default function Router() {
           <Route exact path="/admin" element={<Admin></Admin>} />
           <Route exact path="/admin/list" element={<AdminListCar></AdminListCar>} />
           <Route exact path="/admin/list/add" element={<AddCar {...addCarProps}></AddCar>} />
-          <Route exact path="/admin/list/edit" element={<AddCar {...editCarProps}></AddCar>} />
+          <Route exact path="/admin/list/edit/:id" element={<AddCar {...editCarProps}></AddCar>} />
         </Route>
         <Route exact path="/" element={<Home />} />
         <Route exact path ="/login" element={<UserLogin {...userLoginProps}/>} />
