@@ -184,12 +184,12 @@ export default function Dashboard() {
                     [...Array(pages).fill(10)].map((item, idx) => {
                       if(idx+1===page){
                         return(
-                          <option key={idx}>{idx+1}</option>
+                          <option key={idx}>{idx}</option>
                         )
                       }
                       else{
                         return(
-                          <option key={idx}>{idx+1}</option>
+                          <option key={idx}>{idx}</option>
                         )
                       }
                     })
@@ -203,24 +203,35 @@ export default function Dashboard() {
                 if(page>1){
                   setPage(page-1);
                 }
+                else{
+                  setPage(pages);
+                }
               }}>
                 <AiOutlineDoubleLeft></AiOutlineDoubleLeft>
               </div>
-              {[...Array(pages).fill(10)].map((item, idx) => {
-                if(idx+1 === page){
-                  return (
-                    <div className='active' onClick={() => setPage(idx+1)} key={idx}>{idx+1}</div>
-                  )
+              {[...Array(5).fill(10)].map((item, idx) => {
+                let awal=0;
+                awal = page-(page%5);
+                if(idx+awal!==0 && idx+awal<=pages){
+                  if(idx+awal === page){
+                    return (
+                      <div className='active' onClick={() => setPage(idx+awal)} key={idx+awal}>{idx+awal}</div>
+                    )
+                  }
+                  else{
+                    return (
+                      <div onClick={() => setPage(idx+awal)} key={idx+awal}>{idx+awal}</div>
+                    )
+                  }
                 }
-                else{
-                  return (
-                    <div onClick={() => setPage(idx+1)} key={idx}>{idx+1}</div>
-                  )
-                }
-              })}
+                return null;
+              })} 
               <div onClick={() => {
                 if(page<pages){
                   setPage(page+1)
+                }
+                else{
+                  setPage(1);
                 }
               }}>
                 <AiOutlineDoubleRight></AiOutlineDoubleRight>

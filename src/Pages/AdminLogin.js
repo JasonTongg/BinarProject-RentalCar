@@ -33,6 +33,10 @@ export default function AdminLogin() {
                 throw new Error(data.message ? data.message : data.errors[0].message);
             }
 
+            if(data.role !== "admin"){
+                throw new Error("Sorry!, only admin can access this page...")
+            }
+
             window.localStorage.setItem("Admin Token", data.access_token);
             navigate("/admin");
         } catch (error) {
