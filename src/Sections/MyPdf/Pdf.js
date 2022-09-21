@@ -1,11 +1,11 @@
-import { Document, Font, Page, StyleSheet, View } from '@react-pdf/renderer'
+import {Document, Font, Page, StyleSheet, View} from '@react-pdf/renderer';
 
-import Amount from './Amount'
-import Body from './Body'
-import Client from './Client'
-import Footer from './Footer'
-import Header from './Header'
-import { DateTime } from 'luxon'
+import Amount from './Amount';
+import Body from './Body';
+import Client from './Client';
+import Footer from './Footer';
+import Header from './Header';
+import {DateTime} from 'luxon';
 
 const styles = StyleSheet.create({
   body: {
@@ -25,40 +25,63 @@ const styles = StyleSheet.create({
     fontSize: 32,
     marginBottom: 16,
   },
-})
+});
 
 Font.register({
   family: 'Source Sans',
   src: '/fonts/SourceSansPro-Regular.otf',
-})
+});
 
 Font.register({
   src: `/fonts/SourceSansPro-Bold.otf`,
   family: 'Source Sans',
   fontWeight: 'bold',
-})
+});
 
 Font.register({
   src: `/fonts/SourceSansPro-It.otf`,
   family: 'Source Sans',
   fontStyle: 'italic',
-})
+});
 
 function Invoice({customerData}) {
-
-  if(customerData){
+  if (customerData) {
+    console.log(customerData);
 
     const data = {
       formType: 'invoice',
       date: DateTime.now().toISODate(),
       to: customerData.User.email,
       amount: customerData.total_price,
-      body: `Car rental for ${customerData.Car.name} (${customerData.Car.category}) in ${customerData.total_price / customerData.Car.price} ${customerData.total_price / customerData.Car.price === 1 ? "day" : "days"} from ${customerData.start_rent_at.split("T")[0].split("-").reverse().join("-")} to ${customerData.finish_rent_at.split("T")[0].split("-").reverse().join("-")}`,
-    }
+      body: `Car rental for ${
+        customerData.Car !== null ? customerData.Car.name : 'Innova'
+      } (${
+        customerData.Car ? customerData.Car.category : '6 - 8 Person'
+      }) in ${Math.round(
+        customerData.total_price /
+          (customerData.Car !== null ? customerData.Car.price : 1000000)
+      )} ${
+        Math.round(
+          customerData.total_price /
+            (customerData.Car !== null ? customerData.Car.price : 1000000)
+        ) === 1
+          ? 'day'
+          : 'days'
+      } from ${customerData.start_rent_at
+        .split('T')[0]
+        .split('-')
+        .reverse()
+        .join('-')} to ${customerData.finish_rent_at
+        .split('T')[0]
+        .split('-')
+        .reverse()
+        .join('-')}`,
+    };
 
-    const { body, formType, date, to, address, jobLocation, phone, amount } = data
+    const {body, formType, date, to, address, jobLocation, phone, amount} =
+      data;
 
-    const formTypeName = 'Invoice'
+    const formTypeName = 'Invoice';
 
     return (
       <Document>
@@ -74,11 +97,10 @@ function Invoice({customerData}) {
           </View>
         </Page>
       </Document>
-    )
-  }
-  else{
+    );
+  } else {
     return null;
   }
 }
 
-export default Invoice
+export default Invoice;
