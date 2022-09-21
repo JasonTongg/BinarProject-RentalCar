@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {
   Container,
   CarItem,
@@ -40,7 +40,7 @@ function CarList(props) {
     }
   }, [value, searchRef, setSearch]);
 
-  useEffect(() => {
+  let getData = useCallback(() => {
     setLoading(true);
     if (searchRef.current[0] !== undefined && props.empty === undefined) {
       let filterData = carData.filter(
@@ -73,19 +73,22 @@ function CarList(props) {
     if (cutDataRef.current) {
       setLoading(false);
     }
+
+    console.error = () => {};
   }, [carData, cutDataRef, props.empty, setCutData, data, setData, searchRef]);
 
   useEffect(() => {
-    console.log('load');
+    getData();
+  }, [getData]);
+
+  useEffect(() => {
     setIsLoading(true);
     setTimeout(() => {
-      console.log('sudah');
       setIsLoading(false);
     }, 5000);
   }, [loading]);
 
   if (loading === false && cutDataRef.current.length !== 0) {
-    console.log(cutDataRef.current.length);
     return (
       <>
         <Container className="carList" show>
