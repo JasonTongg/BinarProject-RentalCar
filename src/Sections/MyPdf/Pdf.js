@@ -46,8 +46,6 @@ Font.register({
 
 function Invoice({customerData}) {
   if (customerData) {
-    console.log(customerData);
-
     const data = {
       formType: 'invoice',
       date: DateTime.now().toISODate(),
