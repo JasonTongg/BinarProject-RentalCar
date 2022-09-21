@@ -21,6 +21,7 @@ export default function UserLogin(props) {
   let [errorMessage, setErrorMessage] = useState('');
   let navigate = useNavigate();
   let dispatch = useDispatch();
+  let [warnanya, setWarnanya] = useState('#FC6F6F');
 
   let url = 'https://bootcamp-rent-car.herokuapp.com';
   let doAction = async (e) => {
@@ -81,6 +82,49 @@ export default function UserLogin(props) {
     window.scrollTo(0, 0);
   }, []);
 
+  let containsNumber = (str) => {
+    return /[0-9]/.test(str);
+  };
+
+  let containsSymbol = (str) => {
+    const specialChars = '[`!@#$%^&*()_+-=[]{};\':"\\|,.<>/?~]/';
+    return specialChars
+      .split('')
+      .some((specialChar) => str.includes(specialChar));
+  };
+
+  let warna = () => {
+    let count = 0;
+    if (dataRef.current.password.length > 5) {
+      count++;
+    }
+    if (dataRef.current.password.length > 7) {
+      count++;
+    }
+    if (dataRef.current.password.toLowerCase() !== dataRef.current.password) {
+      count++;
+    }
+    if (containsNumber(dataRef.current.password)) {
+      count++;
+    }
+    if (containsSymbol(dataRef.current.password)) {
+      count++;
+    }
+    if (count > 3) {
+      count = 3;
+    }
+
+    if (count === 1) {
+      setWarnanya('#FE9651');
+    } else if (count === 2) {
+      setWarnanya('#FEC600');
+    } else if (count === 3) {
+      setWarnanya('#9FFF2A');
+    } else {
+      setWarnanya('#FC6F6F');
+    }
+  };
+
   return (
     <UserLoginContainer>
       <Link to="/" className="back">
@@ -121,12 +165,12 @@ export default function UserLogin(props) {
                   id="password"
                   placeholder="6+ karakter"
                   required
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setData({
                       ...dataRef.current,
                       password: e.target.value,
-                    })
-                  }
+                    });
+                  }}
                 />
               </InputContainer>
             </>
@@ -163,13 +207,15 @@ export default function UserLogin(props) {
                   id="password"
                   placeholder="6+ karakter"
                   required
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setData({
                       ...dataRef.current,
                       password: e.target.value,
-                    })
-                  }
+                    });
+                    warna();
+                  }}
                 />
+                <div style={{backgroundColor: `${warnanya}`}}></div>
               </InputContainer>
             </>
           )}
