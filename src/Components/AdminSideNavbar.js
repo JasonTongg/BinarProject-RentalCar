@@ -32,6 +32,13 @@ export default function AdminSideNavbar(props) {
     navigate('/admin/list');
     close();
   };
+
+  let logout = () => {
+    window.localStorage.removeItem('Admin Token');
+    navigate('/');
+    close();
+  };
+
   return (
     <Container>
       <Left>
@@ -60,26 +67,14 @@ export default function AdminSideNavbar(props) {
             <p>Cars</p>
           </CategoryContainer>
         )}
-        <CategoryContainer
-          onClick={() => {
-            navigate('/');
-            close();
-          }}
-        >
+        <CategoryContainer onClick={logout}>
           <BiLogOut className="icon"></BiLogOut>
           <p>Logout</p>
         </CategoryContainer>
       </Left>
       <Right>
         <NavbarContainer>
-          <img
-            src={Logo}
-            alt="logo"
-            onClick={() => {
-              navigate('/');
-              close();
-            }}
-          />
+          <img src={Logo} alt="logo" onClick={logout} />
         </NavbarContainer>
         <NavbarContainer>
           <h3>{text === 'Dashboard' ? text : 'CARS'}</h3>
