@@ -1,20 +1,14 @@
 import React, {useEffect, useCallback} from 'react';
-import {
-  Container,
-  CarItem,
-  Buttons,
-  Icon,
-  SmallContainer,
-} from '../Styles/CarList';
+import {Container, CarItem, SmallContainer} from '../Styles/CarList';
 import Button from './Button';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import carTemp from '../Assets/carTemp.png';
 import {useSelector} from 'react-redux';
-import '../Styles/cssStyle.css';
-import {BiChevronLeft, BiChevronRight} from 'react-icons/bi';
 import DotLoader from 'react-spinners/DotLoader';
 import NotFoundImage from '../Assets/NotFound.jpg';
 import useState from 'react-usestateref';
+import {PageItem} from '../Styles/Dashboard';
+import {AiOutlineDoubleLeft, AiOutlineDoubleRight} from 'react-icons/ai';
 
 function CarList(props) {
   const [data, setData] = useState([]);
@@ -40,8 +34,7 @@ function CarList(props) {
     }
   }, [value, searchRef, setSearch]);
 
-  let getData = useCallback(() => {
-    setLoading(true);
+  let filterData = useCallback(() => {
     if (searchRef.current[0] !== undefined && props.empty === undefined) {
       let filterData = carData.filter(
         (item) =>
@@ -63,7 +56,9 @@ function CarList(props) {
     } else {
       setData(carData);
     }
+  }, [carData, props.empty, searchRef]);
 
+  let cut = useCallback(() => {
     let cut = [];
     for (let i = 0; i < data.length; i += 9) {
       cut.push(data.slice(i, i + 9));
@@ -73,13 +68,14 @@ function CarList(props) {
     if (cutDataRef.current) {
       setLoading(false);
     }
-
-    console.error = () => {};
-  }, [carData, cutDataRef, props.empty, setCutData, data, setData, searchRef]);
+  }, [cutDataRef, data, setCutData]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    setLoading(true);
+    filterData();
+    cut();
+    console.error = () => {};
+  }, [filterData, cut]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -112,18 +108,54 @@ function CarList(props) {
           ))}
         </Container>
         {cutDataRef.current[posisiRef.current] ? (
-          <Buttons>
-            {posisiRef.current === 0 ? null : (
-              <Icon onClick={() => setPosisi(posisiRef.current - 1)}>
-                <BiChevronLeft></BiChevronLeft>
-              </Icon>
-            )}
-            {posisiRef.current === cutDataRef.current.length - 1 ? null : (
-              <Icon onClick={() => setPosisi(posisiRef.current + 1)}>
-                <BiChevronRight></BiChevronRight>
-              </Icon>
-            )}
-          </Buttons>
+          <PageItem>
+            <div
+              onClick={() => {
+                if (posisiRef.current > 0) {
+                  setPosisi(posisiRef.current - 1);
+                } else {
+                  setPosisi(cutDataRef.current.length - 1);
+                }
+              }}
+            >
+              <AiOutlineDoubleLeft></AiOutlineDoubleLeft>
+            </div>
+            {[...Array(5).fill(10)].map((item, idx) => {
+              let awal = 0;
+              awal = posisiRef.current - (posisiRef.current % 5);
+              if (idx + awal !== 0 && idx + awal <= cutDataRef.current.length) {
+                if (idx + awal - 1 === posisiRef.current) {
+                  return (
+                    <div
+                      className="active"
+                      onClick={() => setPosisi(idx + awal)}
+                      key={idx + awal}
+                    >
+                      {idx + awal}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div onClick={() => setPosisi(idx + awal)} key={idx + awal}>
+                      {idx + awal}
+                    </div>
+                  );
+                }
+              }
+              return null;
+            })}
+            <div
+              onClick={() => {
+                if (posisiRef.current < cutDataRef.current.length - 1) {
+                  setPosisi(posisiRef.current + 1);
+                } else {
+                  setPosisi(0);
+                }
+              }}
+            >
+              <AiOutlineDoubleRight></AiOutlineDoubleRight>
+            </div>
+          </PageItem>
         ) : null}
       </>
     );
