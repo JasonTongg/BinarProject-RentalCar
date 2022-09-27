@@ -38,7 +38,9 @@ function CarList(props) {
     if (searchRef.current[0] !== undefined && props.empty === undefined) {
       let filterData = carData.filter(
         (item) =>
-          item.category === searchRef.current[1] &&
+          (item.category === searchRef.current[1] ||
+            item.category ===
+              searchRef.current[1].replace('orang', 'people')) &&
           item.name.toLowerCase() === searchRef.current[0].toLowerCase()
       );
 
@@ -56,7 +58,7 @@ function CarList(props) {
     } else {
       setData(carData);
     }
-  }, [carData, props.empty, searchRef]);
+  }, [carData, props.empty, searchRef, setData]);
 
   let cut = useCallback(() => {
     let cut = [];
