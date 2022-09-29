@@ -9,16 +9,17 @@ import useState from 'react-usestateref';
 import {DashboardContainer} from '../Styles/Dashboard';
 import DotLoader from 'react-spinners/DotLoader';
 import {Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 export default function Tiket() {
-  let [, setCustomerId, customerIdRef] = useState();
   let [, setCustomerData, customerDataRef] = useState();
+  let {id} = useParams();
 
   useEffect(() => {
     let getCustomerData = async () => {
       try {
         let rawData = await window.fetch(
-          `https://bootcamp-rent-car.herokuapp.com/customer/order/${customerIdRef.current}`,
+          `https://bootcamp-rent-car.herokuapp.com/customer/order/${id}`,
           {
             method: 'GET',
             headers: {
@@ -54,13 +55,12 @@ export default function Tiket() {
           throw new Error(data.message ? data.message : data.errors[0].message);
         }
 
-        setCustomerId(data.length);
         getCustomerData();
       } catch (error) {}
     };
 
     getData();
-  }, [customerIdRef, setCustomerData, setCustomerId]);
+  }, [setCustomerData, id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

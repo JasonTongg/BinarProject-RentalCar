@@ -85,6 +85,7 @@ export default function Transfer() {
       if (rawData.status !== 201) {
         throw new Error(data.message ? data.message : data.errors[0].message);
       }
+      navigate(`/payment/tiket/${data.id}`);
     } catch (error) {
       setError(error.message);
     }
@@ -380,7 +381,6 @@ export default function Transfer() {
                 <Button
                   onClick={() => {
                     uploadData();
-                    navigate('/payment/tiket');
                   }}
                 >
                   Upload

@@ -195,6 +195,7 @@ export default function AddCar(props) {
               <input
                 className="foto"
                 type="file"
+                accept="image/*"
                 onChange={(e) =>
                   setData({
                     ...dataRef.current,
