@@ -51,7 +51,7 @@ export default function UserLogin(props) {
           }),
         });
 
-        rawData = await window.fetch(`${url}/customer/auth/login`, {
+        await window.fetch(`${url}/customer/auth/login`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json',

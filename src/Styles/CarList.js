@@ -9,11 +9,12 @@ export const Container = styled.section`
   align-content: center;
   gap: 5rem;
   width: 100%;
-  padding: 4rem 196px;
+  padding: 1rem 196px;
   min-height: 400px;
+  margin-bottom: 1.5rem;
 
   @media only screen and (max-width: 1450px) {
-    padding: 4rem 100px;
+    padding: 1rem 100px;
   }
 `;
 
@@ -111,6 +112,9 @@ export const CarItem = styled.div`
   width: 100%;
   max-width: 300px;
   gap: 0.8rem;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 1rem;
 
   & h5 {
     font-weight: 0;
@@ -119,8 +123,8 @@ export const CarItem = styled.div`
   & img {
     width: 100%;
     height: 100%;
-    min-width: 300px;
-    min-height: 200px;
+    min-width: 250px;
+    min-height: 180px;
   }
 
   & p {
