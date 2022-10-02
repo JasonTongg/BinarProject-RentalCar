@@ -66,7 +66,7 @@ export default function UserLogin(props) {
       let data = await rawData.json();
 
       if (rawData.status !== 201) {
-        throw new Error(data.message);
+        throw new Error(data.message ? data.message : data.errors[0].message);
       }
 
       window.localStorage.setItem('token', data.access_token);
