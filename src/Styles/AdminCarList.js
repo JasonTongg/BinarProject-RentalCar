@@ -30,22 +30,22 @@ export const ListContainer = styled.div`
 
 export const ListItem = styled.div`
   width: 100%;
-  padding: 24px;
   background-color: white;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  padding: 24px;
 
   & > * {
     margin-top: 16px;
   }
 
   img {
-    width: 276px;
-    height: 213px;
-    padding: 31px 17px;
+    max-width: 330px;
+    width: 100%;
+    // height: 230px;
     margin: 0;
     align-self: center;
   }
