@@ -48,10 +48,9 @@ export default function AdminCarList() {
     'Dec',
   ];
   let manipulation = useSelector((state) => state.items.listMessage);
-  let [, setActive, activeRef] = useState([true, false, false, false]);
+  let [active, setActive, activeRef] = useState([true, false, false, false]);
   let [value] = useSearchParams();
-  let carData = useSelector((state) => state.items.CarList);
-  let [, setList, listRef] = useState([carData]);
+  let [, setList, listRef] = useState([]);
   let [isDelete, setIsDelete] = useState(false);
   let [deleteId, setDeleteId] = useState(0);
   let [deleteSuccess, setDeleteSuccess] = useState(false);
@@ -107,41 +106,33 @@ export default function AdminCarList() {
   useEffect(() => {
     let getData = async () => {
       try {
-        // let rawData = await window.fetch(
-        //   'https://bootcamp-rent-car.herokuapp.com/admin/car'
-        // );
+        let rawData = await window.fetch(
+          'https://bootcamp-rent-car.herokuapp.com/admin/car'
+        );
 
-        // let data = await rawData.json();
+        let data = await rawData.json();
 
-        // if (rawData.status !== 200) {
-        //   throw new Error(data.message ? data.message : data.errors[0].message);
-        // }
+        if (rawData.status !== 200) {
+          throw new Error(data.message ? data.message : data.errors[0].message);
+        }
 
         if (activeRef.current[1]) {
-          setList(
-            listRef.current.filter((item) => item.category === '2 - 4 orang')
-          );
+          data = data.filter((item) => item.category === '2 - 4 orang');
         } else if (activeRef.current[2]) {
-          setList(
-            listRef.current.filter((item) => item.category === '4 - 6 orang')
-          );
+          data = data.filter((item) => item.category === '4 - 6 orang');
         } else if (activeRef.current[3]) {
-          setList(
-            listRef.current.filter((item) => item.category === '6 - 8 orang')
-          );
+          data = data.filter((item) => item.category === '6 - 8 orang');
         }
 
         if (value.get('search')) {
-          setList(
-            listRef.current.filter((item) =>
-              item.name
-                ?.toLowerCase()
-                ?.includes(value.get('search')?.toLowerCase())
-            )
+          data = data.filter((item) =>
+            item.name
+              ?.toLowerCase()
+              ?.includes(value.get('search')?.toLowerCase())
           );
         }
 
-        setList(listRef.current);
+        setList(data);
         setLoading(false);
       } catch (error) {
         setErrorMessage(error.message);
@@ -156,7 +147,7 @@ export default function AdminCarList() {
 
       return () => clearTimeout(delay);
     }
-  }, [activeRef, listRef, setList, value]);
+  }, [active, isDelete, activeRef, setList, value]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -218,9 +209,9 @@ export default function AdminCarList() {
             <h3>6 - 8 People</h3>
           </Category>
         </CategoryContainer>
-        {listRef.current[0].length !== 0 ? (
+        {listRef.current.length !== 0 ? (
           <ListContainer>
-            {listRef.current[0].map((item, idx) => {
+            {listRef.current.map((item, idx) => {
               let tanggal = item.updatedAt.split('T');
               let [year, month, day] = tanggal[0].split('-');
               let time = tanggal[1].slice(0, 5);
