@@ -72,10 +72,10 @@ export default function Dashboard() {
       if (order && page) {
         setOrderTemp(
           orderRef.current.filter(
-            (item) => item.id > (page - 1) * limit && item.id <= limit * page
+            (item, idx) => idx > (page - 1) * limit && idx <= limit * page
           )
         );
-        setPages(Math.ceil(orderRef.current.length / limit));
+        setPages(Math.ceil(orderRef.current.length / limit) - 1);
       } else {
         try {
           let rawData = await window.fetch(
@@ -266,11 +266,11 @@ export default function Dashboard() {
                 defaultValue={1}
               >
                 {[...Array(pages).fill(10)].map((item, idx) => {
-                  if (idx + 1 === page) {
-                    return <option key={idx}>{idx}</option>;
-                  } else {
-                    return <option key={idx}>{idx}</option>;
-                  }
+                  return (
+                    <option key={idx} value={idx + 1}>
+                      {idx + 1}
+                    </option>
+                  );
                 })}
               </select>
               <button>Go</button>

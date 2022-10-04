@@ -21,7 +21,7 @@ export default function UserLogin(props) {
   let [errorMessage, setErrorMessage] = useState('');
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  let [warnanya, setWarnanya] = useState('#FC6F6F');
+  let [warnanya, setWarnanya] = useState(['#FC6F6F', 'Very Weak']);
 
   let url = 'https://bootcamp-rent-car.herokuapp.com';
   let doAction = async (e) => {
@@ -115,13 +115,13 @@ export default function UserLogin(props) {
     }
 
     if (count === 1) {
-      setWarnanya('#FE9651');
+      setWarnanya(['#FE9651', 'Weak']);
     } else if (count === 2) {
-      setWarnanya('#FEC600');
+      setWarnanya(['#00b530', 'Strong']);
     } else if (count === 3) {
-      setWarnanya('#9FFF2A');
+      setWarnanya(['#00b530', 'Very Strong']);
     } else {
-      setWarnanya('#FC6F6F');
+      setWarnanya(['#FC6F6F', 'Very Weak']);
     }
   };
 
@@ -215,7 +215,9 @@ export default function UserLogin(props) {
                     warna();
                   }}
                 />
-                <div style={{backgroundColor: `${warnanya}`}}></div>
+                <div style={{backgroundColor: `${warnanya[0]}`}}>
+                  {warnanya[1]}
+                </div>
               </InputContainer>
             </>
           )}

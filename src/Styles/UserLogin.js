@@ -96,7 +96,7 @@ export const RightContainer = styled.div`
   bottom: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
   gap: 50px;
 
@@ -179,7 +179,13 @@ export const InputContainer = styled.div`
 
   div {
     width: 100%;
-    height: 5px;
+    height: 20px;
     background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 0.8rem;
+    padding-block: 0.8rem;
   }
 `;

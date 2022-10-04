@@ -16,6 +16,10 @@ export const BigContainer = styled.div`
   }
 `;
 
+export const ContentContainer = styled.div`
+  width: 100%;
+`;
+
 export const ListContainer = styled.div`
   width: 100%;
   display: grid;

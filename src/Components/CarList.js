@@ -125,15 +125,15 @@ function CarList(props) {
             {[...Array(5).fill(10)].map((item, idx) => {
               let awal = 0;
               awal = posisiRef.current - (posisiRef.current % 5);
-              if (idx + awal !== 0 && idx + awal <= cutDataRef.current.length) {
-                if (idx + awal - 1 === posisiRef.current) {
+              if (idx + awal <= cutDataRef.current.length - 1) {
+                if (idx + awal === posisiRef.current) {
                   return (
                     <div
                       className="active"
                       onClick={() => setPosisi(idx + awal - 1)}
                       key={idx + awal}
                     >
-                      {idx + awal}
+                      {idx + awal + 1}
                     </div>
                   );
                 } else {
@@ -142,7 +142,7 @@ function CarList(props) {
                       onClick={() => setPosisi(idx + awal - 1)}
                       key={idx + awal}
                     >
-                      {idx + awal}
+                      {idx + awal + 1}
                     </div>
                   );
                 }

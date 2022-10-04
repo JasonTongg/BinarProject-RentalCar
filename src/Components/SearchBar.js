@@ -3,16 +3,17 @@ import {
   Container,
   Label,
   FormItem,
-  Option,
   Input,
   Sewa,
-  Select,
-  Selects,
   Inputs,
   BigContainer,
   Title,
   Labels,
   Sewas,
+  OptionContainer,
+  SelectContainer,
+  SelectsContainer,
+  OptionItem,
 } from '../Styles/SearchBar';
 import Button from './Button';
 import {FiCheckCircle} from 'react-icons/fi';
@@ -23,6 +24,11 @@ import useState from 'react-usestateref';
 export default function SearchBar(props) {
   let [, setData, dataRef] = useState({});
   const navigate = useNavigate();
+  let [selectOpen, setSelectOpen] = useState({
+    category: {isOpen: false, select: 'Masukan Kapasitas Mobil'},
+    price: {isOpen: false, select: 'Masukan Harga Sewa per Hari'},
+    sewa: {isOpen: false},
+  });
 
   const toResult = (e) => {
     e.preventDefault();
@@ -33,6 +39,45 @@ export default function SearchBar(props) {
         category: dataRef.current.category,
         price: dataRef.current.price,
       }).toString(),
+    });
+  };
+
+  let gantiKategori = (item) => {
+    setData({
+      ...dataRef.current,
+      category: item,
+    });
+    setSelectOpen({
+      ...selectOpen,
+      category: {isOpen: false, select: item},
+    });
+  };
+
+  let gantiHarga = (item) => {
+    setData({
+      ...dataRef.current,
+      price: item,
+    });
+    setSelectOpen({
+      ...selectOpen,
+      price: {isOpen: false, select: item},
+    });
+  };
+
+  let selectToggle = (item = 'empty') => {
+    setSelectOpen({
+      category: {
+        ...selectOpen.category,
+        isOpen: item === 'category' ? !selectOpen.category.isOpen : false,
+      },
+      price: {
+        ...selectOpen.price,
+        isOpen: item === 'price' ? !selectOpen.price.isOpen : false,
+      },
+      sewa: {
+        ...selectOpen.sewa,
+        isOpen: item === 'sewa' ? !selectOpen.sewa.isOpen : false,
+      },
     });
   };
 
@@ -53,55 +98,118 @@ export default function SearchBar(props) {
                   name: e.target.value,
                 })
               }
+              onClick={selectToggle}
             />
           </FormItem>
           <FormItem>
-            <Label htmlFor="kategori">Kategori</Label>
-            <Select
-              required
-              id="kategori"
-              onChange={(e) =>
-                setData({
-                  ...dataRef.current,
-                  category: e.target.value,
-                })
-              }
-            >
-              <Option defaultValue="2 - 4 orang">
-                Masukan Kapasitas Mobil
-              </Option>
-              <Option defaultValue="2 - 4 orang">2 - 4 orang</Option>
-              <Option defaultValue="4 - 6 orang">4 - 6 orang</Option>
-              <Option defaultValue="6 - 8 orang">6 - 8 orang</Option>
-            </Select>
+            <Label htmlFor="kategori" onClick={() => selectToggle('category')}>
+              Kategori
+            </Label>
+            <SelectContainer onClick={() => selectToggle('category')}>
+              {selectOpen.category.select}
+            </SelectContainer>
+            {selectOpen.category.isOpen ? (
+              <OptionContainer>
+                <OptionItem
+                  onClick={() => gantiKategori('2 - 4 orang')}
+                  className={`${
+                    selectOpen.category.select === '2 - 4 orang'
+                      ? 'active'
+                      : null
+                  }`}
+                >
+                  2 - 4 orang
+                </OptionItem>
+                <OptionItem
+                  onClick={() => gantiKategori('4 - 6 orang')}
+                  className={`${
+                    selectOpen.category.select === '4 - 6 orang'
+                      ? 'active'
+                      : null
+                  }`}
+                >
+                  4 - 6 orang
+                </OptionItem>
+                <OptionItem
+                  onClick={() => gantiKategori('6 - 8 orang')}
+                  className={`${
+                    selectOpen.category.select === '6 - 8 orang'
+                      ? 'active'
+                      : null
+                  }`}
+                >
+                  6 - 8 orang
+                </OptionItem>
+              </OptionContainer>
+            ) : null}
           </FormItem>
           <FormItem>
-            <Label htmlFor="harga">Harga</Label>
-            <Select
-              id="harga"
-              required
-              onChange={(e) =>
-                setData({
-                  ...dataRef.current,
-                  price: e.target.value,
-                })
-              }
-            >
-              <Option disabled defaultValue="< Rp. 400.000">
-                Masukan Harga Sewa Per Hari
-              </Option>
-              <Option defaultValue="< Rp. 400.000">{'< Rp. 400.000'}</Option>
-              <Option defaultValue="Rp. 400.000 - Rp. 600.000">
-                {'Rp. 400.000 - Rp. 600.000'}
-              </Option>
-              <Option defaultValue="> Rp. 600.000">{'> Rp. 600.000'}</Option>
-            </Select>
+            <Label htmlFor="harga" onClick={() => selectToggle('price')}>
+              Harga
+            </Label>
+            <SelectContainer onClick={() => selectToggle('price')}>
+              {selectOpen.price.select}
+            </SelectContainer>
+            {selectOpen.price.isOpen ? (
+              <OptionContainer>
+                <OptionItem
+                  onClick={() => gantiHarga('< Rp. 400.000')}
+                  className={`${
+                    selectOpen.price.select === '< Rp. 400.000'
+                      ? 'active'
+                      : null
+                  }`}
+                >
+                  {'< Rp. 400.000'}
+                </OptionItem>
+                <OptionItem
+                  onClick={() => gantiHarga('Rp. 400.000 - Rp. 600.000')}
+                  className={`${
+                    selectOpen.price.select === 'Rp. 400.000 - Rp. 600.000'
+                      ? 'active'
+                      : null
+                  }`}
+                >
+                  {'Rp. 400.000 - Rp. 600.000'}
+                </OptionItem>
+                <OptionItem
+                  onClick={() => gantiHarga('> Rp. 600.000')}
+                  className={`${
+                    selectOpen.price.select === '> Rp. 600.000'
+                      ? 'active'
+                      : null
+                  }`}
+                >
+                  {'> Rp. 600.000'}
+                </OptionItem>
+              </OptionContainer>
+            ) : null}
           </FormItem>
           <FormItem>
-            <Label htmlFor="status">Status</Label>
-            <Select id="status" required>
-              <Option defaultValue="">Disewa</Option>
-            </Select>
+            <Label htmlFor="status" onClick={() => selectToggle('sewa')}>
+              Status
+            </Label>
+            <SelectContainer onClick={() => selectToggle('sewa')}>
+              Sewa
+            </SelectContainer>
+            {selectOpen.sewa.isOpen ? (
+              <OptionContainer>
+                <OptionItem
+                  onClick={() =>
+                    setSelectOpen({
+                      ...selectOpen,
+                      sewa: {
+                        ...selectOpen.sewa,
+                        isOpen: !selectOpen.sewa.isOpen,
+                      },
+                    })
+                  }
+                  className="active"
+                >
+                  sewa
+                </OptionItem>
+              </OptionContainer>
+            ) : null}
           </FormItem>
           <Button submit>Cari Mobil</Button>
         </Container>
@@ -125,49 +233,94 @@ export default function SearchBar(props) {
                   name: e.target.value,
                 })
               }
+              onClick={selectToggle}
             />
           </FormItem>
           <FormItem>
-            <Label htmlFor="kategori">Kategori</Label>
-            <Selects
-              id="kategori"
-              required
-              onChange={(e) =>
-                setData({
-                  ...dataRef.current,
-                  category: e.target.value,
+            <Label
+              htmlFor="kategori"
+              onClick={() =>
+                setSelectOpen({
+                  ...selectOpen,
+                  category: {
+                    ...selectOpen.category,
+                    isOpen: !selectOpen.category.isOpen,
+                  },
                 })
               }
             >
-              <Option defaultValue="Masukan Kapasitas Mobil">
-                Masukan Kapasitas Mobil
-              </Option>
-              <Option defaultValue="2 - 4 orang">2 - 4 orang</Option>
-              <Option defaultValue="4 - 6 orang">4 - 6 orang</Option>
-              <Option defaultValue="6 - 8 orang">6 - 8 orang</Option>
-            </Selects>
+              Kategori
+            </Label>
+            <SelectsContainer
+              onClick={() =>
+                setSelectOpen({
+                  ...selectOpen,
+                  category: {
+                    ...selectOpen.category,
+                    isOpen: !selectOpen.category.isOpen,
+                  },
+                })
+              }
+            >
+              {selectOpen.category.select}
+            </SelectsContainer>
+            {selectOpen.category.isOpen ? (
+              <OptionContainer>
+                <OptionItem onClick={() => gantiKategori('2 - 4 orang')}>
+                  2 - 4 orang
+                </OptionItem>
+                <OptionItem onClick={() => gantiKategori('4 - 6 orang')}>
+                  4 - 6 orang
+                </OptionItem>
+                <OptionItem onClick={() => gantiKategori('6 - 8 orang')}>
+                  6 - 8 orang
+                </OptionItem>
+              </OptionContainer>
+            ) : null}
           </FormItem>
           <FormItem>
-            <Label htmlFor="harga">Harga</Label>
-            <Selects
-              id="harga"
-              required
-              onChange={(e) =>
-                setData({
-                  ...dataRef.current,
-                  price: e.target.value,
+            <Label
+              htmlFor="harga"
+              onClick={() =>
+                setSelectOpen({
+                  ...selectOpen,
+                  price: {
+                    ...selectOpen.price,
+                    isOpen: !selectOpen.price.isOpen,
+                  },
                 })
               }
             >
-              <Option defaultValue="Masukan Harga Sewa Per Hari">
-                Masukan Harga Sewa Per Hari
-              </Option>
-              <Option defaultValue="< Rp. 400.000">{'< Rp. 400.000'}</Option>
-              <Option defaultValue="Rp. 400.000 - Rp. 600.000">
-                {'Rp. 400.000 - Rp. 600.000'}
-              </Option>
-              <Option defaultValue="> Rp. 600.000">{'> Rp. 600.000'}</Option>
-            </Selects>
+              Harga
+            </Label>
+            <SelectsContainer
+              onClick={() =>
+                setSelectOpen({
+                  ...selectOpen,
+                  price: {
+                    ...selectOpen.price,
+                    isOpen: !selectOpen.price.isOpen,
+                  },
+                })
+              }
+            >
+              {selectOpen.price.select}
+            </SelectsContainer>
+            {selectOpen.price.isOpen ? (
+              <OptionContainer>
+                <OptionItem onClick={() => gantiHarga('< Rp. 400.000')}>
+                  {'< Rp. 400.000'}
+                </OptionItem>
+                <OptionItem
+                  onClick={() => gantiHarga('Rp. 400.000 - Rp. 600.000')}
+                >
+                  {'Rp. 400.000 - Rp. 600.000'}
+                </OptionItem>
+                <OptionItem onClick={() => gantiHarga('> Rp. 600.000')}>
+                  {'> Rp. 600.000'}
+                </OptionItem>
+              </OptionContainer>
+            ) : null}
           </FormItem>
           <FormItem>
             <Label htmlFor="status">Status</Label>

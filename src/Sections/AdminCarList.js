@@ -17,6 +17,7 @@ import {
   DeleteButton,
   BigContainerLoading,
   NotFoundContainer,
+  ContentContainer,
 } from '../Styles/AdminCarList';
 import carTemp from '../Assets/carTemp.png';
 import {BsPeople, BsClock} from 'react-icons/bs';
@@ -31,6 +32,8 @@ import DotLoader from 'react-spinners/DotLoader';
 import {SmallContainer} from '../Styles/CarList';
 import NotFoundImage from '../Assets/NotFoundGray.jpg';
 import useState from 'react-usestateref';
+import {AiOutlineDoubleLeft, AiOutlineDoubleRight} from 'react-icons/ai';
+import {PageItem} from '../Styles/Dashboard';
 
 export default function AdminCarList() {
   let bulan = [
@@ -50,7 +53,6 @@ export default function AdminCarList() {
   let manipulation = useSelector((state) => state.items.listMessage);
   let [active, setActive, activeRef] = useState([true, false, false, false]);
   let [value] = useSearchParams();
-  let [, setList, listRef] = useState([]);
   let [isDelete, setIsDelete] = useState(false);
   let [deleteId, setDeleteId] = useState(0);
   let [deleteSuccess, setDeleteSuccess] = useState(false);
@@ -59,6 +61,8 @@ export default function AdminCarList() {
   let dispatch = useDispatch();
   let [loading, setLoading] = useState(true);
   let [isLoading, setIsLoading] = useState(true);
+  let [, setCutData, cutDataRef] = useState();
+  let [, setPosisi, posisiRef] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -132,7 +136,16 @@ export default function AdminCarList() {
           );
         }
 
-        setList(data);
+        let cut = [];
+        for (let i = 0; i < data.length; i += 8) {
+          cut.push(data.slice(i, i + 8));
+        }
+        setCutData(cut);
+
+        if (cutDataRef.current) {
+          setLoading(false);
+        }
+
         setLoading(false);
       } catch (error) {
         setErrorMessage(error.message);
@@ -143,11 +156,11 @@ export default function AdminCarList() {
     } else {
       let delay = setTimeout(() => {
         getData();
-      }, 800);
+      }, 500);
 
       return () => clearTimeout(delay);
     }
-  }, [active, isDelete, activeRef, setList, value]);
+  }, [active, isDelete, activeRef, value, cutDataRef, setCutData]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -209,39 +222,94 @@ export default function AdminCarList() {
             <h3>6 - 8 People</h3>
           </Category>
         </CategoryContainer>
-        {listRef.current.length !== 0 ? (
-          <ListContainer>
-            {listRef.current.map((item, idx) => {
-              let tanggal = item.updatedAt.split('T');
-              let [year, month, day] = tanggal[0].split('-');
-              let time = tanggal[1].slice(0, 5);
-              return (
-                <ListItem key={idx}>
-                  <img src={item.image ? item.image : carTemp} alt="car" />
-                  <p>{item.name}</p>
-                  <h3>Rp {item.price} / hari</h3>
-                  <InfoContainer>
-                    <BsPeople className="icon"></BsPeople>
-                    <p>{item.category}</p>
-                  </InfoContainer>
-                  <InfoContainer>
-                    <BsClock className="icon"></BsClock>
-                    <p>
-                      Updated at {day} {bulan[+month]} {year}, {time}
-                    </p>
-                  </InfoContainer>
-                  <Buttons>
-                    <Button onClick={() => getDeleteData(item.id)}>
-                      <FiTrash className="icon"></FiTrash>Delete
-                    </Button>
-                    <Button onClick={() => toEdit(item.id)}>
-                      <FiEdit className="icon"></FiEdit>Edit
-                    </Button>
-                  </Buttons>
-                </ListItem>
-              );
-            })}
-          </ListContainer>
+        {cutDataRef.current[posisiRef.current] !== 0 ? (
+          <ContentContainer>
+            <ListContainer>
+              {cutDataRef.current[posisiRef.current]?.map((item, idx) => {
+                let tanggal = item.updatedAt.split('T');
+                let [year, month, day] = tanggal[0].split('-');
+                let time = tanggal[1].slice(0, 5);
+                return (
+                  <ListItem key={idx}>
+                    <img src={item.image ? item.image : carTemp} alt="car" />
+                    <p>{item.name}</p>
+                    <h3>Rp {item.price} / hari</h3>
+                    <InfoContainer>
+                      <BsPeople className="icon"></BsPeople>
+                      <p>{item.category}</p>
+                    </InfoContainer>
+                    <InfoContainer>
+                      <BsClock className="icon"></BsClock>
+                      <p>
+                        Updated at {day} {bulan[+month]} {year}, {time}
+                      </p>
+                    </InfoContainer>
+                    <Buttons>
+                      <Button onClick={() => getDeleteData(item.id)}>
+                        <FiTrash className="icon"></FiTrash>Delete
+                      </Button>
+                      <Button onClick={() => toEdit(item.id)}>
+                        <FiEdit className="icon"></FiEdit>Edit
+                      </Button>
+                    </Buttons>
+                  </ListItem>
+                );
+              })}
+            </ListContainer>
+            {cutDataRef.current[posisiRef.current] ? (
+              <PageItem>
+                <div
+                  onClick={() => {
+                    if (posisiRef.current > 0) {
+                      setPosisi(posisiRef.current - 1);
+                    } else {
+                      setPosisi(cutDataRef.current.length - 1);
+                    }
+                  }}
+                >
+                  <AiOutlineDoubleLeft></AiOutlineDoubleLeft>
+                </div>
+                {[...Array(5).fill(10)].map((item, idx) => {
+                  let awal = 0;
+                  awal = posisiRef.current - (posisiRef.current % 5);
+                  if (idx + awal <= cutDataRef.current.length - 1) {
+                    if (idx + awal === posisiRef.current) {
+                      return (
+                        <div
+                          className="active"
+                          onClick={() => setPosisi(idx + awal - 1)}
+                          key={idx + awal}
+                        >
+                          {idx + awal + 1}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          onClick={() => setPosisi(idx + awal - 1)}
+                          key={idx + awal}
+                        >
+                          {idx + awal + 1}
+                        </div>
+                      );
+                    }
+                  }
+                  return null;
+                })}
+                <div
+                  onClick={() => {
+                    if (posisiRef.current < cutDataRef.current.length - 1) {
+                      setPosisi(posisiRef.current + 1);
+                    } else {
+                      setPosisi(0);
+                    }
+                  }}
+                >
+                  <AiOutlineDoubleRight></AiOutlineDoubleRight>
+                </div>
+              </PageItem>
+            ) : null}
+          </ContentContainer>
         ) : (
           <NotFoundContainer>
             <img src={NotFoundImage} alt="Not Found" />

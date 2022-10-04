@@ -142,6 +142,7 @@ export const DateContainer = styled.div`
   gap: 0.5rem;
   width: 100%;
   cursor: pointer;
+  position: relative;
 
   .react-datepicker__triangle::after,
   .react-datepicker__triangle::before {
@@ -209,6 +210,23 @@ export const DateContainer = styled.div`
 
   .react-datepicker-popper {
     z-index: 1000;
+    width: 99%;
+    min-width: 212px;
+    max-width: 343px;
+  }
+
+  .react-datepicker {
+    width: 99%;
+  }
+
+  .react-datepicker__month-container {
+    width: 99%;
+  }
+
+  .react-datepicker__week,
+  .react-datepicker__day-names {
+    display: flex;
+    justify-content: space-evenly;
   }
 
   input {

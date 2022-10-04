@@ -11,7 +11,7 @@ export const Container = styled.section`
   width: 100%;
   padding: 1rem 196px;
   min-height: 400px;
-  margin-bottom: 1.5rem;
+  margin-block: 2rem 1.5rem;
 
   @media only screen and (max-width: 1450px) {
     padding: 1rem 100px;
