@@ -277,7 +277,7 @@ export default function AdminCarList() {
                       return (
                         <div
                           className="active"
-                          onClick={() => setPosisi(idx + awal - 1)}
+                          onClick={() => setPosisi(idx + awal)}
                           key={idx + awal}
                         >
                           {idx + awal + 1}
@@ -286,7 +286,7 @@ export default function AdminCarList() {
                     } else {
                       return (
                         <div
-                          onClick={() => setPosisi(idx + awal - 1)}
+                          onClick={() => setPosisi(idx + awal)}
                           key={idx + awal}
                         >
                           {idx + awal + 1}
@@ -308,7 +308,17 @@ export default function AdminCarList() {
                   <AiOutlineDoubleRight></AiOutlineDoubleRight>
                 </div>
               </PageItem>
-            ) : null}
+            ) : (
+              <NotFoundContainer>
+                <img src={NotFoundImage} alt="Not Found" />
+                <h1 className="errorh1">
+                  Waduh mobil yang anda cari nga ada!!
+                </h1>
+                <p className="errorp">
+                  Pastikan jaringan internet anda berjalan dengan baik...
+                </p>
+              </NotFoundContainer>
+            )}
           </ContentContainer>
         ) : (
           <NotFoundContainer>

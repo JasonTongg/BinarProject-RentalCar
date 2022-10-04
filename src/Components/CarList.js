@@ -130,7 +130,7 @@ function CarList(props) {
                   return (
                     <div
                       className="active"
-                      onClick={() => setPosisi(idx + awal - 1)}
+                      onClick={() => setPosisi(idx + awal)}
                       key={idx + awal}
                     >
                       {idx + awal + 1}
@@ -138,10 +138,7 @@ function CarList(props) {
                   );
                 } else {
                   return (
-                    <div
-                      onClick={() => setPosisi(idx + awal - 1)}
-                      key={idx + awal}
-                    >
+                    <div onClick={() => setPosisi(idx + awal)} key={idx + awal}>
                       {idx + awal + 1}
                     </div>
                   );
