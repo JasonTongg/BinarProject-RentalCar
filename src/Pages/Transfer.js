@@ -33,7 +33,7 @@ export default function Transfer() {
   let [pembayaran, setPembayaran, pembayaranRef] = useState([23, 59, 59]);
   let [bukti, setBukti, buktiRef] = useState([9, 59]);
   let [active, setActive] = useState(['active', '', '', '']);
-  let [copy, setCopy] = useState(false);
+  let [, setCopy, copyRef] = useState(false);
   let [foto, setFoto] = useState();
   let [error, setError] = useState();
 
@@ -108,17 +108,21 @@ export default function Transfer() {
 
   let copyNomor = () => {
     navigator.clipboard.writeText(54104257877);
-    setCopy([true, copy[1]]);
+    setCopy([true, copyRef.current[1]]);
     setTimeout(() => {
-      setCopy([false, false]);
+      setCopy((old) => {
+        return [false, copyRef.current[1]];
+      });
     }, 2000);
   };
 
   let copyHarga = () => {
     navigator.clipboard.writeText(detail.harga);
-    setCopy([copy[0], true]);
+    setCopy([copyRef.current[0], true]);
     setTimeout(() => {
-      setCopy([false, false]);
+      setCopy((old) => {
+        return [copyRef.current[0], false];
+      });
     }, 2000);
   };
 
@@ -178,7 +182,7 @@ export default function Transfer() {
             <InputContainer>
               <label htmlFor="nomor">Nomor Rekening</label>
               <input type="text" id="nomor" value="54104257877" disabled />
-              {copy[0] ? (
+              {copyRef.current[0] ? (
                 <AiOutlineCheck className="icon"></AiOutlineCheck>
               ) : (
                 <FiCopy className="icon" onClick={copyNomor}></FiCopy>
@@ -192,7 +196,7 @@ export default function Transfer() {
                 value={`Rp. ${detail.harga},-`}
                 disabled
               />
-              {copy[1] ? (
+              {copyRef.current[1] ? (
                 <AiOutlineCheck className="icon"></AiOutlineCheck>
               ) : (
                 <FiCopy className="icon" onClick={copyHarga}></FiCopy>
