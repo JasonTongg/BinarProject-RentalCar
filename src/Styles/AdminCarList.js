@@ -260,14 +260,6 @@ export const DeleteButton = styled.button`
   }
 `;
 
-export const BigContainerLoading = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const NotFoundContainer = styled.div`
   width: 100%;
   height: calc(100vh - 250px);

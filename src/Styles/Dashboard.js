@@ -47,7 +47,8 @@ export const BarContainer = styled.div`
     align-self: flex-start;
   }
 
-  canvas {
+  canvas,
+  .skeleton {
     width: 80% !important;
     height: 550px !important;
 
@@ -107,6 +108,10 @@ export const TableContainer = styled.div`
   align-self: center;
   align-items: center;
   justify-content: center;
+
+  & .skeleton {
+    width: 100%;
+  }
 
   @media only screen and (max-width: 750px) {
     align-self: flex-start;

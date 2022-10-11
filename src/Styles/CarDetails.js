@@ -82,7 +82,9 @@ export const CarImage = styled.div`
   padding: 28px 24px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
 
-  & img {
+  & img,
+  & .detailImage,
+  & .skeletonButton {
     width: 100%;
     align-self: center;
   }
@@ -143,6 +145,10 @@ export const DateContainer = styled.div`
   width: 100%;
   cursor: pointer;
   position: relative;
+
+  & .skeleton {
+    width: 100%;
+  }
 
   .react-datepicker__triangle::after,
   .react-datepicker__triangle::before {

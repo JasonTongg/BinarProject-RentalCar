@@ -14,9 +14,9 @@ import {
 import {Bar} from 'react-chartjs-2';
 import useState from 'react-usestateref';
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight} from 'react-icons/ai';
-import DotLoader from 'react-spinners/DotLoader';
 import {SmallContainer} from '../Styles/CarList';
 import NotFoundImage from '../Assets/NotFoundGray.jpg';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function Dashboard() {
   let [order, setOrder, orderRef] = useState();
@@ -331,7 +331,107 @@ export default function Dashboard() {
     if (isLoading === true) {
       return (
         <DashboardContainer>
-          <DotLoader color={'#D0d0d0'} size={100} className="load" />
+          <Pwd>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={25}
+              width={150}
+            />
+          </Pwd>
+          <Label>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={25}
+              width={220}
+            />
+          </Label>
+          <Skeleton
+            animation="wave"
+            variant="rectangular"
+            height={20}
+            width={70}
+            style={{marginBottom: '10px'}}
+          />
+          <InputContainer>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={40}
+              width={150}
+            />
+          </InputContainer>
+          <BarContainer>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={500}
+              className="skeleton"
+            />
+          </BarContainer>
+          <Skeleton
+            animation="wave"
+            variant="rectangular"
+            height={30}
+            width={120}
+            style={{marginTop: '30px'}}
+          />
+          <Label>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={25}
+              width={220}
+            />
+          </Label>
+          <TableContainer>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              className="skeleton"
+              height={250}
+            />
+          </TableContainer>
+          <TableSetting>
+            <div>
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={15}
+                width={50}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={20}
+                width={100}
+              />
+            </div>
+            <div>
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={15}
+                width={50}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={20}
+                width={100}
+              />
+            </div>
+            <PageItem>
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={40}
+                width={350}
+                style={{border: 'none'}}
+              />
+            </PageItem>
+          </TableSetting>
         </DashboardContainer>
       );
     } else {

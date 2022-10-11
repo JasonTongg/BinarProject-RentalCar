@@ -15,7 +15,6 @@ import {BsPeople} from 'react-icons/bs';
 import {useDispatch} from 'react-redux';
 import {BsChevronDown} from 'react-icons/bs';
 import {useEffect} from 'react';
-import DotLoader from 'react-spinners/DotLoader';
 import carTemp from '../Assets/carTemp.png';
 import Popup from '../Components/PopupMessage';
 import {CarRentDay} from '../Redux/Actions/CarAction';
@@ -24,6 +23,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import NotFoundImage from '../Assets/NotFound.jpg';
 import {SmallContainer} from '../Styles/CarList';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function CarDetails() {
   let dispatch = useDispatch();
@@ -332,7 +332,100 @@ export default function CarDetails() {
     if (isLoading === true) {
       return (
         <Container>
-          <DotLoader color={'#D0d0d0'} loading={loading} size={100} />
+          <CarInfo>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={20}
+              width={150}
+            />
+            {Array.from({length: 3}).map((item) => (
+              <Sub>
+                <Skeleton
+                  animation="wave"
+                  variant="rectangular"
+                  height={20}
+                  width={100}
+                />
+                <ul>
+                  {Array.from({length: 4}).map((item) => (
+                    <Skeleton
+                      animation="wave"
+                      variant="rectangular"
+                      height={20}
+                      width={500}
+                      style={{marginTop: '10px'}}
+                    />
+                  ))}
+                </ul>
+              </Sub>
+            ))}
+          </CarInfo>
+          <CarImage>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={200}
+              className="detailImage"
+            />
+            <CarType>
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={30}
+                width={120}
+              />
+              <div>
+                <Skeleton
+                  animation="wave"
+                  variant="rectangular"
+                  height={20}
+                  width={20}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="rectangular"
+                  height={20}
+                  width={170}
+                />
+              </div>
+            </CarType>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={20}
+              width={300}
+              style={{marginTop: '10px'}}
+            />
+            <DateContainer>
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={50}
+                className="skeleton"
+              />
+            </DateContainer>
+            <CarPrice>
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={20}
+                width={120}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={20}
+                width={120}
+              />
+            </CarPrice>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={40}
+              className="skeletonButton"
+            />
+          </CarImage>
         </Container>
       );
     } else {

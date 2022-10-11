@@ -15,7 +15,6 @@ import {
   Overlay,
   ButtonContainer,
   DeleteButton,
-  BigContainerLoading,
   NotFoundContainer,
   ContentContainer,
 } from '../Styles/AdminCarList';
@@ -28,12 +27,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import deleteImage from '../Assets/DeletePopUp.png';
 import Popup from '../Components/PopupMessage';
 import {carManipulation} from '../Redux/Actions/CarAction';
-import DotLoader from 'react-spinners/DotLoader';
 import {SmallContainer} from '../Styles/CarList';
 import NotFoundImage from '../Assets/NotFoundGray.jpg';
 import useState from 'react-usestateref';
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight} from 'react-icons/ai';
 import {PageItem} from '../Styles/Dashboard';
+import Skeleton from '@mui/material/Skeleton';
+import {AdminCarListSkeleton} from '../Styles/Skeleton';
 
 export default function AdminCarList() {
   let bulan = [
@@ -168,7 +168,6 @@ export default function AdminCarList() {
       setIsLoading(false);
     }, 5000);
   }, [loading]);
-
   if (loading === false) {
     return (
       <BigContainer>
@@ -354,9 +353,79 @@ export default function AdminCarList() {
   } else {
     if (isLoading === true) {
       return (
-        <BigContainerLoading>
-          <DotLoader color={'#D0d0d0'} size={100} className="load" />
-        </BigContainerLoading>
+        <BigContainer>
+          <Pwd>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={20}
+              width={120}
+            />
+          </Pwd>
+          <Container>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={20}
+              width={100}
+            />
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={20}
+              width={100}
+            />
+          </Container>
+          <CategoryContainer>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={30}
+              width={70}
+            />
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={30}
+              width={70}
+            />
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={30}
+              width={70}
+            />
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              height={30}
+              width={70}
+            />
+          </CategoryContainer>
+          <ListContainer>
+            {Array.from({length: 8}).map((item) => (
+              <AdminCarListSkeleton>
+                <Skeleton animation="wave" variant="rectangular" height={150} />
+                <Skeleton animation="wave" variant="rectangular" height={20} />
+                <Skeleton animation="wave" variant="rectangular" height={20} />
+                <Skeleton animation="wave" variant="rectangular" height={20} />
+                <Skeleton animation="wave" variant="rectangular" height={20} />
+                <div class="button">
+                  <Skeleton
+                    animation="wave"
+                    variant="rectangular"
+                    height={50}
+                  />
+                  <Skeleton
+                    animation="wave"
+                    variant="rectangular"
+                    height={50}
+                  />
+                </div>
+              </AdminCarListSkeleton>
+            ))}
+          </ListContainer>
+        </BigContainer>
       );
     } else {
       return (

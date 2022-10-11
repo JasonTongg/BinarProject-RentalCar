@@ -4,11 +4,11 @@ import Button from './Button';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import carTemp from '../Assets/carTemp.png';
 import {useSelector} from 'react-redux';
-import DotLoader from 'react-spinners/DotLoader';
 import NotFoundImage from '../Assets/NotFound.jpg';
 import useState from 'react-usestateref';
 import {PageItem} from '../Styles/Dashboard';
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight} from 'react-icons/ai';
+import Skeleton from '@mui/material/Skeleton';
 
 function CarList(props) {
   const [data, setData] = useState([]);
@@ -164,8 +164,41 @@ function CarList(props) {
   } else {
     if (isLoading === true) {
       return (
-        <Container className="loadContainer carList" show>
-          <DotLoader color={'#D0d0d0'} loading={isLoading} size={100} />
+        <Container className="carList" show>
+          {Array.from({length: 3}).map((item) => (
+            <CarItem>
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                width={272}
+                height={150}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                width={272}
+                height={20}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                width={272}
+                height={20}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                width={272}
+                height={80}
+              />
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                width={272}
+                height={20}
+              />
+            </CarItem>
+          ))}
         </Container>
       );
     } else {
