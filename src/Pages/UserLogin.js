@@ -28,6 +28,7 @@ export default function UserLogin(props) {
     e.preventDefault();
     try {
       let rawData;
+      let loginData;
       if (props.login) {
         rawData = await window.fetch(`${url}/customer/auth/login`, {
           method: 'POST',
@@ -51,7 +52,7 @@ export default function UserLogin(props) {
           }),
         });
 
-        await window.fetch(`${url}/customer/auth/login`, {
+        loginData = await window.fetch(`${url}/customer/auth/login`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json',
@@ -61,6 +62,10 @@ export default function UserLogin(props) {
             password: dataRef.current.password,
           }),
         });
+
+        loginData = await loginData.json();
+
+        console.log(loginData);
       }
 
       let data = await rawData.json();
@@ -69,7 +74,10 @@ export default function UserLogin(props) {
         throw new Error(data.message ? data.message : data.errors[0].message);
       }
 
-      window.localStorage.setItem('token', data.access_token);
+      window.localStorage.setItem(
+        'token',
+        data.access_token || loginData.access_token
+      );
       navigate('/');
       dispatch(isLogin(true));
     } catch (error) {
