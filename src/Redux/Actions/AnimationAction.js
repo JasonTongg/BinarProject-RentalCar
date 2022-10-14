@@ -1,19 +1,26 @@
 export const navbar = (payload) => {
-    return {
-        type: "Navbar Clicked",
-        payload
-    }
-}
+  return {
+    type: 'Navbar Clicked',
+    payload,
+  };
+};
 
 export const adminNavbar = () => {
-    return{
-        type: "Admin Navbar Clicked"
-    }
-}
+  return {
+    type: 'Admin Navbar Clicked',
+  };
+};
 
 export const isLogin = (payload) => {
-    return{
-        type: "User Login",
-        payload
-    }
-}
+  return {
+    type: 'User Login',
+    payload,
+  };
+};
+
+export const adminIsLogin = (payload) => {
+  return {
+    type: 'Admin Login',
+    payload,
+  };
+};

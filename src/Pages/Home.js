@@ -33,7 +33,7 @@ export default function Home() {
         <Testimonial></Testimonial>
         <Sewa></Sewa>
         <Faq></Faq>
-        {success ? <Popup text="Login Success" color></Popup> : null}
+        {success ? <Popup text="User Login Success" color></Popup> : null}
       </MainLayout>
     </React.Fragment>
   );

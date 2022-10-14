@@ -2,7 +2,7 @@ import React from 'react';
 import {NavbarContainer, NavbarItems, BurgerNavbar} from '../Styles/Navbar.js';
 import logo from '../Assets/Logo.png';
 import {GiHamburgerMenu} from 'react-icons/gi';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {navbar} from '../Redux/Actions/AnimationAction';
 import Sidebar from '../Components/SideNavbar';
 import logoWhite from '../Assets/Logo-White.png';
@@ -19,6 +19,7 @@ export default function Navbar() {
   let location = useLocation();
   let isLogin = window.localStorage.getItem('token');
   let [, setLog, logRef] = useState(true);
+  let adminLogin = useSelector((state) => state.animations.adminLogin);
 
   const openNavbar = () => {
     dispatch(navbar());
@@ -138,7 +139,8 @@ export default function Navbar() {
         ></GiHamburgerMenu>
       </BurgerNavbar>
       <Sidebar></Sidebar>
-      {logRef.current ? null : <Popup text="Logout Success" color></Popup>}
+      {logRef.current ? null : <Popup text="User Logout Success" color></Popup>}
+      {adminLogin ? null : <Popup text="Admin Logout Success" color></Popup>}
     </NavbarContainer>
   );
 }

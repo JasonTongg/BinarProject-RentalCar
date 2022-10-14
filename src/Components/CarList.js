@@ -167,8 +167,8 @@ function CarList(props) {
     if (isLoading === true) {
       return (
         <Container className="carList" show>
-          {Array.from({length: 3}).map((item) => (
-            <CarItem>
+          {Array.from({length: 3}).map((item, idx) => (
+            <CarItem key={idx}>
               <Skeleton
                 animation="wave"
                 variant="rectangular"

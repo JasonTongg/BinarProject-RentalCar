@@ -13,6 +13,7 @@ import {RiCloseLine} from 'react-icons/ri';
 import Logo from '../Assets/Logo.png';
 import {useNavigate} from 'react-router-dom';
 import {BiLogOut} from 'react-icons/bi';
+import {adminIsLogin, isLogin} from '../Redux/Actions/AnimationAction';
 
 export default function AdminSideNavbar(props) {
   let dispatch = useDispatch();
@@ -35,6 +36,12 @@ export default function AdminSideNavbar(props) {
 
   let logout = () => {
     window.localStorage.removeItem('Admin Token');
+    dispatch(adminIsLogin(false));
+    dispatch(isLogin(false));
+
+    setTimeout(() => {
+      dispatch(adminIsLogin(true));
+    }, 2000);
     navigate('/');
     close();
   };

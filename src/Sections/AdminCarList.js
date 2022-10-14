@@ -61,15 +61,18 @@ export default function AdminCarList() {
   let dispatch = useDispatch();
   let [loading, setLoading] = useState(true);
   let [isLoading, setIsLoading] = useState(true);
-  let [, setImageLoading, imageLoadingRef] = useState(true);
+  // let [, setImageLoading, imageLoadingRef] = useState(true);
   let [, setCutData, cutDataRef] = useState();
   let [, setPosisi, posisiRef] = useState(0);
+  let [, setData, dataRef] = useState();
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(carManipulation(false));
-    }, 2000);
-  }, [dispatch]);
+    if (loading === false) {
+      setTimeout(() => {
+        dispatch(carManipulation(false));
+      }, 2000);
+    }
+  }, [dispatch, manipulation, loading]);
 
   let toEdit = (data) => {
     navigate(`/admin/list/edit/${data}`);
@@ -94,7 +97,7 @@ export default function AdminCarList() {
       }
       setIsDelete(false);
       setDeleteSuccess(true);
-      getData();
+      getData('rerender');
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -105,49 +108,74 @@ export default function AdminCarList() {
     setDeleteId(id);
   };
 
-  let getData = useCallback(async () => {
-    try {
-      setLoading(true);
-      let rawData = await window.fetch(
-        'https://bootcamp-rent-car.herokuapp.com/admin/car'
-      );
+  let getData = useCallback(
+    async (str) => {
+      try {
+        setLoading(true);
 
-      let data = await rawData.json();
+        setPosisi(0);
+        let data;
+        if (dataRef.current === undefined || str) {
+          let rawData = await window.fetch(
+            'https://bootcamp-rent-car.herokuapp.com/admin/car'
+          );
 
-      if (rawData.status !== 200) {
-        throw new Error(data.message ? data.message : data.errors[0].message);
-      }
+          data = await rawData.json();
 
-      if (activeRef.current[1]) {
-        data = data.filter((item) => item.category === '2 - 4 orang');
-      } else if (activeRef.current[2]) {
-        data = data.filter((item) => item.category === '4 - 6 orang');
-      } else if (activeRef.current[3]) {
-        data = data.filter((item) => item.category === '6 - 8 orang');
-      }
+          if (rawData.status !== 200) {
+            throw new Error(
+              data.message ? data.message : data.errors[0].message
+            );
+          }
 
-      if (value.get('search')) {
-        data = data.filter((item) =>
-          item.name?.toLowerCase()?.includes(value.get('search')?.toLowerCase())
-        );
-      }
+          setData(data);
+        } else {
+          data = dataRef.current;
+        }
 
-      let cut = [];
-      for (let i = 0; i < data.length; i += 8) {
-        cut.push(data.slice(i, i + 8));
-      }
-      setCutData(cut);
+        if (activeRef.current[1]) {
+          data = data.filter((item) => item.category === '2 - 4 orang');
+        } else if (activeRef.current[2]) {
+          data = data.filter((item) => item.category === '4 - 6 orang');
+        } else if (activeRef.current[3]) {
+          data = data.filter((item) => item.category === '6 - 8 orang');
+        }
 
-      if (cutDataRef.current) {
+        if (value.get('search')) {
+          data = data.filter((item) =>
+            item.name
+              ?.toLowerCase()
+              ?.includes(value.get('search')?.toLowerCase())
+          );
+        }
+
+        let cut = [];
+        for (let i = 0; i < data.length; i += 8) {
+          cut.push(data.slice(i, i + 8));
+        }
+        setCutData(cut);
+
+        if (cutDataRef.current) {
+          setLoading(false);
+        }
+
         setLoading(false);
+        // setImageLoading(true);
+      } catch (error) {
+        setErrorMessage(error.message);
       }
-
-      setLoading(false);
-      setImageLoading(true);
-    } catch (error) {
-      setErrorMessage(error.message);
-    }
-  }, [activeRef, cutDataRef, setCutData, value, setImageLoading]);
+    },
+    [
+      activeRef,
+      cutDataRef,
+      setCutData,
+      value,
+      // setImageLoading,
+      dataRef,
+      setData,
+      setPosisi,
+    ]
+  );
 
   useEffect(() => {
     if (value.get('search') === false) {
@@ -244,26 +272,20 @@ export default function AdminCarList() {
                 let time = tanggal[1].slice(0, 5);
                 return (
                   <ListItem key={idx}>
-                    {imageLoadingRef.current && (
+                    {/* {imageLoadingRef.current && (
                       <Skeleton
                         animation="wave"
                         variant="rectangular"
                         height={171}
                         style={{width: '100%'}}
                       ></Skeleton>
-                    )}
-                    <img
-                      src={item.image ? item.image : carTemp}
-                      alt="car"
-                      onLoad={() => {
-                        setImageLoading(false);
-                      }}
-                    />
-                    <p>{item.name}</p>
-                    <h3>Rp {item.price} / hari</h3>
+                    )} */}
+                    <img src={item.image ? item.image : carTemp} alt="car" />
+                    <p>{item.name || 'Empty Name'}</p>
+                    <h3>Rp {item.price || 'Empty Price'} / hari</h3>
                     <InfoContainer>
                       <BsPeople className="icon"></BsPeople>
-                      <p>{item.category}</p>
+                      <p>{item.category || 'Empty Category'}</p>
                     </InfoContainer>
                     <InfoContainer>
                       <BsClock className="icon"></BsClock>
@@ -411,12 +433,13 @@ export default function AdminCarList() {
               height={30}
               width={50}
             />
-            {Array.from({length: 3}).map((item) => (
+            {Array.from({length: 3}).map((item, idx) => (
               <Skeleton
                 animation="wave"
                 variant="rectangular"
                 height={30}
                 width={125}
+                key={idx}
               />
             ))}
           </CategoryContainer>
@@ -428,7 +451,7 @@ export default function AdminCarList() {
                 <Skeleton animation="wave" variant="rectangular" height={20} />
                 <Skeleton animation="wave" variant="rectangular" height={20} />
                 <Skeleton animation="wave" variant="rectangular" height={20} />
-                <div class="button">
+                <div className="button">
                   <Skeleton
                     animation="wave"
                     variant="rectangular"

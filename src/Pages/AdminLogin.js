@@ -5,11 +5,14 @@ import {Link, useNavigate} from 'react-router-dom';
 import {InputContainer, Left as Right} from '../Styles/UserLogin';
 import Button from '../Components/Button';
 import useState from 'react-usestateref';
+import {adminIsLogin} from '../Redux/Actions/AnimationAction';
+import {useDispatch} from 'react-redux';
 
 export default function AdminLogin() {
   let [, setData, dataRef] = useState({});
   let [errorMessage, setErrorMessage] = useState('');
   let navigate = useNavigate();
+  let dispatch = useDispatch();
 
   let url = 'https://bootcamp-rent-car.herokuapp.com';
 
@@ -38,6 +41,7 @@ export default function AdminLogin() {
       }
 
       window.localStorage.setItem('Admin Token', data.access_token);
+      dispatch(adminIsLogin(true));
       navigate('/admin');
     } catch (error) {
       setErrorMessage(error.message);
