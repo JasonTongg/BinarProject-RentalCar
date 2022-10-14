@@ -8,7 +8,6 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    window.localStorage.removeItem('Admin Token');
     setTimeout(() => {
       setLoading(false);
     }, 2000);

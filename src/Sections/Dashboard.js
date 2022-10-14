@@ -153,9 +153,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
+    let timeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
+
+    return clearTimeout(timeout);
   }, [loading]);
 
   if (DataStatistik.some((item) => item > 0) && loading === false) {
@@ -228,7 +230,7 @@ export default function Dashboard() {
                 end = [end[0], bulan[+end[1] - 1], end[2]].join(' ');
                 return (
                   <tr key={idx}>
-                    <td>{item.id}</td>
+                    <td>{idx + 1 + (page - 1) * 5}</td>
                     <td>{item.User.email}</td>
                     <td>{item.Car?.name ? item.Car.name : 'Car Name'}</td>
                     <td>{start}</td>

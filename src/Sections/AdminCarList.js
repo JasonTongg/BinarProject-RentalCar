@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {
   BigContainer,
   ListContainer,
@@ -51,7 +51,7 @@ export default function AdminCarList() {
     'Dec',
   ];
   let manipulation = useSelector((state) => state.items.listMessage);
-  let [active, setActive, activeRef] = useState([true, false, false, false]);
+  let [, setActive, activeRef] = useState([true, false, false, false]);
   let [value] = useSearchParams();
   let [isDelete, setIsDelete] = useState(false);
   let [deleteId, setDeleteId] = useState(0);
@@ -61,6 +61,7 @@ export default function AdminCarList() {
   let dispatch = useDispatch();
   let [loading, setLoading] = useState(true);
   let [isLoading, setIsLoading] = useState(true);
+  let [, setImageLoading, imageLoadingRef] = useState(true);
   let [, setCutData, cutDataRef] = useState();
   let [, setPosisi, posisiRef] = useState(0);
 
@@ -93,10 +94,7 @@ export default function AdminCarList() {
       }
       setIsDelete(false);
       setDeleteSuccess(true);
-
-      setTimeout(() => {
-        setDeleteSuccess(false);
-      }, 2000);
+      getData();
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -107,50 +105,51 @@ export default function AdminCarList() {
     setDeleteId(id);
   };
 
-  useEffect(() => {
-    let getData = async () => {
-      try {
-        let rawData = await window.fetch(
-          'https://bootcamp-rent-car.herokuapp.com/admin/car'
-        );
+  let getData = useCallback(async () => {
+    try {
+      setLoading(true);
+      let rawData = await window.fetch(
+        'https://bootcamp-rent-car.herokuapp.com/admin/car'
+      );
 
-        let data = await rawData.json();
+      let data = await rawData.json();
 
-        if (rawData.status !== 200) {
-          throw new Error(data.message ? data.message : data.errors[0].message);
-        }
-
-        if (activeRef.current[1]) {
-          data = data.filter((item) => item.category === '2 - 4 orang');
-        } else if (activeRef.current[2]) {
-          data = data.filter((item) => item.category === '4 - 6 orang');
-        } else if (activeRef.current[3]) {
-          data = data.filter((item) => item.category === '6 - 8 orang');
-        }
-
-        if (value.get('search')) {
-          data = data.filter((item) =>
-            item.name
-              ?.toLowerCase()
-              ?.includes(value.get('search')?.toLowerCase())
-          );
-        }
-
-        let cut = [];
-        for (let i = 0; i < data.length; i += 8) {
-          cut.push(data.slice(i, i + 8));
-        }
-        setCutData(cut);
-
-        if (cutDataRef.current) {
-          setLoading(false);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        setErrorMessage(error.message);
+      if (rawData.status !== 200) {
+        throw new Error(data.message ? data.message : data.errors[0].message);
       }
-    };
+
+      if (activeRef.current[1]) {
+        data = data.filter((item) => item.category === '2 - 4 orang');
+      } else if (activeRef.current[2]) {
+        data = data.filter((item) => item.category === '4 - 6 orang');
+      } else if (activeRef.current[3]) {
+        data = data.filter((item) => item.category === '6 - 8 orang');
+      }
+
+      if (value.get('search')) {
+        data = data.filter((item) =>
+          item.name?.toLowerCase()?.includes(value.get('search')?.toLowerCase())
+        );
+      }
+
+      let cut = [];
+      for (let i = 0; i < data.length; i += 8) {
+        cut.push(data.slice(i, i + 8));
+      }
+      setCutData(cut);
+
+      if (cutDataRef.current) {
+        setLoading(false);
+      }
+
+      setLoading(false);
+      setImageLoading(true);
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  }, [activeRef, cutDataRef, setCutData, value, setImageLoading]);
+
+  useEffect(() => {
     if (value.get('search') === false) {
       getData();
     } else {
@@ -160,14 +159,25 @@ export default function AdminCarList() {
 
       return () => clearTimeout(delay);
     }
-  }, [active, isDelete, activeRef, value, cutDataRef, setCutData]);
+  }, [setLoading, getData, value]);
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
+    let timeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
+
+    return clearTimeout(timeout);
   }, [loading]);
+
+  useEffect(() => {
+    let timeout = setTimeout(() => {
+      setDeleteSuccess(false);
+    }, 2000);
+
+    return clearTimeout(timeout);
+  }, [deleteSuccess]);
+
   if (loading === false) {
     return (
       <BigContainer>
@@ -190,33 +200,37 @@ export default function AdminCarList() {
         <CategoryContainer>
           <Category
             className={activeRef.current[0] ? 'active' : null}
-            onClick={() =>
-              setActive([!activeRef.current[0], false, false, false])
-            }
+            onClick={() => {
+              setActive([!activeRef.current[0], false, false, false]);
+              getData();
+            }}
           >
             <h3>All</h3>
           </Category>
           <Category
             className={activeRef.current[1] ? 'active' : null}
-            onClick={() =>
-              setActive([false, !activeRef.current[1], false, false])
-            }
+            onClick={() => {
+              setActive([false, !activeRef.current[1], false, false]);
+              getData();
+            }}
           >
             <h3>2 - 4 People</h3>
           </Category>
           <Category
             className={activeRef.current[2] ? 'active' : null}
-            onClick={() =>
-              setActive([false, false, !activeRef.current[2], false])
-            }
+            onClick={() => {
+              setActive([false, false, !activeRef.current[2], false]);
+              getData();
+            }}
           >
             <h3>4 - 6 People</h3>
           </Category>
           <Category
             className={activeRef.current[3] ? 'active' : null}
-            onClick={() =>
-              setActive([false, false, false, !activeRef.current[3]])
-            }
+            onClick={() => {
+              setActive([false, false, false, !activeRef.current[3]]);
+              getData();
+            }}
           >
             <h3>6 - 8 People</h3>
           </Category>
@@ -230,7 +244,21 @@ export default function AdminCarList() {
                 let time = tanggal[1].slice(0, 5);
                 return (
                   <ListItem key={idx}>
-                    <img src={item.image ? item.image : carTemp} alt="car" />
+                    {imageLoadingRef.current && (
+                      <Skeleton
+                        animation="wave"
+                        variant="rectangular"
+                        height={171}
+                        style={{width: '100%'}}
+                      ></Skeleton>
+                    )}
+                    <img
+                      src={item.image ? item.image : carTemp}
+                      alt="car"
+                      onLoad={() => {
+                        setImageLoading(false);
+                      }}
+                    />
                     <p>{item.name}</p>
                     <h3>Rp {item.price} / hari</h3>
                     <InfoContainer>
@@ -367,13 +395,13 @@ export default function AdminCarList() {
               animation="wave"
               variant="rectangular"
               height={20}
-              width={100}
+              width={80}
             />
             <Skeleton
               animation="wave"
               variant="rectangular"
-              height={20}
-              width={100}
+              height={40}
+              width={135}
             />
           </Container>
           <CategoryContainer>
@@ -381,30 +409,20 @@ export default function AdminCarList() {
               animation="wave"
               variant="rectangular"
               height={30}
-              width={70}
+              width={50}
             />
-            <Skeleton
-              animation="wave"
-              variant="rectangular"
-              height={30}
-              width={70}
-            />
-            <Skeleton
-              animation="wave"
-              variant="rectangular"
-              height={30}
-              width={70}
-            />
-            <Skeleton
-              animation="wave"
-              variant="rectangular"
-              height={30}
-              width={70}
-            />
+            {Array.from({length: 3}).map((item) => (
+              <Skeleton
+                animation="wave"
+                variant="rectangular"
+                height={30}
+                width={125}
+              />
+            ))}
           </CategoryContainer>
           <ListContainer>
-            {Array.from({length: 8}).map((item) => (
-              <AdminCarListSkeleton>
+            {Array.from({length: 8}).map((item, idx) => (
+              <AdminCarListSkeleton key={idx}>
                 <Skeleton animation="wave" variant="rectangular" height={150} />
                 <Skeleton animation="wave" variant="rectangular" height={20} />
                 <Skeleton animation="wave" variant="rectangular" height={20} />

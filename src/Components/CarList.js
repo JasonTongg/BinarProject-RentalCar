@@ -81,9 +81,11 @@ function CarList(props) {
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
+    let timeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
+
+    return clearTimeout(timeout);
   }, [loading]);
 
   if (loading === false && cutDataRef.current.length !== 0) {

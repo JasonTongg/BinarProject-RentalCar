@@ -10,12 +10,15 @@ import {Link} from 'react-router-dom';
 import {useNavigate, useLocation} from 'react-router-dom';
 import Button from '../Components/Button';
 import {isLogin as login} from '../Redux/Actions/AnimationAction';
+import useState from 'react-usestateref';
+import Popup from '../Components/PopupMessage';
 
 export default function Navbar() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let location = useLocation();
   let isLogin = window.localStorage.getItem('token');
+  let [, setLog, logRef] = useState(true);
 
   const openNavbar = () => {
     dispatch(navbar());
@@ -94,7 +97,12 @@ export default function Navbar() {
 
   let removeToken = () => {
     window.localStorage.removeItem('token');
-    window.location.reload();
+    dispatch(login(false));
+    setLog(false);
+
+    setTimeout(() => {
+      setLog(true);
+    }, 2000);
   };
 
   return (
@@ -130,6 +138,7 @@ export default function Navbar() {
         ></GiHamburgerMenu>
       </BurgerNavbar>
       <Sidebar></Sidebar>
+      {logRef.current ? null : <Popup text="Logout Success" color></Popup>}
     </NavbarContainer>
   );
 }

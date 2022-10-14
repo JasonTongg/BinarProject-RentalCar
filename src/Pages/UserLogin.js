@@ -64,8 +64,6 @@ export default function UserLogin(props) {
         });
 
         loginData = await loginData.json();
-
-        console.log(loginData);
       }
 
       let data = await rawData.json();

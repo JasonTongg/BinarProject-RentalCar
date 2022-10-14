@@ -147,9 +147,11 @@ export default function CarDetails() {
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
+    let timeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
+
+    return clearTimeout(timeout);
   }, [loading]);
 
   if (loading === false) {
