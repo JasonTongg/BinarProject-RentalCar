@@ -81,11 +81,12 @@ export default function AdminCarList() {
   let deleteData = async () => {
     try {
       let rawData = await window.fetch(
-        `https://bootcamp-rent-car.herokuapp.com/admin/car/${deleteId}`,
+        `https://bootcamp-rent-cars.herokuapp.com/admin/car/${deleteId}`,
         {
           method: 'DELETE',
           headers: {
             'content-type': 'application/json',
+            access_token: window.localStorage.getItem('Admin Token'),
           },
         }
       );
@@ -117,7 +118,13 @@ export default function AdminCarList() {
         let data;
         if (dataRef.current === undefined || str) {
           let rawData = await window.fetch(
-            'https://bootcamp-rent-car.herokuapp.com/admin/car'
+            'https://bootcamp-rent-cars.herokuapp.com/admin/car',
+            {
+              method: 'GET',
+              headers: {
+                access_token: window.localStorage.getItem('Admin Token'),
+              },
+            }
           );
 
           data = await rawData.json();
@@ -134,11 +141,13 @@ export default function AdminCarList() {
         }
 
         if (activeRef.current[1]) {
-          data = data.filter((item) => item.category === '2 - 4 orang');
+          data = data.filter((item) => item.category.toLowerCase() === 'small');
         } else if (activeRef.current[2]) {
-          data = data.filter((item) => item.category === '4 - 6 orang');
+          data = data.filter(
+            (item) => item.category.toLowerCase() === 'medium'
+          );
         } else if (activeRef.current[3]) {
-          data = data.filter((item) => item.category === '6 - 8 orang');
+          data = data.filter((item) => item.category.toLowerCase() === 'large');
         }
 
         if (value.get('search')) {
@@ -191,11 +200,9 @@ export default function AdminCarList() {
 
   useEffect(() => {
     setIsLoading(true);
-    let timeout = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
     }, 5000);
-
-    return clearTimeout(timeout);
   }, [loading]);
 
   useEffect(() => {
@@ -242,7 +249,7 @@ export default function AdminCarList() {
               getData();
             }}
           >
-            <h3>2 - 4 People</h3>
+            <h3>Small</h3>
           </Category>
           <Category
             className={activeRef.current[2] ? 'active' : null}
@@ -251,7 +258,7 @@ export default function AdminCarList() {
               getData();
             }}
           >
-            <h3>4 - 6 People</h3>
+            <h3>Medium</h3>
           </Category>
           <Category
             className={activeRef.current[3] ? 'active' : null}
@@ -260,7 +267,7 @@ export default function AdminCarList() {
               getData();
             }}
           >
-            <h3>6 - 8 People</h3>
+            <h3>Large</h3>
           </Category>
         </CategoryContainer>
         {cutDataRef.current[posisiRef.current] !== 0 ? (
@@ -272,14 +279,6 @@ export default function AdminCarList() {
                 let time = tanggal[1].slice(0, 5);
                 return (
                   <ListItem key={idx}>
-                    {/* {imageLoadingRef.current && (
-                      <Skeleton
-                        animation="wave"
-                        variant="rectangular"
-                        height={171}
-                        style={{width: '100%'}}
-                      ></Skeleton>
-                    )} */}
                     <img src={item.image ? item.image : carTemp} alt="car" />
                     <p>{item.name || 'Empty Name'}</p>
                     <h3>Rp {item.price || 'Empty Price'} / hari</h3>
@@ -438,7 +437,7 @@ export default function AdminCarList() {
                 animation="wave"
                 variant="rectangular"
                 height={30}
-                width={125}
+                width={83}
                 key={idx}
               />
             ))}

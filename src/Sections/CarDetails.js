@@ -83,7 +83,7 @@ export default function CarDetails() {
       try {
         setLoading(true);
         let raw = await fetch(
-          `https://bootcamp-rent-car.herokuapp.com/admin/car/${id}`
+          `https://bootcamp-rent-cars.herokuapp.com/customer/car/${id}`
         );
 
         let data = await raw.json();
@@ -147,11 +147,9 @@ export default function CarDetails() {
 
   useEffect(() => {
     setIsLoading(true);
-    let timeout = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
     }, 5000);
-
-    return clearTimeout(timeout);
   }, [loading]);
 
   if (loading === false) {
@@ -215,12 +213,15 @@ export default function CarDetails() {
           </Sub>
         </CarInfo>
         <CarImage>
-          <img src={detail.image ? detail.image : carTemp} alt={detail.name} />
+          <img
+            src={detail.image ? detail.image : carTemp}
+            alt={detail.name || 'Car Image'}
+          />
           <CarType>
-            <h4>{detail.name}</h4>
+            <h4>{detail.name || 'Empty Name'}</h4>
             <div>
               <BsPeople></BsPeople>
-              <p>{detail.category}</p>
+              <p>{detail.category || 'Empty Category'}</p>
             </div>
           </CarType>
           <p className="maxday">Tentukan lama sewa mobil (max. 7 hari)</p>

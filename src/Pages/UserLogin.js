@@ -23,7 +23,7 @@ export default function UserLogin(props) {
   let dispatch = useDispatch();
   let [warnanya, setWarnanya] = useState(['#FC6F6F', 'Very Weak']);
 
-  let url = 'https://bootcamp-rent-car.herokuapp.com';
+  let url = 'https://bootcamp-rent-cars.herokuapp.com';
   let doAction = async (e) => {
     e.preventDefault();
     try {

@@ -48,20 +48,20 @@ function Invoice({customerData}) {
   if (customerData) {
     const data = {
       formType: 'invoice',
-      date: DateTime.now().toISODate(),
-      to: customerData.User.email,
-      amount: customerData.total_price,
+      date: DateTime.now().toISODate() || 'Date',
+      to: customerData.User.email || 'Customer Email',
+      amount: customerData.total_price || 0,
       body: `Car rental for ${
-        customerData.Car !== null ? customerData.Car.name : 'Innova'
+        customerData.Car.name ? customerData.Car.name : 'Innova'
       } (${
-        customerData.Car ? customerData.Car.category : '6 - 8 Person'
+        customerData.Car.category ? customerData.Car.category : '6 - 8 Person'
       }) in ${Math.round(
         customerData.total_price /
-          (customerData.Car !== null ? customerData.Car.price : 1000000)
+          (customerData.Car.price ? customerData.Car.price : 1000000)
       )} ${
         Math.round(
           customerData.total_price /
-            (customerData.Car !== null ? customerData.Car.price : 1000000)
+            (customerData.Car.price ? customerData.Car.price : 1000000)
         ) === 1
           ? 'day'
           : 'days'

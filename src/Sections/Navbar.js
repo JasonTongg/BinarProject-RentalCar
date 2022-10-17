@@ -35,6 +35,10 @@ export default function Navbar() {
     let logos = document.querySelector('.logo');
     let burger = document.querySelector('.burger');
 
+    if (!navbar || !service || !logos || !burger) {
+      return;
+    }
+
     if (
       serviceTop + navbarHeight - 100 <
       (window.innerHeight - service?.getBoundingClientRect()?.height) / 2
@@ -99,6 +103,7 @@ export default function Navbar() {
   let removeToken = () => {
     window.localStorage.removeItem('token');
     dispatch(login(false));
+    navigate('/');
     setLog(false);
 
     setTimeout(() => {

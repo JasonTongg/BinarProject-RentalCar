@@ -75,11 +75,17 @@ export default function Dashboard() {
             (item, idx) => idx > (page - 1) * limit && idx <= limit * page
           )
         );
-        setPages(Math.ceil(orderRef.current.length / limit) - 1);
+        setPages(Math.ceil((orderRef.current.length - 1) / limit));
       } else {
         try {
           let rawData = await window.fetch(
-            'https://bootcamp-rent-car.herokuapp.com/admin/order'
+            'https://bootcamp-rent-cars.herokuapp.com/admin/order',
+            {
+              method: 'GET',
+              headers: {
+                access_token: window.localStorage.getItem('Admin Token'),
+              },
+            }
           );
 
           let dataBersih = await rawData.json();
@@ -153,11 +159,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     setIsLoading(true);
-    let timeout = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
     }, 5000);
-
-    return clearTimeout(timeout);
   }, [loading]);
 
   if (DataStatistik.some((item) => item > 0) && loading === false) {

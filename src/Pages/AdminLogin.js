@@ -14,7 +14,7 @@ export default function AdminLogin() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
 
-  let url = 'https://bootcamp-rent-car.herokuapp.com';
+  let url = 'https://bootcamp-rent-cars.herokuapp.com';
 
   let loginAdmin = async (e) => {
     e.preventDefault();
@@ -36,8 +36,8 @@ export default function AdminLogin() {
         throw new Error(data.message ? data.message : data.errors[0].message);
       }
 
-      if (data.role !== 'admin') {
-        throw new Error('Sorry!, only admin can access this page...');
+      if (data.role !== 'Admin') {
+        throw new Error('Only Admin can Login!');
       }
 
       window.localStorage.setItem('Admin Token', data.access_token);

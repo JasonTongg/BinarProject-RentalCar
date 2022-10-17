@@ -18,7 +18,7 @@ export default function Tiket() {
     let getCustomerData = async () => {
       try {
         let rawData = await window.fetch(
-          `https://bootcamp-rent-car.herokuapp.com/customer/order/${id}`,
+          `https://bootcamp-rent-cars.herokuapp.com/customer/order/${id}`,
           {
             method: 'GET',
             headers: {
@@ -39,7 +39,7 @@ export default function Tiket() {
     let getData = async () => {
       try {
         let rawData = await window.fetch(
-          'https://bootcamp-rent-car.herokuapp.com/customer/order',
+          'https://bootcamp-rent-cars.herokuapp.com/customer/order',
           {
             method: 'GET',
             headers: {

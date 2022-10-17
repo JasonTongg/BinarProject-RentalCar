@@ -43,7 +43,13 @@ export default function AddCar(props) {
     let getData = async () => {
       try {
         let rawData = await window.fetch(
-          `https://bootcamp-rent-car.herokuapp.com/admin/car/${id}`
+          `https://bootcamp-rent-cars.herokuapp.com/admin/car/${id}`,
+          {
+            method: 'GET',
+            headers: {
+              access_token: window.localStorage.getItem('Admin Token'),
+            },
+          }
         );
         let data = await rawData.json();
 
@@ -79,10 +85,12 @@ export default function AddCar(props) {
       if (props.title === 'Edit Car') {
         axios({
           method: 'PUT',
-          url: `https://bootcamp-rent-car.herokuapp.com/admin/car/${EditItemRef.current.id}`,
+          url: `https://bootcamp-rent-cars.herokuapp.com/admin/car/${EditItemRef.current.id}`,
           timeout: 12000,
           headers: {
+            Accept: 'application/json',
             'Content-Type': 'multipart/form-data',
+            access_token: window.localStorage.getItem('Admin Token'),
           },
           data: {
             name: dataRef.current.name,
@@ -95,15 +103,18 @@ export default function AddCar(props) {
           if (res.status !== 200) {
             throw new Error('Edit Data Error');
           }
+          navigate('/admin/list');
+          dispatch(carManipulation(true));
         });
       } else {
         if (dataRef.current.foto) {
           axios({
             method: 'POST',
-            url: 'https://bootcamp-rent-car.herokuapp.com/admin/car',
+            url: 'https://bootcamp-rent-cars.herokuapp.com/admin/car',
             timeout: 12000,
             headers: {
               'Content-Type': 'multipart/form-data',
+              access_token: window.localStorage.getItem('Admin Token'),
             },
             data: {
               name: dataRef.current.name,
@@ -116,12 +127,11 @@ export default function AddCar(props) {
             if (res.status !== 201) {
               throw new Error('Add Data Error');
             }
+            navigate('/admin/list');
+            dispatch(carManipulation(true));
           });
         }
       }
-
-      navigate('/admin/list');
-      dispatch(carManipulation(true));
     } catch (error) {
       setError(error.message);
 
@@ -235,9 +245,8 @@ export default function AddCar(props) {
             >
               <option value="Pilih Kategori Mobil">Pilih Kategori Mobil</option>
               <option value="Small">Small</option>
-              <option value="2 - 4 orang">2 - 4 Orang</option>
-              <option value="4 - 6 orang">4 - 6 orang</option>
-              <option value="6 - 8 orang">6 - 8 orang</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
             </select>
           </FormItem>
           <FormItem>

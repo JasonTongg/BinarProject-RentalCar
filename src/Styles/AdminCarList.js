@@ -27,6 +27,7 @@ export const ListContainer = styled.div`
   gap: 25px;
   padding-block: 25px;
   justify-items: center;
+  align-items: center;
 
   @media only screen and (max-width: 300px) {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

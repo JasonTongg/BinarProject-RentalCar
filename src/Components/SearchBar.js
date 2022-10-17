@@ -111,34 +111,28 @@ export default function SearchBar(props) {
             {selectOpen.category.isOpen ? (
               <OptionContainer>
                 <OptionItem
-                  onClick={() => gantiKategori('2 - 4 orang')}
+                  onClick={() => gantiKategori('Small')}
                   className={`${
-                    selectOpen.category.select === '2 - 4 orang'
-                      ? 'active'
-                      : null
+                    selectOpen.category.select === 'Small' ? 'active' : null
                   }`}
                 >
-                  2 - 4 orang
+                  Small
                 </OptionItem>
                 <OptionItem
-                  onClick={() => gantiKategori('4 - 6 orang')}
+                  onClick={() => gantiKategori('Medium')}
                   className={`${
-                    selectOpen.category.select === '4 - 6 orang'
-                      ? 'active'
-                      : null
+                    selectOpen.category.select === 'Medium' ? 'active' : null
                   }`}
                 >
-                  4 - 6 orang
+                  Medium
                 </OptionItem>
                 <OptionItem
-                  onClick={() => gantiKategori('6 - 8 orang')}
+                  onClick={() => gantiKategori('Large')}
                   className={`${
-                    selectOpen.category.select === '6 - 8 orang'
-                      ? 'active'
-                      : null
+                    selectOpen.category.select === 'Large' ? 'active' : null
                   }`}
                 >
-                  6 - 8 orang
+                  Large
                 </OptionItem>
               </OptionContainer>
             ) : null}
@@ -266,14 +260,14 @@ export default function SearchBar(props) {
             </SelectsContainer>
             {selectOpen.category.isOpen ? (
               <OptionContainer>
-                <OptionItem onClick={() => gantiKategori('2 - 4 orang')}>
-                  2 - 4 orang
+                <OptionItem onClick={() => gantiKategori('Small')}>
+                  Small
                 </OptionItem>
-                <OptionItem onClick={() => gantiKategori('4 - 6 orang')}>
-                  4 - 6 orang
+                <OptionItem onClick={() => gantiKategori('Medium')}>
+                  Medium
                 </OptionItem>
-                <OptionItem onClick={() => gantiKategori('6 - 8 orang')}>
-                  6 - 8 orang
+                <OptionItem onClick={() => gantiKategori('Large')}>
+                  Large
                 </OptionItem>
               </OptionContainer>
             ) : null}

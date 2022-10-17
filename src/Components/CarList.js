@@ -36,13 +36,12 @@ function CarList(props) {
 
   let filterData = useCallback(() => {
     if (searchRef.current[0] !== undefined && props.empty === undefined) {
-      let filterData = carData.filter(
-        (item) =>
-          (item.category === searchRef.current[1] ||
-            item.category ===
-              searchRef.current[1].replace('orang', 'people')) &&
+      let filterData = carData.filter((item) => {
+        return (
+          item.category.toLowerCase() === searchRef.current[1].toLowerCase() &&
           item.name.toLowerCase() === searchRef.current[0].toLowerCase()
-      );
+        );
+      });
 
       if (searchRef.current[2] === '< Rp. 400.000') {
         filterData = filterData.filter((item) => item.price < 400000);
@@ -81,35 +80,35 @@ function CarList(props) {
 
   useEffect(() => {
     setIsLoading(true);
-    let timeout = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
     }, 5000);
-
-    return clearTimeout(timeout);
-  }, [loading]);
+  }, [loading, value]);
 
   if (loading === false && cutDataRef.current.length !== 0) {
     return (
       <>
         <Container className="carList" show>
-          {cutDataRef.current[posisiRef.current]?.map((item) => (
-            <CarItem key={item.id}>
-              <img src={item.image ? item.image : carTemp} alt="" />
-              <h5>{item.name}</h5>
-              <h3>Rp {item.price},-</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
-              </p>
-              <Button
-                size="big"
-                action={() => directDetails(item.id)}
-                idCar={item.id}
-              >
-                Pilih Mobil
-              </Button>
-            </CarItem>
-          ))}
+          {cutDataRef.current[posisiRef.current]?.map((item) => {
+            return (
+              <CarItem key={item.id}>
+                <img src={item.image ? item.image : carTemp} alt="" />
+                <h5>{item.name || 'Empty Name'}</h5>
+                <h3>Rp {item.price || 'Empty Price'},-</h3>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
+                </p>
+                <Button
+                  size="big"
+                  action={() => directDetails(item.id)}
+                  idCar={item.id}
+                >
+                  Pilih Mobil
+                </Button>
+              </CarItem>
+            );
+          })}
         </Container>
         {cutDataRef.current[posisiRef.current] ? (
           <PageItem>

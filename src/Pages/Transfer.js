@@ -65,7 +65,7 @@ export default function Transfer() {
   let uploadData = async () => {
     try {
       let rawData = await window.fetch(
-        'https://bootcamp-rent-car.herokuapp.com/customer/order',
+        'https://bootcamp-rent-cars.herokuapp.com/customer/order',
         {
           method: 'POST',
           headers: {
