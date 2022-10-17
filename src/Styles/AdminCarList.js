@@ -26,8 +26,6 @@ export const ListContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
   padding-block: 25px;
-  justify-items: center;
-  align-items: center;
 
   @media only screen and (max-width: 300px) {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -52,8 +50,9 @@ export const ListItem = styled.div`
   img {
     max-width: 330px;
     width: 100%;
-    height: 171px;
-    // height: 230px;
+    height: 100%;
+    max-height: 171px;
+    object-fit: cover;
     margin: 0;
     align-self: center;
   }

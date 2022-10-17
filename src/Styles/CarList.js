@@ -5,7 +5,6 @@ export const Container = styled.section`
   grid-template-columns: repeat(auto-fit, 300px);
   justify-content: center;
   align-items: center;
-  justify-items: center;
   align-content: center;
   gap: 5rem;
   width: 100%;
@@ -124,7 +123,8 @@ export const CarItem = styled.div`
     width: 100%;
     height: 100%;
     min-width: 250px;
-    min-height: 180px;
+    max-height: 180px;
+    object-fit: cover;
   }
 
   & p {

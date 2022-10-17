@@ -71,10 +71,11 @@ export default function Dashboard() {
     let getData = async () => {
       if (order && page) {
         setOrderTemp(
-          orderRef.current.filter(
-            (item, idx) => idx > (page - 1) * limit && idx <= limit * page
-          )
+          orderRef.current.filter((item, idx) => {
+            return idx > (page - 1) * limit && idx <= limit * page;
+          })
         );
+
         setPages(Math.ceil((orderRef.current.length - 1) / limit));
       } else {
         try {
@@ -234,7 +235,7 @@ export default function Dashboard() {
                 end = [end[0], bulan[+end[1] - 1], end[2]].join(' ');
                 return (
                   <tr key={idx}>
-                    <td>{idx + 1 + (page - 1) * 5}</td>
+                    <td>{idx + 1 + (page - 1) * limit}</td>
                     <td>{item.User.email}</td>
                     <td>{item.Car?.name ? item.Car.name : 'Car Name'}</td>
                     <td>{start}</td>
@@ -258,10 +259,10 @@ export default function Dashboard() {
                 setPage(1);
               }}
             >
-              <option>5</option>
-              <option>10</option>
-              <option>15</option>
-              <option>20</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
             </select>
           </div>
           <div>

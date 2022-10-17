@@ -41,6 +41,7 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
+        /details/18
         <Route element={<PrivateRouter></PrivateRouter>}>
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/details/:id" element={<Details />} />
