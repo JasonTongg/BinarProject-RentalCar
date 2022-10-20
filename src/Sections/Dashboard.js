@@ -29,7 +29,7 @@ export default function Dashboard() {
   let [hasil, setHasil] = useState('');
   let [DataStatistik, setDataStatistik] = useState([]);
   let [limit, setLimit] = useState(5);
-  let [page, setPage, pageRef] = useState(1);
+  let [page, setPage] = useState(1);
   let [pages, setPages] = useState(1);
   let [loading, setLoading] = useState(true);
   let [isLoading, setIsLoading] = useState(true);
