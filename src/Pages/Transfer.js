@@ -24,6 +24,7 @@ import Dropzone from 'react-dropzone-uploader';
 import useState from 'react-usestateref';
 import Popup from '../Components/PopupMessage';
 import {AiFillDelete} from 'react-icons/ai';
+import {useParams} from 'react-router-dom';
 
 export default function Transfer() {
   let text = useSelector((state) => state.items.RentCar.payment);
@@ -36,6 +37,7 @@ export default function Transfer() {
   let [, setCopy, copyRef] = useState(false);
   let [foto, setFoto] = useState();
   let [error, setError] = useState();
+  let {id} = useParams();
 
   useEffect(() => {
     setInterval(() => {
@@ -147,7 +149,7 @@ export default function Transfer() {
     <PaymentLayout
       active={['active', 'active', '']}
       text={`${text} Transfer`}
-      back="/payment"
+      back={`/payment/${id}`}
       version="2"
     >
       <Container>

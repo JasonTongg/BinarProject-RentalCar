@@ -197,7 +197,9 @@ export default function Payment() {
             <h2>Rp. {detail.harga},-</h2>
           </Total>
           {bank.bca || bank.bni || bank.mandiri ? (
-            <Button onClick={() => navigate('/payment/transfer')}>Bayar</Button>
+            <Button onClick={() => navigate(`/payment/transfer/${id}`)}>
+              Bayar
+            </Button>
           ) : (
             <Button disabled>Bayar</Button>
           )}

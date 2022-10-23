@@ -122,13 +122,13 @@ export default function Tiket() {
             animation="wave"
             variant="rectangular"
             height={20}
-            width={250}
+            style={{maxWidth: '250px', width: '90%'}}
           />
           <Skeleton
             animation="wave"
             variant="rectangular"
             height={20}
-            width={400}
+            style={{maxWidth: '400px', width: '90%'}}
           />
           <Invoice>
             <div className="header">

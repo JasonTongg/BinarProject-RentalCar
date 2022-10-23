@@ -356,8 +356,7 @@ export default function CarDetails() {
                       animation="wave"
                       variant="rectangular"
                       height={20}
-                      width={500}
-                      style={{marginTop: '10px'}}
+                      style={{marginTop: '10px', width: '100%'}}
                     />
                   ))}
                 </ul>
@@ -397,8 +396,7 @@ export default function CarDetails() {
               animation="wave"
               variant="rectangular"
               height={20}
-              width={300}
-              style={{marginTop: '10px'}}
+              style={{marginTop: '10px', width: '100%', maxWidth: '300px'}}
             />
             <DateContainer>
               <Skeleton

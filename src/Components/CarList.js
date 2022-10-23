@@ -3,7 +3,6 @@ import {Container, CarItem, SmallContainer} from '../Styles/CarList';
 import Button from './Button';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 import carTemp from '../Assets/carTemp.png';
-import {useSelector} from 'react-redux';
 import NotFoundImage from '../Assets/NotFound.jpg';
 import useState from 'react-usestateref';
 import {PageItem} from '../Styles/Dashboard';
@@ -11,15 +10,14 @@ import {AiOutlineDoubleLeft, AiOutlineDoubleRight} from 'react-icons/ai';
 import Skeleton from '@mui/material/Skeleton';
 
 function CarList(props) {
-  const [data, setData] = useState([]);
+  const [, setData, dataRef] = useState([]);
   const [, setSearch, searchRef] = useState([]);
   let navigate = useNavigate();
   let [value] = useSearchParams();
-  let carData = useSelector((state) => state.items.CarList);
   let [loading, setLoading] = useState(true);
-  let [, setCutData, cutDataRef] = useState();
-  let [, setPosisi, posisiRef] = useState(0);
+  let [posisi, setPosisi, posisiRef] = useState(0);
   let [isLoading, setIsLoading] = useState(true);
+  let [, setJml, jmlRef] = useState();
 
   let directDetails = (id) => {
     navigate(`/details/${id}`);
@@ -34,62 +32,65 @@ function CarList(props) {
     }
   }, [value, searchRef, setSearch]);
 
-  let filterData = useCallback(() => {
-    if (searchRef.current[0] !== undefined && props.empty === undefined) {
-      let filterData = carData.filter((item) => {
-        return (
-          item.category.toLowerCase() === searchRef.current[1].toLowerCase() &&
-          item.name.toLowerCase() === searchRef.current[0].toLowerCase()
-        );
-      });
-
+  let getData = useCallback(async () => {
+    try {
+      let minPrice,
+        maxPrice = 0;
       if (searchRef.current[2] === '< Rp. 400.000') {
-        filterData = filterData.filter((item) => item.price < 400000);
+        minPrice = 0;
+        maxPrice = 399999;
       } else if (searchRef.current[2] === 'Rp. 400.000 - Rp. 600.000') {
-        filterData = filterData.filter(
-          (item) => item.price >= 400000 && item.price <= 600000
-        );
+        minPrice = 400000;
+        maxPrice = 600000;
       } else {
-        filterData = filterData.filter((item) => item.price > 600000);
+        minPrice = 600001;
+        maxPrice = -1;
       }
 
-      setData(filterData);
-    } else {
-      setData(carData);
-    }
-  }, [carData, props.empty, searchRef, setData]);
+      let rawData;
 
-  let cut = useCallback(() => {
-    let cut = [];
-    for (let i = 0; i < data.length; i += 9) {
-      cut.push(data.slice(i, i + 9));
-    }
-    setCutData(cut);
+      if (searchRef.current[0] !== null) {
+        rawData = await window.fetch(
+          `https://bootcamp-rent-cars.herokuapp.com/customer/v2/car?name=${
+            searchRef.current[0]
+          }&category=${searchRef.current[1].toLowerCase()}&isRented=false&minPrice=${minPrice}${
+            maxPrice > 0 ? `&maxPrice=${maxPrice}` : ''
+          }&page=${posisiRef.current + 1}&pageSize=9`
+        );
+      } else {
+        rawData = await window.fetch(
+          `https://bootcamp-rent-cars.herokuapp.com/customer/v2/car?page=${
+            posisiRef.current + 1
+          }&pageSize=9`
+        );
+      }
 
-    if (cutDataRef.current) {
+      let data = await rawData.json();
+      setJml(data.pageCount);
+      setData(data.cars);
+
       setLoading(false);
-    }
-  }, [cutDataRef, data, setCutData]);
+    } catch (error) {}
+  }, [searchRef, posisiRef, setData, setJml]);
 
   useEffect(() => {
     setLoading(true);
-    filterData();
-    cut();
-    console.error = () => {};
-  }, [filterData, cut]);
+    getData();
+  }, [getData, value, posisi]);
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
+    let timeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
+    return clearTimeout(timeout);
   }, [loading, value]);
 
-  if (loading === false && cutDataRef.current.length !== 0) {
+  if (loading === false && dataRef.current.length !== 0) {
     return (
       <>
         <Container className="carList" show>
-          {cutDataRef.current[posisiRef.current]?.map((item) => {
+          {dataRef.current?.map((item) => {
             return (
               <CarItem key={item.id}>
                 <img src={item.image ? item.image : carTemp} alt="" />
@@ -110,14 +111,14 @@ function CarList(props) {
             );
           })}
         </Container>
-        {cutDataRef.current[posisiRef.current] ? (
+        {dataRef.current ? (
           <PageItem>
             <div
               onClick={() => {
                 if (posisiRef.current > 0) {
                   setPosisi(posisiRef.current - 1);
                 } else {
-                  setPosisi(cutDataRef.current.length - 1);
+                  setPosisi(jmlRef.current - 1);
                 }
               }}
             >
@@ -126,7 +127,7 @@ function CarList(props) {
             {[...Array(5).fill(10)].map((item, idx) => {
               let awal = 0;
               awal = posisiRef.current - (posisiRef.current % 5);
-              if (idx + awal <= cutDataRef.current.length - 1) {
+              if (idx + awal <= jmlRef.current - 1) {
                 if (idx + awal === posisiRef.current) {
                   return (
                     <div
@@ -149,7 +150,7 @@ function CarList(props) {
             })}
             <div
               onClick={() => {
-                if (posisiRef.current < cutDataRef.current.length - 1) {
+                if (posisiRef.current < jmlRef.current - 1) {
                   setPosisi(posisiRef.current + 1);
                 } else {
                   setPosisi(0);
@@ -171,31 +172,31 @@ function CarList(props) {
               <Skeleton
                 animation="wave"
                 variant="rectangular"
-                width={272}
                 height={150}
+                style={{width: '100%'}}
               />
               <Skeleton
                 animation="wave"
                 variant="rectangular"
-                width={272}
+                style={{width: '100%'}}
                 height={20}
               />
               <Skeleton
                 animation="wave"
                 variant="rectangular"
-                width={272}
+                style={{width: '100%'}}
                 height={20}
               />
               <Skeleton
                 animation="wave"
                 variant="rectangular"
-                width={272}
+                style={{width: '100%'}}
                 height={80}
               />
               <Skeleton
                 animation="wave"
                 variant="rectangular"
-                width={272}
+                style={{width: '100%'}}
                 height={20}
               />
             </CarItem>

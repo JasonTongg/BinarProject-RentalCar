@@ -47,7 +47,7 @@ export default function Router() {
           <Route exact path="/details/:id" element={<Details />} />
           <Route exact path="/result/*" element={<Result />} />
           <Route exact path="/payment/:id" element={<Payment />} />
-          <Route exact path="/payment/transfer" element={<Transfer />} />
+          <Route exact path="/payment/transfer/:id" element={<Transfer />} />
           <Route exact path="/payment/tiket/:id" element={<Tiket />} />
         </Route>
         <Route element={<AdminPrivateRouter></AdminPrivateRouter>}>
