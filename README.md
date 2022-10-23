@@ -1,8 +1,8 @@
 # Anggota:
-## Jason (ketua)
-## Aprijanti
-## Febry Andhika Surya
-## Ramadhany Setiawan Shogira
+- Jason (ketua)
+- Aprijanti
+- Febry Andhika Surya
+- Ramadhany Setiawan Shogira
 
 # Jobdesk:
 ## Aprijanti: 
@@ -16,6 +16,18 @@
 ## Febry:
 - Landing Page
 - Car Detail
+
+## Jason:
+- Admin Dashboard
+- Admin Car List
+- Admin Add Car
+- Admin Edit Car
+- Admin search Car
+- Admin Delete Car
+- Not Found Page
+- Customer Payment Page
+- Customer Invoice Page
+- Admin Login and Register
 
 # Getting Started with Create React App
 
