@@ -1,3 +1,22 @@
+# Anggota:
+## Jason (ketua)
+## Aprijanti
+## Febry Andhika Surya
+## Ramadhany Setiawan Shogira
+
+# Jobdesk:
+## Aprijanti: 
+- Customer Login and Register
+- Search Car
+
+## Rama:
+- Landing Page
+- Search Result
+
+## Febry:
+- Landing Page
+- Car Detail
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
