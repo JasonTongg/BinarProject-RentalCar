@@ -111,7 +111,7 @@ function CarList(props) {
             );
           })}
         </Container>
-        {dataRef.current ? (
+        {dataRef.current.length !== 0 ? (
           <PageItem>
             <div
               onClick={() => {

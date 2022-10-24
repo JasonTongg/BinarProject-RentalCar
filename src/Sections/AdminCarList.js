@@ -51,7 +51,7 @@ export default function AdminCarList() {
     'Dec',
   ];
   let manipulation = useSelector((state) => state.items.listMessage);
-  let [, setActive, activeRef] = useState([true, false, false, false]);
+  let [active, setActive, activeRef] = useState([true, false, false, false]);
   let [value] = useSearchParams();
   let [isDelete, setIsDelete] = useState(false);
   let [deleteId, setDeleteId] = useState(0);
@@ -61,10 +61,9 @@ export default function AdminCarList() {
   let dispatch = useDispatch();
   let [loading, setLoading] = useState(true);
   let [isLoading, setIsLoading] = useState(true);
-  // let [, setImageLoading, imageLoadingRef] = useState(true);
-  let [, setCutData, cutDataRef] = useState();
-  let [, setPosisi, posisiRef] = useState(0);
+  let [posisi, setPosisi, posisiRef] = useState(0);
   let [, setData, dataRef] = useState();
+  let [, setJml, jmlRef] = useState();
 
   useEffect(() => {
     if (loading === false) {
@@ -109,81 +108,126 @@ export default function AdminCarList() {
     setDeleteId(id);
   };
 
+  // let getData = useCallback(
+  //   async (str) => {
+  //     try {
+  //       setLoading(true);
+  //       setPosisi(0);
+
+  //       let data;
+  //       if (dataRef.current === undefined || str) {
+  //         let rawData = await window.fetch(
+  //           'https://bootcamp-rent-cars.herokuapp.com/admin/car',
+  //           {
+  //             method: 'GET',
+  //             headers: {
+  //               access_token: window.localStorage.getItem('Admin Token'),
+  //             },
+  //           }
+  //         );
+
+  //         data = await rawData.json();
+
+  //         if (rawData.status !== 200) {
+  //           throw new Error(
+  //             data.message ? data.message : data.errors[0].message
+  //           );
+  //         }
+
+  //         setData(data);
+  //       } else {
+  //         data = dataRef.current;
+  //       }
+
+  //       if (activeRef.current[1]) {
+  //         data = data.filter((item) => item.category.toLowerCase() === 'small');
+  //       } else if (activeRef.current[2]) {
+  //         data = data.filter(
+  //           (item) => item.category.toLowerCase() === 'medium'
+  //         );
+  //       } else if (activeRef.current[3]) {
+  //         data = data.filter((item) => item.category.toLowerCase() === 'large');
+  //       }
+
+  //       if (value.get('search')) {
+  //         data = data.filter((item) =>
+  //           item.name
+  //             ?.toLowerCase()
+  //             ?.includes(value.get('search')?.toLowerCase())
+  //         );
+  //       }
+
+  //       let cut = [];
+  //       for (let i = 0; i < data.length; i += 8) {
+  //         cut.push(data.slice(i, i + 8));
+  //       }
+  //       setCutData(cut);
+
+  //       if (cutDataRef.current) {
+  //         setLoading(false);
+  //       }
+
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setErrorMessage(error.message);
+  //     }
+  //   },
+  //   [
+  //     activeRef,
+  //     cutDataRef,
+  //     setCutData,
+  //     value,
+  //     // setImageLoading,
+  //     dataRef,
+  //     setData,
+  //     setPosisi,
+  //   ]
+  // );
+
   let getData = useCallback(
     async (str) => {
       try {
         setLoading(true);
 
-        setPosisi(0);
-        let data;
-        if (dataRef.current === undefined || str) {
-          let rawData = await window.fetch(
-            'https://bootcamp-rent-cars.herokuapp.com/admin/car',
-            {
-              method: 'GET',
-              headers: {
-                access_token: window.localStorage.getItem('Admin Token'),
-              },
-            }
-          );
+        let rawData;
 
-          data = await rawData.json();
-
-          if (rawData.status !== 200) {
-            throw new Error(
-              data.message ? data.message : data.errors[0].message
-            );
-          }
-
-          setData(data);
-        } else {
-          data = dataRef.current;
-        }
-
+        let category;
         if (activeRef.current[1]) {
-          data = data.filter((item) => item.category.toLowerCase() === 'small');
+          category = 'small';
         } else if (activeRef.current[2]) {
-          data = data.filter(
-            (item) => item.category.toLowerCase() === 'medium'
-          );
+          category = 'medium';
         } else if (activeRef.current[3]) {
-          data = data.filter((item) => item.category.toLowerCase() === 'large');
+          category = 'large';
         }
 
-        if (value.get('search')) {
-          data = data.filter((item) =>
-            item.name
-              ?.toLowerCase()
-              ?.includes(value.get('search')?.toLowerCase())
-          );
+        rawData = await window.fetch(
+          `https://bootcamp-rent-cars.herokuapp.com/admin/v2/car?name=${
+            value.get('search') || ''
+          }&category=${category || ''}&page=${
+            posisiRef.current + 1
+          }&pageSize=8`,
+          {
+            method: 'GET',
+            headers: {
+              access_token: window.localStorage.getItem('Admin Token'),
+            },
+          }
+        );
+
+        let data = await rawData.json();
+
+        if (rawData.status !== 200) {
+          throw new Error(data.message ? data.message : data.errors[0].message);
         }
 
-        let cut = [];
-        for (let i = 0; i < data.length; i += 8) {
-          cut.push(data.slice(i, i + 8));
-        }
-        setCutData(cut);
-
-        if (cutDataRef.current) {
-          setLoading(false);
-        }
-
+        setData(data.cars);
+        setJml(data.pageCount);
         setLoading(false);
-        // setImageLoading(true);
       } catch (error) {
         setErrorMessage(error.message);
       }
     },
-    [
-      activeRef,
-      cutDataRef,
-      setCutData,
-      value,
-      // setImageLoading,
-      dataRef,
-      setData,
-      setPosisi,
-    ]
+    [setData, setJml, posisiRef, activeRef, value]
   );
 
   useEffect(() => {
@@ -196,13 +240,15 @@ export default function AdminCarList() {
 
       return () => clearTimeout(delay);
     }
-  }, [setLoading, getData, value]);
+  }, [setLoading, getData, value, active, posisi]);
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
+    let timeout = setTimeout(() => {
       setIsLoading(false);
     }, 5000);
+
+    return clearTimeout(timeout);
   }, [loading]);
 
   useEffect(() => {
@@ -238,6 +284,7 @@ export default function AdminCarList() {
             onClick={() => {
               setActive([!activeRef.current[0], false, false, false]);
               getData();
+              setPosisi(0);
             }}
           >
             <h3>All</h3>
@@ -247,6 +294,7 @@ export default function AdminCarList() {
             onClick={() => {
               setActive([false, !activeRef.current[1], false, false]);
               getData();
+              setPosisi(0);
             }}
           >
             <h3>Small</h3>
@@ -256,6 +304,7 @@ export default function AdminCarList() {
             onClick={() => {
               setActive([false, false, !activeRef.current[2], false]);
               getData();
+              setPosisi(0);
             }}
           >
             <h3>Medium</h3>
@@ -265,15 +314,16 @@ export default function AdminCarList() {
             onClick={() => {
               setActive([false, false, false, !activeRef.current[3]]);
               getData();
+              setPosisi(0);
             }}
           >
             <h3>Large</h3>
           </Category>
         </CategoryContainer>
-        {cutDataRef.current[posisiRef.current] !== 0 ? (
+        {dataRef.current.length !== 0 ? (
           <ContentContainer>
             <ListContainer>
-              {cutDataRef.current[posisiRef.current]?.map((item, idx) => {
+              {dataRef.current?.map((item, idx) => {
                 let tanggal = item.updatedAt.split('T');
                 let [year, month, day] = tanggal[0].split('-');
                 let time = tanggal[1].slice(0, 5);
@@ -304,14 +354,15 @@ export default function AdminCarList() {
                 );
               })}
             </ListContainer>
-            {cutDataRef.current[posisiRef.current] ? (
+
+            {dataRef.current.length !== 0 ? (
               <PageItem>
                 <div
                   onClick={() => {
                     if (posisiRef.current > 0) {
                       setPosisi(posisiRef.current - 1);
                     } else {
-                      setPosisi(cutDataRef.current.length - 1);
+                      setPosisi(jmlRef.current - 1);
                     }
                   }}
                 >
@@ -320,7 +371,7 @@ export default function AdminCarList() {
                 {[...Array(5).fill(10)].map((item, idx) => {
                   let awal = 0;
                   awal = posisiRef.current - (posisiRef.current % 5);
-                  if (idx + awal <= cutDataRef.current.length - 1) {
+                  if (idx + awal <= jmlRef.current - 1) {
                     if (idx + awal === posisiRef.current) {
                       return (
                         <div
@@ -346,7 +397,7 @@ export default function AdminCarList() {
                 })}
                 <div
                   onClick={() => {
-                    if (posisiRef.current < cutDataRef.current.length - 1) {
+                    if (posisiRef.current < jmlRef.current - 1) {
                       setPosisi(posisiRef.current + 1);
                     } else {
                       setPosisi(0);
