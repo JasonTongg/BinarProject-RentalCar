@@ -23,9 +23,10 @@ export const ContentContainer = styled.div`
 export const ListContainer = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, 350px);
   gap: 25px;
   padding-block: 25px;
+  justify-content: center;
 
   @media only screen and (max-width: 300px) {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

@@ -98,6 +98,7 @@ export default function AdminCarList() {
       setIsDelete(false);
       setDeleteSuccess(true);
       getData('rerender');
+      setPosisi(0);
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -107,82 +108,6 @@ export default function AdminCarList() {
     setIsDelete(true);
     setDeleteId(id);
   };
-
-  // let getData = useCallback(
-  //   async (str) => {
-  //     try {
-  //       setLoading(true);
-  //       setPosisi(0);
-
-  //       let data;
-  //       if (dataRef.current === undefined || str) {
-  //         let rawData = await window.fetch(
-  //           'https://bootcamp-rent-cars.herokuapp.com/admin/car',
-  //           {
-  //             method: 'GET',
-  //             headers: {
-  //               access_token: window.localStorage.getItem('Admin Token'),
-  //             },
-  //           }
-  //         );
-
-  //         data = await rawData.json();
-
-  //         if (rawData.status !== 200) {
-  //           throw new Error(
-  //             data.message ? data.message : data.errors[0].message
-  //           );
-  //         }
-
-  //         setData(data);
-  //       } else {
-  //         data = dataRef.current;
-  //       }
-
-  //       if (activeRef.current[1]) {
-  //         data = data.filter((item) => item.category.toLowerCase() === 'small');
-  //       } else if (activeRef.current[2]) {
-  //         data = data.filter(
-  //           (item) => item.category.toLowerCase() === 'medium'
-  //         );
-  //       } else if (activeRef.current[3]) {
-  //         data = data.filter((item) => item.category.toLowerCase() === 'large');
-  //       }
-
-  //       if (value.get('search')) {
-  //         data = data.filter((item) =>
-  //           item.name
-  //             ?.toLowerCase()
-  //             ?.includes(value.get('search')?.toLowerCase())
-  //         );
-  //       }
-
-  //       let cut = [];
-  //       for (let i = 0; i < data.length; i += 8) {
-  //         cut.push(data.slice(i, i + 8));
-  //       }
-  //       setCutData(cut);
-
-  //       if (cutDataRef.current) {
-  //         setLoading(false);
-  //       }
-
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setErrorMessage(error.message);
-  //     }
-  //   },
-  //   [
-  //     activeRef,
-  //     cutDataRef,
-  //     setCutData,
-  //     value,
-  //     // setImageLoading,
-  //     dataRef,
-  //     setData,
-  //     setPosisi,
-  //   ]
-  // );
 
   let getData = useCallback(
     async (str) => {
@@ -223,6 +148,9 @@ export default function AdminCarList() {
         setData(data.cars);
         setJml(data.pageCount);
         setLoading(false);
+        setTimeout(() => {
+          setDeleteSuccess(false);
+        }, 2000);
       } catch (error) {
         setErrorMessage(error.message);
       }
@@ -252,6 +180,7 @@ export default function AdminCarList() {
   }, [loading]);
 
   useEffect(() => {
+    console.log(deleteSuccess);
     let timeout = setTimeout(() => {
       setDeleteSuccess(false);
     }, 2000);
