@@ -105,7 +105,7 @@ export default function Dashboard() {
     let olahData = async () => {
       if (order) {
         order.forEach((element) => {
-          let month = element.start_rent_at.split('T')[0].split('-')[1];
+          let month = element.start_rent_at?.split('T')[0]?.split('-')[1];
           let cek = bulanListRef.current.some(
             (item) => item === bulan[+month - 1]
           );
@@ -127,8 +127,8 @@ export default function Dashboard() {
     let olahDataStatistik = () => {
       if (hasil) {
         order.forEach((item) => {
-          let hari = item.start_rent_at.split('T')[0].split('-')[2];
-          let month = item.start_rent_at.split('T')[0].split('-')[1];
+          let hari = item.start_rent_at?.split('T')[0]?.split('-')[2];
+          let month = item.start_rent_at?.split('T')[0]?.split('-')[1];
           if (hasil === bulan[+month - 1]) {
             if (dataStat[+hari - 1]) {
               dataStat[+hari - 1] += 1;
@@ -224,14 +224,14 @@ export default function Dashboard() {
             <tbody>
               {orderTemp.map((item, idx) => {
                 let start = item.start_rent_at
-                  .split('T')[0]
-                  .split('-')
-                  .reverse();
+                  ?.split('T')[0]
+                  ?.split('-')
+                  ?.reverse();
                 start = [start[0], bulan[+start[1] - 1], start[2]].join(' ');
                 let end = item.finish_rent_at
-                  .split('T')[0]
-                  .split('-')
-                  .reverse();
+                  ?.split('T')[0]
+                  ?.split('-')
+                  ?.reverse();
                 end = [end[0], bulan[+end[1] - 1], end[2]].join(' ');
                 return (
                   <tr key={idx}>
